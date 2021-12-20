@@ -24,11 +24,21 @@ public class CustomerController {
     @Autowired
     private ObjectMapper objectMapper;
 
+
+    /**
+     * Get all customers
+     * @return all customers
+     */
     @GetMapping(value = "/chinook/allcustomer")
     public List<Customer> findAllCustomer(){
         return customerRepository.findAll();
     }
 
+    /**
+     * Return customer by id
+     * @param id customer id
+     * @return null if non existent
+     */
     @GetMapping(value = "/chinook/customer/{id}")
     public Customer findCustomerById(@PathVariable Integer id){
         Optional<Customer> result =  customerRepository.findById(id);
@@ -36,6 +46,11 @@ public class CustomerController {
         return result.get();
     }
 
+    /**
+     * Add new customer, json format
+     * @param newCustomer json format
+     * @return Customer object
+     */
     @PostMapping(value = "/chinook/customer/add")
     public Customer addCustomer(@RequestBody Customer newCustomer){
         return customerRepository.save(newCustomer);

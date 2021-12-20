@@ -33,4 +33,12 @@ public class CustomerController {
     public Customer addCustomer(@RequestBody Customer newCustomer){
         return customerRepository.save(newCustomer);
     }
+
+//    @PutMapping(value = "/chinook/customer/update/{id}")
+//    public Customer updateCustomerById(@PathVariable Integer id, @RequestBody Customer customer){
+//        Optional<Customer> oldCustomer = customerRepository.findById(id);
+//        if(oldCustomer.isEmpty()) return null;
+//
+//
+//    }
 }

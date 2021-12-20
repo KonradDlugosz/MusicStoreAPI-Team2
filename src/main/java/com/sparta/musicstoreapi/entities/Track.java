@@ -112,4 +112,12 @@ public class Track {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public Track() {
+
+    }
+
+    public Track(Integer id) {
+        this.id = id;
+    }
 }

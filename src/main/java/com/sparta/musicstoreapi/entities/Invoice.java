@@ -96,8 +96,8 @@ public class Invoice {
         this.invoiceDate = invoiceDate;
     }
 
-    public Customer getCustomerId() {
-        return customerId;
+    public Integer getCustomerId() {
+        return customerId.getId();
     }
 
     public void setCustomerId(Customer customerId) {

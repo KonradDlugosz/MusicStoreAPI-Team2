@@ -31,7 +31,7 @@ public class InvoiceController {
         return invoiceRepository.save(newInvoice);
     }
 
-    @PutMapping(value = "/chinook/invocie/update")
+    @PutMapping(value = "/chinook/invoice/update")
 
     public Invoice updateInvoice(@RequestBody Invoice newState) {
         Optional<Invoice> oldState = invoiceRepository.findById(newState.getId());

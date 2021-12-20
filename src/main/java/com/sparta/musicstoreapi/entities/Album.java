@@ -21,10 +21,6 @@ public class Album {
     @JoinColumn(name = "ArtistId", nullable = false)
     private Artist artistId;
 
-    public Album() {
-
-    }
-
     public Artist getArtistId() {
         return artistId;
     }
@@ -49,13 +45,10 @@ public class Album {
         this.id = id;
     }
 
-<<<<<<< HEAD
     public Album() {
 
     }
 
-=======
->>>>>>> dev
     public Album(Integer id) {
         this.id = id;
     }

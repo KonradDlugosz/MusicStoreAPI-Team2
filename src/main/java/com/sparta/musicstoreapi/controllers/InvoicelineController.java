@@ -33,7 +33,7 @@ public class InvoicelineController {
         return invoicelineRepository.save(newInvoiceline);
     }
 
-    @PutMapping(value = "/chinook/invocieline/update")
+    @PutMapping(value = "/chinook/invoiceline/update")
     public Invoiceline updateInvoiceline(@RequestBody Invoiceline newState) {
         Optional<Invoiceline> oldState = invoicelineRepository.findById(newState.getId());
         if (oldState.isEmpty()) {

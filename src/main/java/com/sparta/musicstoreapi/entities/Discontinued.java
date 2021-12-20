@@ -9,8 +9,11 @@ import javax.persistence.*;
 @Table(name = "discontinued")
 public class Discontinued {
     @Id
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @ManyToOne
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Integer id;
+
+    @ManyToOne(optional = false)
     @JoinColumn(name = "TrackId")
     private Track trackId;
 

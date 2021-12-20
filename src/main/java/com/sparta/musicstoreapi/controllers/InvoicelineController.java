@@ -1,8 +1,6 @@
 package com.sparta.musicstoreapi.controllers;
 
-import com.sparta.musicstoreapi.entities.Invoice;
 import com.sparta.musicstoreapi.entities.Invoiceline;
-import com.sparta.musicstoreapi.repositories.InvoiceRepository;
 import com.sparta.musicstoreapi.repositories.InvoicelineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +40,5 @@ public class InvoicelineController {
         invoicelineRepository.save(newState);
         return newState;
     }
-
-
+    
 }

@@ -38,7 +38,11 @@ public class CustomerController {
 //    public Customer updateCustomerById(@PathVariable Integer id, @RequestBody Customer customer){
 //        Optional<Customer> oldCustomer = customerRepository.findById(id);
 //        if(oldCustomer.isEmpty()) return null;
-//
-//
+//        return customerRepository.save(customer);
 //    }
+    @PutMapping(value = "/chinook/customer/{id}")
+    public ResponseEntity<Customer> updateCustomerById(@PathVariable Integer id, @RequestBody Customer newDetails){
+        Optional<Customer> result = customerRepository.findById(id);
+
+    }
 }

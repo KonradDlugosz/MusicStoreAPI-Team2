@@ -1,5 +1,8 @@
 package com.sparta.musicstoreapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +16,7 @@ public class Album {
     @Column(name = "Title", nullable = false, length = 160)
     private String title;
 
+    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @ManyToOne(optional = false)
     @JoinColumn(name = "ArtistId", nullable = false)
     private Artist artistId;

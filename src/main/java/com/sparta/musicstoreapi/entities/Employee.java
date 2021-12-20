@@ -1,5 +1,8 @@
 package com.sparta.musicstoreapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.Instant;
 
@@ -20,6 +23,8 @@ public class Employee {
     @Column(name = "Title", length = 30)
     private String title;
 
+  //  @JsonBackReference
+ //   @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "ReportsTo")
     private Employee reportsTo;
@@ -53,6 +58,13 @@ public class Employee {
 
     @Column(name = "Email", length = 60)
     private String email;
+
+    public Employee(Integer id) {
+        this.id = id;
+    }
+
+    public Employee() {
+    }
 
     public String getEmail() {
         return email;

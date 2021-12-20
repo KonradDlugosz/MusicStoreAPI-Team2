@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "mediatype")
 public class Mediatype {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MediaTypeId", nullable = false)
@@ -26,6 +27,14 @@ public class Mediatype {
     }
 
     public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Mediatype() {
+
+    }
+
+    public Mediatype(Integer id) {
         this.id = id;
     }
 }

@@ -19,8 +19,8 @@ public class ArtistController {
         return artistRepository.findAll();
     }
 
-    @GetMapping(value = "/chinook/artist")
-    public Artist findArtistById(@RequestParam Integer id) {
+    @GetMapping(value = "/chinook/artist/{id}")
+    public Artist findArtistById(@PathVariable Integer id) {
         Artist result = artistRepository.getById(id);
         if (result.equals(null)) {
             System.err.println("Result not found or is null");

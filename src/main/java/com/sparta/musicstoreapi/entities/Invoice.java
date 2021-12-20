@@ -1,5 +1,7 @@
 package com.sparta.musicstoreapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -12,6 +14,7 @@ public class Invoice {
     @Column(name = "InvoiceId", nullable = false)
     private Integer id;
 
+    @JsonBackReference
     @ManyToOne(optional = false)
     @JoinColumn(name = "CustomerId", nullable = false)
     private Customer customerId;
@@ -107,5 +110,13 @@ public class Invoice {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Invoice() {
+
+    }
+
+    public Invoice(Integer id) {
+        this.id =id;
     }
 }

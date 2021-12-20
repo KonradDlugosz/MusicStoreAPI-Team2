@@ -28,4 +28,12 @@ public class Mediatype {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public Mediatype() {
+
+    }
+
+    public Mediatype(Integer id) {
+        this.id = id;
+    }
 }

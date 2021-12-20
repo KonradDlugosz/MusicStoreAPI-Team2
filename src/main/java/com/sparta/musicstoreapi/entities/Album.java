@@ -40,4 +40,12 @@ public class Album {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public Album() {
+
+    }
+
+    public Album(Integer id) {
+        this.id = id;
+    }
 }

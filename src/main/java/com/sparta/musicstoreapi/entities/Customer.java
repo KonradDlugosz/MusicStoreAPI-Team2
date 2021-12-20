@@ -43,7 +43,7 @@ public class Customer {
     @Column(name = "Email", nullable = false, length = 60)
     private String email;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "SupportRepId")
     private Employee supportRepId;
 

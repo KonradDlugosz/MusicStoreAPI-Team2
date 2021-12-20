@@ -32,4 +32,16 @@ public class DiscontinuedController {
             return null;
         }
     }
+
+    @GetMapping(value = "/chinook/track/isdiscontinued")
+    public Discontinued getIsDiscontinued(@RequestParam Integer id) {
+        Optional<Discontinued> result = discontinuedRepository.findById(id);
+        return result.get();
+    }
+
+    @GetMapping(value = "/chinook/track")
+    public Track getTrackByID(@RequestParam Integer id) {
+        return trackRepository.findById(id).get();
+    }
+
 }

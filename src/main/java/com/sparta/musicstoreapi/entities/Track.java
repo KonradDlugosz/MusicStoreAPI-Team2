@@ -38,6 +38,18 @@ public class Track {
     @Column(name = "UnitPrice", nullable = false, precision = 10, scale = 2)
     private BigDecimal unitPrice;
 
+    @ManyToOne
+    @JoinColumn(name = "discontinued")
+    private Discontinued discontinued;
+
+    public Discontinued getDiscontinued() {
+        return discontinued;
+    }
+
+    public void setDiscontinued(Discontinued discontinued) {
+        this.discontinued = discontinued;
+    }
+
     public BigDecimal getUnitPrice() {
         return unitPrice;
     }

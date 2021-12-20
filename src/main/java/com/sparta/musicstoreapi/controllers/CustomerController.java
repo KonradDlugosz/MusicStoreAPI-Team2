@@ -10,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.PreUpdate;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,11 +57,10 @@ public class CustomerController {
     /**
      * Update customer by id. If id doesnt exist return no match found
       * @param id customer id
-     * @param newDetails new customer details as json format
      * @return no match found if no id
      */
     @PutMapping(value = "/chinook/customer/update/{id}")
-    public ResponseEntity<String> updateCustomerById(@PathVariable Integer id, @RequestBody Customer newDetails){
+    public ResponseEntity<String> updateCustomerById(@PathVariable Integer id){
         Optional<Customer> result = customerRepository.findById(id);
         HttpHeaders headers = new HttpHeaders();
         headers.add("content-type", "application/json; charset=utf-8");

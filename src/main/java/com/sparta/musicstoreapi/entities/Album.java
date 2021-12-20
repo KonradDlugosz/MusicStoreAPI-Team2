@@ -17,7 +17,7 @@ public class Album {
     private String title;
 
     @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "ArtistId", nullable = false)
     private Artist artistId;
 

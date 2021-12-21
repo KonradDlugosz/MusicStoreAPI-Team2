@@ -75,20 +75,4 @@ public class CustomerController {
         }
         return new ResponseEntity<String>("{\"message\": \"no match found\"}", headers, HttpStatus.OK);
     }
-
-    /**
-     * Delete customer by id
-     * @param id customer id
-     * @return "no match found" or confirmation customer deleted
-     */
-    @DeleteMapping(value = "/chinook/customer/delete/{id}")
-    public ResponseEntity<String> deleteCustomerById(@PathVariable Integer id){
-        Optional<Customer> customer = customerRepository.findById(id);
-        if(customer.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("no match found");
-        }else{
-            customerRepository.deleteById(id);
-            return ResponseEntity.status(HttpStatus.OK).body("customer with id: " + id + " deleted");
-        }
-    }
 }

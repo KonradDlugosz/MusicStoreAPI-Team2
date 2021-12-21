@@ -1,6 +1,5 @@
 package com.sparta.musicstoreapi.controllers;
 
-
 public class DiscontinuedControllerTest {
     private static final String GET_ALL_DISCONTINUED = "localhost:8080/chinook/tracks/discontinued";
     private static final String GET_DISCONTINUED_BY_TRACK_ID = "http://localhost:8080/chinook/tracks/{id}";

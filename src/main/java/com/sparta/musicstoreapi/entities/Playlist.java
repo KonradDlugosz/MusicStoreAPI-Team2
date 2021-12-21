@@ -13,6 +13,14 @@ public class Playlist {
     @Column(name = "Name", length = 120)
     private String name;
 
+    public Playlist(Integer id) {
+        this.id = id;
+    }
+
+    public Playlist() {
+
+    }
+
     public String getName() {
         return name;
     }

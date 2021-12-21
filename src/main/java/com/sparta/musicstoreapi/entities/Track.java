@@ -1,5 +1,8 @@
 package com.sparta.musicstoreapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -70,24 +73,24 @@ public class Track {
         this.composer = composer;
     }
 
-    public Genre getGenreId() {
-        return genreId;
+    public Integer getGenreId() {
+        return genreId.getId();
     }
 
     public void setGenreId(Genre genreId) {
         this.genreId = genreId;
     }
 
-    public Mediatype getMediaTypeId() {
-        return mediaTypeId;
+    public Integer getMediaTypeId() {
+        return mediaTypeId.getId();
     }
 
     public void setMediaTypeId(Mediatype mediaTypeId) {
         this.mediaTypeId = mediaTypeId;
     }
 
-    public Album getAlbumId() {
-        return albumId;
+    public Integer getAlbumId() {
+        return albumId.getId();
     }
 
     public void setAlbumId(Album albumId) {
@@ -107,6 +110,14 @@ public class Track {
     }
 
     public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Track() {
+
+    }
+
+    public Track(Integer id) {
         this.id = id;
     }
 }

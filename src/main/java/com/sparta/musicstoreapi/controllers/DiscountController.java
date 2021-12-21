@@ -1,10 +1,8 @@
 package com.sparta.musicstoreapi.controllers;
 
-import com.sparta.musicstoreapi.entities.Albumdiscount;
-import com.sparta.musicstoreapi.entities.Playlistdiscount;
-import com.sparta.musicstoreapi.entities.Track;
-import com.sparta.musicstoreapi.entities.Trackdiscount;
+import com.sparta.musicstoreapi.entities.*;
 import com.sparta.musicstoreapi.repositories.AlbumdiscountRepository;
+import com.sparta.musicstoreapi.repositories.BulkdiscountRepository;
 import com.sparta.musicstoreapi.repositories.PlaylistdiscountRepository;
 import com.sparta.musicstoreapi.repositories.TrackdiscountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +25,8 @@ public class DiscountController {
     private PlaylistdiscountRepository playlistdiscountRepository;
     @Autowired
     private TrackdiscountRepository trackdiscountRepository;
+    @Autowired
+    private BulkdiscountRepository bulkdiscountRepository;
 
     /**
      *  ALBUM Discounts requests
@@ -174,6 +174,56 @@ public class DiscountController {
         }
         return response;
     }
+
+    /**
+     * BULK Discount for tracks requests
+     */
+
+    @GetMapping(value = "/bulk-discount")
+    public List<Bulkdiscount> getAllBulkTrackDiscounts(){
+        return bulkdiscountRepository.findAll();
+    }
+
+    @GetMapping(value = "/bulk-discount/{id}")
+    public ResponseEntity<?> getBulkTrackDiscountByID(@PathVariable Integer id){
+        Optional<Bulkdiscount> bulkdiscount = bulkdiscountRepository.findById(id);
+        if(bulkdiscount.isPresent())
+            return ResponseEntity.ok(bulkdiscount);
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Discount not found!");
+    }
+
+
+    @PostMapping(value = "bulk-discount/add")
+    public Bulkdiscount addBulkTrackDiscount(@RequestBody Bulkdiscount bulkdiscount){
+        return bulkdiscountRepository.save(bulkdiscount);
+    }
+
+    @PutMapping(value = "bulk-discount/update")
+    public ResponseEntity<?> updateBulkTrackDiscount(@RequestBody Bulkdiscount bulkdiscount){
+        Optional<Bulkdiscount> oldState = bulkdiscountRepository.findById(bulkdiscount.getId());
+        if(oldState.isPresent()) {
+            bulkdiscountRepository.save(bulkdiscount);
+            return ResponseEntity.ok(bulkdiscount);
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Can't update, discount doesn't exists");
+        }
+    }
+
+    @DeleteMapping(value = "bulk-discount/delete/{id}")
+    public Map<String,Boolean> deleteBulkTrackDiscount(@PathVariable Integer id){
+        Optional<Bulkdiscount> bulkdiscount = bulkdiscountRepository.findById(id);
+        Map<String,Boolean> response = new HashMap<>();
+        if(bulkdiscount.isPresent()){
+            bulkdiscountRepository.delete(bulkdiscount.get());
+            response.put("Deleted", Boolean.TRUE);
+        } else {
+            response.put("Deleted", Boolean.FALSE);
+        }
+        return response;
+    }
+
 
 
 

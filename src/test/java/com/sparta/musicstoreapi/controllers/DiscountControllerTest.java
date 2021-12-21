@@ -35,6 +35,7 @@ public class DiscountControllerTest {
     private static final String PUT_PLAYLIST_DISCOUNT = "http://localhost:8080/chinook/playlists-discount/update";
     private static final String DELETE_PLAYLIST_DISCOUNT = "http://localhost:8080/chinook/playlists-discount/delete/2";
 
+
     private static HttpResponse<String> getAllAlbumDiscountResponse = null;
     private static HttpResponse<String> getAlbumDiscountByIdResponse = null;
     private static HttpResponse<String> postAlbumDiscountResponse = null;

@@ -150,4 +150,12 @@ public class Customer {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public Customer () {
+
+    }
+
+    public Customer(Integer id) {
+        this.id = id;
+    }
 }

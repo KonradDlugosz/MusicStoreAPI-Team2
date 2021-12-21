@@ -28,4 +28,12 @@ public class Genre {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public Genre() {
+
+    }
+
+    public Genre(Integer id) {
+        this.id = id;
+    }
 }

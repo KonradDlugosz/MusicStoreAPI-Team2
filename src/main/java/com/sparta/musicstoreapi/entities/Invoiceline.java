@@ -41,16 +41,17 @@ public class Invoiceline {
         this.unitPrice = unitPrice;
     }
 
-    public Track getTrackId() {
-        return trackId;
+
+    public String getTrackId() {
+        return trackId.getName();
     }
 
     public void setTrackId(Track trackId) {
         this.trackId = trackId;
     }
 
-    public Invoice getInvoiceId() {
-        return invoiceId;
+    public Integer getInvoiceId() {
+        return invoiceId.getId();
     }
 
     public void setInvoiceId(Invoice invoiceId) {

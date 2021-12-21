@@ -31,6 +31,7 @@ public class MediatypeController {
             return ResponseEntity.ok(mediatype.get());
     }
 
+
     @PostMapping(value = "/chinook/mediatype/add")
     public ResponseEntity<Mediatype> addNewMediatype(@RequestBody Mediatype newMediatype) {
         mediatypeRepository.save(newMediatype);

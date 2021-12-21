@@ -27,6 +27,10 @@ public class AuthController
     @PostMapping(value = "/token/add")
     public String createToken(@RequestParam String email) throws NoSuchAlgorithmException
     {
+        Optional<Token> tokenQuery = tokenRepository.findByEmail(email);
+        if(tokenQuery.isPresent())
+            return null;
+
         int accessLevel = 0;
         Optional<Employee> result = employeeRepository.findByEmail(email);
 

@@ -42,8 +42,8 @@ public class Invoiceline {
     }
 
 
-    public String getTrackId() {
-        return trackId.getName();
+    public Integer getTrackId() {
+        return trackId.getId();
     }
 
     public void setTrackId(Track trackId) {

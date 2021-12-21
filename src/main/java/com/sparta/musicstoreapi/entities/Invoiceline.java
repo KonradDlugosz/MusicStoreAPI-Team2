@@ -25,6 +25,14 @@ public class Invoiceline {
     @Column(name = "Quantity", nullable = false)
     private Integer quantity;
 
+    public Invoiceline(Invoice invoiceId) {
+        this.invoiceId = invoiceId;
+    }
+
+    public Invoiceline() {
+
+    }
+
     public Integer getQuantity() {
         return quantity;
     }

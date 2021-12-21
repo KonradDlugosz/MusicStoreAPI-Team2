@@ -1,27 +1,21 @@
 package com.sparta.musicstoreapi.controllers;
 
-import com.sparta.musicstoreapi.entities.Albumdiscount;
-import com.sparta.musicstoreapi.entities.Invoiceline;
-import com.sparta.musicstoreapi.entities.Track;
-import com.sparta.musicstoreapi.entities.Trackdiscount;
-import com.sparta.musicstoreapi.repositories.AlbumdiscountRepository;
-import com.sparta.musicstoreapi.repositories.InvoicelineRepository;
-import com.sparta.musicstoreapi.repositories.TrackRepository;
-import com.sparta.musicstoreapi.repositories.TrackdiscountRepository;
+import com.sparta.musicstoreapi.entities.*;
+import com.sparta.musicstoreapi.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 public class InvoicelineController {
 
     @Autowired
     private InvoicelineRepository invoicelineRepository;
+    @Autowired
+    private InvoiceRepository invoiceRepository;
     @Autowired
     private AlbumdiscountRepository albumdiscountRepository;
     @Autowired
@@ -76,18 +70,56 @@ public class InvoicelineController {
     }
 
     @PostMapping(value = "/chinook/invoiceline/album/add/{albumId}")
-    public List<Invoiceline> addAlbumToInvoiceline(@PathVariable Integer albumId){
+    public List<Invoiceline> addAlbumToInvoiceline(@PathVariable Integer albumId, @RequestBody Invoiceline invoicelineBody){
+        List<Invoiceline> tracksAddedFromAlbum = new ArrayList<>();
+        Albumdiscount albumdiscountToApply = null;
+
+        //Check what tracks to add
         List<Track> trackByAlbumId = trackRepository
                 .findAll()
                 .stream()
                 .filter(track -> track.getAlbumId() == albumId)
                 .toList();
 
+        //Current invoice price
+        BigDecimal totalPrice = invoiceRepository.findById(invoicelineBody.getInvoiceId()).get().getTotal();
+
+        //find all album discounts
+        List<Albumdiscount> albumDiscountsList = albumdiscountRepository.findAll();
+        for(Albumdiscount albumdiscount : albumDiscountsList){
+            if(albumdiscount.getAlbumId() == albumId){
+                albumdiscountToApply = albumdiscount;
+            }
+        }
+
+        //Add each track from album
         for(Track track: trackByAlbumId){
             Invoiceline invoiceline = new Invoiceline();
-            //invoiceline.setInvoiceId();
-            invoicelineRepository.save(invoiceline);
+            invoiceline.setInvoiceId(invoiceRepository.findById(invoicelineBody.getInvoiceId()).get());
+            invoiceline.setTrackId(trackRepository.findById(track.getId()).get());
+            //Check if album on discount
+            if(albumdiscountToApply == null){
+                invoiceline.setUnitPrice(track.getUnitPrice());
+            }
+            else if(albumdiscountToApply.getAlbumId() == albumId){
+                BigDecimal discount = albumdiscountToApply.getAmount();
+                BigDecimal price = track.getUnitPrice();
+                BigDecimal discountAmount = price.multiply(discount);
+                BigDecimal priceAfterDiscount = price.subtract(discountAmount);
+                invoiceline.setUnitPrice(priceAfterDiscount.round(new MathContext(2)));
+            }
+            invoiceline.setQuantity(1);
+            totalPrice = totalPrice.add(track.getUnitPrice());
+            tracksAddedFromAlbum.add(invoicelineRepository.save(invoiceline));
         }
+
+        //update invoice
+        Optional<Invoice> invoice = invoiceRepository.findById(invoicelineBody.getInvoiceId());
+        if(invoice.isPresent()){
+            invoice.get().setTotal(totalPrice);
+            invoiceRepository.save(invoice.get());
+        }
+        return tracksAddedFromAlbum;
     }
 
     @PutMapping(value = "/chinook/invoiceline/update")
@@ -98,6 +130,24 @@ public class InvoicelineController {
         }
         invoicelineRepository.save(newState);
         return newState;
+    }
+
+    @DeleteMapping(value = "/chinook/invoiceline/delete/{id}")
+    public Map<String, Boolean> deleteInvoiceLine(@PathVariable Integer id){
+        Optional<Invoiceline> invoiceline = invoicelineRepository.findById(id);
+        Map<String,Boolean> response = new HashMap<>();
+        BigDecimal totalPrice = invoiceRepository.findById(invoiceline.get().getInvoiceId()).get().getTotal();
+
+        if(invoiceline.isPresent()){
+            Invoice invoice = invoiceRepository.getById(invoiceline.get().getInvoiceId());
+            invoice.setTotal(totalPrice.subtract(invoiceline.get().getUnitPrice()));
+            invoicelineRepository.delete(invoiceline.get());
+            invoiceRepository.save(invoice);
+            response.put("Deleted", Boolean.TRUE);
+        } else {
+            response.put("Deleted", Boolean.FALSE);
+        }
+        return response;
     }
     
 }

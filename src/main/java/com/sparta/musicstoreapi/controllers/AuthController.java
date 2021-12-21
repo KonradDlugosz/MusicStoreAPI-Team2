@@ -26,15 +26,14 @@ public class AuthController
     private EmployeeRepository employeeRepository;
 
     @PostMapping(value = "/token/add")
-    public Token createToken(@RequestParam String email) throws NoSuchAlgorithmException
+    public String createToken(@RequestParam String email) throws NoSuchAlgorithmException
     {
-        System.out.println("uwu");
-        Integer accessLevel = 0;
+        int accessLevel = 0;
         Optional<Employee> result = employeeRepository.findByEmail(email);
 
         if(result.isPresent())
         {
-            if(result.get().getEmail().contains("Sales"))
+            if(result.get().getTitle().contains("Sales"))
             {
                 accessLevel = 1;
             }
@@ -42,11 +41,11 @@ public class AuthController
                 accessLevel = 2;
         }
 
-        Token token = new Token(generateToken(email), email, accessLevel);
-        System.out.println(token);
+        String sToken = generateToken(email);
+        Token token = new Token(sToken, email, accessLevel);
         tokenRepository.save(token);
 
-        return token;
+        return sToken;
     }
 
     private String generateToken(String email) throws NoSuchAlgorithmException
@@ -57,16 +56,21 @@ public class AuthController
 
         Key secretKey = generator.generateKey();
 
-        long nowMillis = System.currentTimeMillis();
-        Date now = new Date(nowMillis);
-
         JwtBuilder builder = Jwts.builder().setSubject(email).signWith(signatureAlgorithm, secretKey);
 
-        long expirationDelta = 86400000 * 7;
-        long expirationMillis = nowMillis + expirationDelta;
-        Date exp = new Date(expirationMillis);
-        builder.setExpiration(exp);
-
         return builder.compact();
+    }
+
+    public static Integer checkPermissionLevel(TokenRepository tokenRepository, String token)
+    {
+        Optional<Token> result = tokenRepository.findByToken(token);
+
+        //returns permission level 0-2, otherwise returns null
+        if(result.isPresent())
+        {
+            return result.get().getPermissionLevel();
+        }
+        else
+            return null;
     }
 }

@@ -46,27 +46,34 @@ public class DiscontinuedController {
 
     @GetMapping(value = "/tracks/discontinued")
     public List<Discontinued> getAllDiscontinued() {
-        return discontinuedRepository.findAllByIsDiscontinuedTrue();
+        return discontinuedRepository.findAll();
     }
 
-    @DeleteMapping(value = "/track/discontinued/delete/{id}")
-    public String deleteRow(@PathVariable Integer id) {
-        discontinuedRepository.deleteById(id);
-        return "ID: " + id + " deleted.";
+    @DeleteMapping(value = "/track/discontinued/delete/{trackId}")
+    public String deleteRow(@PathVariable Integer trackId) {
+        Track result = trackRepository.getById(trackId);
+        Integer toBeDeleted = discontinuedRepository.findByTrackId(result).getId();
+        discontinuedRepository.deleteById(toBeDeleted);
+        return "Row with : " + trackId + " deleted.";
     }
 
-//    @PutMapping(value = "/track/discontinue/update/{trackId}")
-//    public Discontinued updateDiscontinued(@PathVariable Integer trackId, @RequestBody Discontinued newState) {
-//        Track result = trackRepository.getById(trackId);
-//        newState.setTrackId(result);
-//        Optional<Discontinued> oldState = discontinuedRepository.findById(newState.getId());
-//        if (oldState.isEmpty()) {
-//            return null;
-//        }
-//        discontinuedRepository.save(newState);
-//        return newState;
-//    }
+    @PutMapping(value = "/track/discontinue/update/{trackId}")
+    public ResponseEntity<?> updateDiscontinued(@PathVariable Integer trackId, @RequestBody Discontinued newState) {
+        Optional<Track> trackResult = trackRepository.findById(trackId);
+        Track result = trackRepository.getById(trackId);
+        Integer id = discontinuedRepository.findByTrackId(result).getId();
+        newState.setId(id);
+        newState.setTrackId(result);
 
-
-
+        if (trackResult.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Track not found!");
+        } else {
+            Optional<Discontinued> oldState = discontinuedRepository.findById(newState.getId());
+            if (oldState.isEmpty()) {
+                return null;
+            }
+            discontinuedRepository.save(newState);
+            return ResponseEntity.ok(newState);
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package com.sparta.musicstoreapi;
+package com.sparta.musicstoreapi.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,7 +14,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class TrackTest {
+public class TrackControllerTest {
 
     private static final String GET_ALL_TRACKS = "http://localhost:8080/chinook/tracks";
     private static final String GET_TRACK_BY_ID = "http://localhost:8080/chinook/tracks/10";

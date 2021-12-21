@@ -1,6 +1,5 @@
 package com.sparta.musicstoreapi.controllers;
 
-import com.sparta.musicstoreapi.entities.Playlist;
 import com.sparta.musicstoreapi.entities.Playlisttrack;
 import com.sparta.musicstoreapi.repositories.PlaylisttrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -27,21 +27,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureMockMvc
 class CustomerControllerTest {
     private static final String allCustomerUrl = "http://localhost:8080/chinook/allcustomer";
 
     @InjectMocks
     private CustomerController customerController;
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Before
-    public void setUp(){
-        mockMvc = MockMvcBuilders.standaloneSetup(this.customerController).build();
-    }
-
 
     @ParameterizedTest
     @ValueSource(strings = {allCustomerUrl})
@@ -57,6 +47,19 @@ class CustomerControllerTest {
         }
         assertEquals(httpResponse.statusCode(), 200);
     }
+
+    @Test
+    void findAllCustomer() {
+    }
+
+    @Test
+    void findCustomerById() throws Exception {
+    }
+
+    @Test
+    void addCustomer() {
+    }
+
 
     @Test
     @DisplayName("Check customer id 1 is Luis")

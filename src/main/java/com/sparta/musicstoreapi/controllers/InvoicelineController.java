@@ -136,9 +136,9 @@ public class InvoicelineController {
     public Map<String, Boolean> deleteInvoiceLine(@PathVariable Integer id){
         Optional<Invoiceline> invoiceline = invoicelineRepository.findById(id);
         Map<String,Boolean> response = new HashMap<>();
-        BigDecimal totalPrice = invoiceRepository.findById(invoiceline.get().getInvoiceId()).get().getTotal();
 
         if(invoiceline.isPresent()){
+            BigDecimal totalPrice = invoiceRepository.findById(invoiceline.get().getInvoiceId()).get().getTotal();
             Invoice invoice = invoiceRepository.getById(invoiceline.get().getInvoiceId());
             invoice.setTotal(totalPrice.subtract(invoiceline.get().getUnitPrice()));
             invoicelineRepository.delete(invoiceline.get());

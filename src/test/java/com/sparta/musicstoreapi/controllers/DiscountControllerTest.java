@@ -18,22 +18,22 @@ import java.net.http.HttpResponse;
 public class DiscountControllerTest {
 
     private static final String GET_ALL_ALBUM_DISCOUNTS = "http://localhost:8080/chinook/album-discount";
-    private static final String GET_ALBUM_DISCOUNT_BY_ID = "http://localhost:8080/chinook/album-discount/2";
+    private static final String GET_ALBUM_DISCOUNT_BY_ID = "http://localhost:8080/chinook/album-discount/1";
     private static final String POST_ALBUM_DISCOUNT = "http://localhost:8080/chinook/album-discount/add";
     private static final String PUT_ALBUM_DISCOUNT = "http://localhost:8080/chinook/album-discount/update";
-    private static final String DELETE_ALBUM_DISCOUNT = "http://localhost:8080/chinook/album-discount/delete/1";
+    private static final String DELETE_ALBUM_DISCOUNT = "http://localhost:8080/chinook/album-discount/delete/2";
 
     private static final String GET_ALL_TRACK_DISCOUNTS = "http://localhost:8080/chinook/tracks-discount";
-    private static final String GET_TRACK_DISCOUNT_BY_ID = "http://localhost:8080/chinook/tracks-discount/2";
+    private static final String GET_TRACK_DISCOUNT_BY_ID = "http://localhost:8080/chinook/tracks-discount/1";
     private static final String POST_TRACK_DISCOUNT = "http://localhost:8080/chinook/tracks-discount/add";
     private static final String PUT_TRACK_DISCOUNT = "http://localhost:8080/chinook/tracks-discount/update";
-    private static final String DELETE_TRACK_DISCOUNT = "http://localhost:8080/chinook/tracks-discount/delete/1";
+    private static final String DELETE_TRACK_DISCOUNT = "http://localhost:8080/chinook/tracks-discount/delete/2";
 
     private static final String GET_ALL_PLAYLISTS_DISCOUNTS = "http://localhost:8080/chinook/playlists-discount";
-    private static final String GET_PLAYLIST_DISCOUNT_BY_ID = "http://localhost:8080/chinook/playlists-discount/2";
+    private static final String GET_PLAYLIST_DISCOUNT_BY_ID = "http://localhost:8080/chinook/playlists-discount/1";
     private static final String POST_PLAYLIST_DISCOUNT = "http://localhost:8080/chinook/playlists-discount/add";
     private static final String PUT_PLAYLIST_DISCOUNT = "http://localhost:8080/chinook/playlists-discount/update";
-    private static final String DELETE_PLAYLIST_DISCOUNT = "http://localhost:8080/chinook/playlists-discount/delete/1";
+    private static final String DELETE_PLAYLIST_DISCOUNT = "http://localhost:8080/chinook/playlists-discount/delete/2";
 
     private static HttpResponse<String> getAllAlbumDiscountResponse = null;
     private static HttpResponse<String> getAlbumDiscountByIdResponse = null;
@@ -124,10 +124,10 @@ public class DiscountControllerTest {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
                 .PUT(HttpRequest.BodyPublishers.ofString("""
                             {
-                                "id":2,
+                                "id":1,
                                 "albumId": 2,
                                 "expiryDate": "2022-09-11",
-                                "amount": 0.30
+                                "amount": 0.20
                             }
                         """))
                 .header("Content-Type", "application/json")
@@ -153,10 +153,10 @@ public class DiscountControllerTest {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
                 .PUT(HttpRequest.BodyPublishers.ofString("""
                             {
-                                "id": 2,
+                                "id": 1,
                                 "trackId": 2,
                                 "expiryDate": "2022-11-11",
-                                "amount": 0.25
+                                "amount": 0.20
                             }
                         """))
                 .header("Content-Type", "application/json")
@@ -182,7 +182,7 @@ public class DiscountControllerTest {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
                 .PUT(HttpRequest.BodyPublishers.ofString("""
                             {
-                                "id": 2,
+                                "id": 1,
                                 "playListId": 2,
                                 "expiryDate": "2022-11-11",
                                 "amount": 0.20

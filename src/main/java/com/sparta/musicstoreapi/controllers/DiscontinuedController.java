@@ -19,9 +19,9 @@ public class DiscontinuedController {
     @Autowired
     ObjectMapper mapper;
 
-    @PostMapping(value = "/chinook/track/discontinue/{trackId}")
-    public String discontinueTrack(@PathVariable Integer trackId) {
-        Optional<Track> result = trackRepository.findById(trackId);
+    @PostMapping(value = "/chinook/discontinue/{id}")
+    public String discontinueTrack(@PathVariable Integer id) {
+        Optional<Track> result = trackRepository.findById(id);
         Discontinued discontinued = new Discontinued();
         if (result.isPresent()) {
             discontinued.setTrackId(result.get());
@@ -33,15 +33,11 @@ public class DiscontinuedController {
         }
     }
 
-    @GetMapping(value = "/chinook/track/isdiscontinued")
-    public Discontinued getIsDiscontinued(@RequestParam Integer id) {
+    @GetMapping(value = "/chinook/track/discontinued/{id}")
+    public Discontinued getIsDiscontinued(@PathVariable Integer id) {
         Optional<Discontinued> result = discontinuedRepository.findById(id);
         return result.get();
     }
 
-    @GetMapping(value = "/chinook/track")
-    public Track getTrackByID(@RequestParam Integer id) {
-        return trackRepository.findById(id).get();
-    }
 
 }

@@ -22,8 +22,8 @@ public class AlbumController {
     @Autowired
     ObjectMapper mapper;
 
-    @GetMapping(value = "/chinook/album")
-    public ResponseEntity<String> getAlbumById(@RequestParam Integer id) {
+    @GetMapping(value = "/chinook/album/{id}")
+    public ResponseEntity<String> getAlbumById(@PathVariable Integer id) {
         Optional<Album> result = albumRepository.findById(id);
         HttpHeaders headers = new HttpHeaders();
         headers.add("content-type", "application/json; charset=utf-8");

@@ -8,16 +8,18 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.KeyGenerator;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
-public class AuthController
-{
+public class AuthController {
     @Autowired
     private TokenRepository tokenRepository;
 
@@ -25,18 +27,14 @@ public class AuthController
     private EmployeeRepository employeeRepository;
 
     @PostMapping(value = "/token/add")
-    public String createToken(@RequestParam String email) throws NoSuchAlgorithmException
-    {
+    public String createToken(@RequestParam String email) throws NoSuchAlgorithmException {
         int accessLevel = 0;
         Optional<Employee> result = employeeRepository.findByEmail(email);
 
-        if(result.isPresent())
-        {
-            if(result.get().getTitle().contains("Sales"))
-            {
+        if (result.isPresent()) {
+            if (result.get().getTitle().contains("Sales")) {
                 accessLevel = 1;
-            }
-            else
+            } else
                 accessLevel = 2;
         }
 
@@ -47,8 +45,7 @@ public class AuthController
         return sToken;
     }
 
-    private String generateToken(String email) throws NoSuchAlgorithmException
-    {
+    private String generateToken(String email) throws NoSuchAlgorithmException {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         KeyGenerator generator = KeyGenerator.getInstance("AES");
         generator.init(128);
@@ -60,16 +57,38 @@ public class AuthController
         return builder.compact();
     }
 
-    public static Integer checkPermissionLevel(TokenRepository tokenRepository, String token)
-    {
+    public static Integer checkPermissionLevel(TokenRepository tokenRepository, String token) {
         Optional<Token> result = tokenRepository.findByToken(token);
 
         //returns permission level 0-2, otherwise returns null
-        if(result.isPresent())
-        {
+        if (result.isPresent()) {
             return result.get().getPermissionLevel();
-        }
-        else
+        } else
             return null;
+    }
+
+    @GetMapping(value = "/chinook/token/findAll")
+    public List<Token> findTokenAll() {
+        return tokenRepository.findAll();
+    }
+
+    @GetMapping(value = "/chinook/token/find/{token}")
+    public Token findTokenByToken(@PathVariable String token) {
+        Optional<Token> output = tokenRepository.findByToken(token);
+        if (output.isEmpty()) {
+            return null;
+        }
+        return output.get();
+    }
+
+    @DeleteMapping(value = "/chinook/token/delete/{id}")
+    public ResponseEntity<Integer> deleteTokenById(@PathVariable Integer id) {
+
+        Optional<Token> token = tokenRepository.findById(id);
+        if (token.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else
+            tokenRepository.deleteById(id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 }

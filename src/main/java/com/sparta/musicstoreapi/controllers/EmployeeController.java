@@ -23,24 +23,25 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/chinook/employees/{id}")
-    public ResponseEntity<?> getEmployeeById(@PathVariable Integer id){
+    public ResponseEntity<?> getEmployeeById(@PathVariable Integer id) {
         Optional<Employee> employee = employeeRepository.findById(id);
-        if(employee.isEmpty())
+        if (employee.isEmpty())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found");
         else
             return ResponseEntity.ok(employee.get());
     }
 
+
     @PostMapping(value = "/chinook/employee/add")
-    public ResponseEntity<Employee> addNewEmployee(@RequestBody Employee newEmployee){
+    public ResponseEntity<Employee> addNewEmployee(@RequestBody Employee newEmployee) {
         employeeRepository.save(newEmployee);
         return ResponseEntity.ok(newEmployee);
     }
 
     @PutMapping(value = "/chinook/employees/update")
-    public ResponseEntity<Employee> updateEmployee(@Valid @RequestBody Employee employee){
+    public ResponseEntity<Employee> updateEmployee(@Valid @RequestBody Employee employee) {
         Optional<Employee> results = employeeRepository.findById(employee.getId());
-        if(results.isPresent()) {
+        if (results.isPresent()) {
             results.get().setFirstName(employee.getFirstName());
             results.get().setLastName(employee.getLastName());
             results.get().setTitle(employee.getTitle());
@@ -57,7 +58,7 @@ public class EmployeeController {
             results.get().setFax(employee.getFax());
             final Employee updatedEmployee = employeeRepository.save(employee);
             return ResponseEntity.ok(updatedEmployee);
-        }else
+        } else
             return null;
     }
 

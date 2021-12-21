@@ -2,19 +2,13 @@ package com.sparta.musicstoreapi.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.musicstoreapi.entities.Customer;
-import org.junit.Before;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.io.IOException;
 import java.net.URI;
@@ -29,9 +23,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class CustomerControllerTest {
     private static final String allCustomerUrl = "http://localhost:8080/chinook/allcustomer";
-
-    @InjectMocks
-    private CustomerController customerController;
 
     @ParameterizedTest
     @ValueSource(strings = {allCustomerUrl})

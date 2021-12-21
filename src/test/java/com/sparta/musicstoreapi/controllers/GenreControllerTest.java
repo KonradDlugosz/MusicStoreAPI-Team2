@@ -1,5 +1,6 @@
 package com.sparta.musicstoreapi.controllers;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.musicstoreapi.entities.Genre;
 import org.junit.jupiter.api.DisplayName;
@@ -26,6 +27,7 @@ class GenreControllerTest {
             "Science Fiction", "TV Shows", "Sci Fi & Fantasy", "Drama", "Comedy",
             "Alternative", "Classical", "Opera");
 
+
     @ParameterizedTest
     @ValueSource(strings = {allGenreUrl})
     @DisplayName("check status 200 for all genres url")
@@ -40,6 +42,7 @@ class GenreControllerTest {
         }
         assertEquals(httpResponse.statusCode(), 200);
     }
+
 
     @Test
     @DisplayName("Check all genre match list")
@@ -56,3 +59,4 @@ class GenreControllerTest {
         }
     }
 }
+

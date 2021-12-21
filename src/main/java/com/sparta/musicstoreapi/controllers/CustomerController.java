@@ -75,4 +75,9 @@ public class CustomerController {
         }
         return new ResponseEntity<String>("{\"message\": \"no match found\"}", headers, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/chinook/customer/email")
+    public Customer searchCustomerByEmail(@RequestParam String email){
+        return customerRepository.findCustomerByEmail(email);
+    }
 }

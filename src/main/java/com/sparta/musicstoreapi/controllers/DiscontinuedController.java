@@ -45,7 +45,7 @@ public class DiscontinuedController {
 
     @GetMapping(value = "/tracks/discontinued")
     public List<Discontinued> getAllDiscontinued() {
-        return discontinuedRepository.findAll();
+        return discontinuedRepository.findAllByIsDiscontinuedTrue();
     }
 
     @DeleteMapping(value = "/track/discontinued/delete/{trackId}")

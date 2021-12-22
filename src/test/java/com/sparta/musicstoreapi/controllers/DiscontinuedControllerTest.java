@@ -13,10 +13,10 @@ import java.net.http.HttpResponse;
 
 public class DiscontinuedControllerTest {
     private static final String GET_ALL_DISCONTINUED = "http://localhost:8080/chinook/tracks/discontinued";
-    private static final String GET_DISCONTINUED_BY_TRACK_ID = "http://localhost:8080/chinook/tracks/9";
+    private static final String GET_DISCONTINUED_BY_TRACK_ID = "http://localhost:8080/chinook/tracks/1";
     private static final String POST_DISCONTINUED_BY_TRACK_ID = "http://localhost:8080/chinook/track/discontinue/250";
-    private static final String PUT_DISCONTINUED_BY_TRACK_ID = "http://localhost:8080/chinook/track/discontinue/update/9";
-    private static final String DELETE_DISCONTINUED_BY_TRACK_ID = "http://localhost:8080/chinook/track/discontinued/delete/9";
+    private static final String PUT_DISCONTINUED_BY_TRACK_ID = "http://localhost:8080/chinook/track/discontinue/update/1";
+    private static final String DELETE_DISCONTINUED_BY_TRACK_ID = "http://localhost:8080/chinook/track/discontinued/delete/1";
 
     private static HttpResponse<String> getAllDiscontinuedResponse = null;
     private static HttpResponse<String> getDiscontinuedByTrackIdResponse = null;

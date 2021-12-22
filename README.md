@@ -389,11 +389,35 @@ Example for customer in json format:
 
 #### *PUT customer*
 
-URL endpoint: /chinook/update/10
+URL endpoint: /chinook/customer/update/{customerID}
 
 Response: Updates an existsing customer by ID
 
 Example for customer of ID: 10, being updated with:
+```json
+{
+    "firstName": "Eduardo",
+    "lastName": "Martins",
+    "company": "Woodstock Discos",
+    "address": "Rua Dr. Falcão Filho, 155",
+    "city": "São Paulo",
+    "state": "SP",
+    "country": "Brazil",
+    "postalCode": "01007-010",
+    "phone": "+55 (11) 3033-5446",
+    "fax": "+55 (11) 3033-4564",
+    "email": "eduardo@woodstock.com.br",
+    "supportRepId": 4
+}
+```
+
+#### *GET customer by Email*
+
+URL endpoint: /chinook/customer/email/{email}
+
+Response: customer that matches the given email
+
+Example for Email: "eduardo@woodstock.com.br":
 ```json
 {
     "firstName": "Eduardo",

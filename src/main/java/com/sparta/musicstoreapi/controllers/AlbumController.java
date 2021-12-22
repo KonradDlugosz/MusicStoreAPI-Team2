@@ -9,6 +9,7 @@ import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +40,7 @@ public class AlbumController {
         } return new ResponseEntity<String>("{\"message\": \"That album doesnt exist\"}", headers, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/chinook/albums")
+    @GetMapping(value = "/chinook/albums", produces = MediaType.APPLICATION_XML_VALUE)
     public List<Album> getAllAlbums() {
         return albumRepository.findAll();
     }

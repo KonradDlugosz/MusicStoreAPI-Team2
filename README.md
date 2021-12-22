@@ -17,6 +17,9 @@
       <ul>
         <li><a href="#track">Track</a></li>
       </ul>
+	    <ul>
+        <li><a href="#customer">Customer</a></li>
+      </ul>
     </li>
       <li><a href="#tools-and-Frameworks">Tools and Frameworks</a></li>
 	<li><a href="#credits-and-contact">Credits and Contact</a></li>
@@ -208,6 +211,209 @@ Example for artist **AC/DC** with ID : **1**
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+### **Customer**
+
+#### *GET all customers*
+
+URL endpoint: chinook/customers
+
+Response: list of all customers
+
+```json
+[
+    {
+        "id": 1,
+        "firstName": "Luís",
+        "lastName": "Gonçalves",
+        "company": "Embraer - Empresa Brasileira de Aeronáutica S.A.",
+        "address": "Av. Brigadeiro Faria Lima, 2170",
+        "city": "São José dos Campos",
+        "state": "SP",
+        "country": "Brazil",
+        "postalCode": "12227-000",
+        "phone": "+55 (12) 3923-5555",
+        "fax": "+55 (12) 3923-5566",
+        "email": "luisg@embraer.com.br",
+        "supportRepId": {
+            "id": 3,
+            "lastName": "Peacock",
+            "firstName": "Jane",
+            "title": "Sales Support Agent",
+            "reportsTo": {
+                "id": 2,
+                "lastName": "Edwards",
+                "firstName": "Nancy",
+                "title": "Sales Manager",
+                "reportsTo": {
+                    "id": 1,
+                    "lastName": "Adams",
+                    "firstName": "Andrew",
+                    "title": "General Manager",
+                    "reportsTo": null,
+                    "birthDate": "1962-02-18T00:00:00Z",
+                    "hireDate": "2002-08-13T23:00:00Z",
+                    "address": "11120 Jasper Ave NW",
+                    "city": "Edmonton",
+                    "state": "AB",
+                    "country": "Canada",
+                    "postalCode": "T5K 2N1",
+                    "phone": "+1 (780) 428-9482",
+                    "fax": "+1 (780) 428-3457",
+                    "email": "andrew@chinookcorp.com"
+                },
+                "birthDate": "1958-12-08T00:00:00Z",
+                "hireDate": "2002-04-30T23:00:00Z",
+                "address": "825 8 Ave SW",
+                "city": "Calgary",
+                "state": "AB",
+                "country": "Canada",
+                "postalCode": "T2P 2T3",
+                "phone": "+1 (403) 262-3443",
+                "fax": "+1 (403) 262-3322",
+                "email": "nancy@chinookcorp.com"
+            },
+            "birthDate": "1973-08-28T23:00:00Z",
+            "hireDate": "2002-03-31T23:00:00Z",
+            "address": "1111 6 Ave SW",
+            "city": "Calgary",
+            "state": "AB",
+            "country": "Canada",
+            "postalCode": "T2P 5M5",
+            "phone": "+1 (403) 262-3443",
+            "fax": "+1 (403) 262-6712",
+            "email": "jane@chinookcorp.com"
+        }
+    },
+...
+```
+
+
+
+#### *GET customer by ID*
+
+URL endpoint: /chinook/customer/{customerID}
+
+Response: customer for given ID
+
+Example for customer with ID: **10**
+
+```json
+{
+    "id": 10,
+    "firstName": "Eduardo",
+    "lastName": "Martins",
+    "company": "Woodstock Discos",
+    "address": "Rua Dr. Falcão Filho, 155",
+    "city": "São Paulo",
+    "state": "SP",
+    "country": "Brazil",
+    "postalCode": "01007-010",
+    "phone": "+55 (11) 3033-5446",
+    "fax": "+55 (11) 3033-4564",
+    "email": "eduardo@woodstock.com.br",
+    "supportRepId": {
+        "id": 4,
+        "lastName": "Park",
+        "firstName": "Margaret",
+        "title": "Sales Support Agent",
+        "reportsTo": {
+            "id": 2,
+            "lastName": "Edwards",
+            "firstName": "Nancy",
+            "title": "Sales Manager",
+            "reportsTo": {
+                "id": 1,
+                "lastName": "Adams",
+                "firstName": "Andrew",
+                "title": "General Manager",
+                "reportsTo": null,
+                "birthDate": "1962-02-18T00:00:00Z",
+                "hireDate": "2002-08-13T23:00:00Z",
+                "address": "11120 Jasper Ave NW",
+                "city": "Edmonton",
+                "state": "AB",
+                "country": "Canada",
+                "postalCode": "T5K 2N1",
+                "phone": "+1 (780) 428-9482",
+                "fax": "+1 (780) 428-3457",
+                "email": "andrew@chinookcorp.com"
+            },
+            "birthDate": "1958-12-08T00:00:00Z",
+            "hireDate": "2002-04-30T23:00:00Z",
+            "address": "825 8 Ave SW",
+            "city": "Calgary",
+            "state": "AB",
+            "country": "Canada",
+            "postalCode": "T2P 2T3",
+            "phone": "+1 (403) 262-3443",
+            "fax": "+1 (403) 262-3322",
+            "email": "nancy@chinookcorp.com"
+        },
+        "birthDate": "1947-09-18T23:00:00Z",
+        "hireDate": "2003-05-02T23:00:00Z",
+        "address": "683 10 Street SW",
+        "city": "Calgary",
+        "state": "AB",
+        "country": "Canada",
+        "postalCode": "T2P 5G3",
+        "phone": "+1 (403) 263-4423",
+        "fax": "+1 (403) 263-4289",
+        "email": "margaret@chinookcorp.com"
+    }
+}
+```
+
+#### *POST customer*
+
+URL endpoint: /chinook/customer/add
+
+Response: Inserts a new customer into the Customer Table
+
+Example for customer in json format:
+```json
+{
+    "firstName": "Eduardo",
+    "lastName": "Martins",
+    "company": "Woodstock Discos",
+    "address": "Rua Dr. Falcão Filho, 155",
+    "city": "São Paulo",
+    "state": "SP",
+    "country": "Brazil",
+    "postalCode": "01007-010",
+    "phone": "+55 (11) 3033-5446",
+    "fax": "+55 (11) 3033-4564",
+    "email": "eduardo@woodstock.com.br",
+    "supportRepId": 4
+}
+```
+
+#### *PUT customer*
+
+URL endpoint: /chinook/update/10
+
+Response: Updates an existsing customer by ID
+
+Example for customer of ID: 10, being updated with:
+```json
+{
+    "firstName": "Eduardo",
+    "lastName": "Martins",
+    "company": "Woodstock Discos",
+    "address": "Rua Dr. Falcão Filho, 155",
+    "city": "São Paulo",
+    "state": "SP",
+    "country": "Brazil",
+    "postalCode": "01007-010",
+    "phone": "+55 (11) 3033-5446",
+    "fax": "+55 (11) 3033-4564",
+    "email": "eduardo@woodstock.com.br",
+    "supportRepId": 4
+}
+```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
 ---
 
 ## Credits and Contact
@@ -219,16 +425,3 @@ Example for artist **AC/DC** with ID : **1**
 ## License
 
 **Free**
-
-### Setup the IsDiscontinued SQL Query:
-
-```
-USE `Chinook`;
-
-CREATE TABLE `Discontinued`
-(
-	`TrackId` int,
-	FOREIGN KEY (`TrackId`) REFERENCES `Track`(`TrackId`),
-    `IsDiscontinued` BOOLEAN
-);
-```

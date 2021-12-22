@@ -7,6 +7,7 @@ import com.sparta.musicstoreapi.repositories.PlaylistRepository;
 import com.sparta.musicstoreapi.repositories.PlaylisttrackRepository;
 import com.sparta.musicstoreapi.repositories.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.Option;
@@ -30,7 +31,7 @@ public class PlaylistTrackController {
         if(trackExists.isPresent()){
             PlaylisttrackId newPlaylisttrackId = new PlaylisttrackId();
             newPlaylisttrackId.setPlaylistId(playlistID);
-            newPlaylisttrackId.setTrack(trackExists.get());
+            newPlaylisttrackId.setTrackId(trackExists.get().getId());
             if(playlisttrackRepository.existsById(newPlaylisttrackId)){ return null; }
             Playlisttrack newPlaylisttrack = new Playlisttrack();
             newPlaylisttrack.setId(newPlaylisttrackId);
@@ -70,7 +71,7 @@ public class PlaylistTrackController {
     @GetMapping(value = "/chinook/playlisttrack/{playlistID}/{trackID}")
     public Playlisttrack getPlaylistByPlaylistIDAndTrackID(@PathVariable Integer playlistID,@PathVariable Integer trackID){
         Optional<Playlisttrack> playlistTrackExists = playlisttrackRepository.findAll().stream()
-                .filter(playlisttrack -> playlisttrack.getId().getPlaylistId() == playlistID && playlisttrack.getId().getTrack().getId() == trackID)
+                .filter(playlisttrack -> playlisttrack.getId().getPlaylistId() == playlistID && playlisttrack.getId().getTrackId() == trackID)
                 .findFirst();
         if(playlistTrackExists.isPresent()){
             return playlistTrackExists.get();

@@ -18,12 +18,12 @@ public class GenreController {
     @Autowired
     private GenreRepository genreRepository;
 
-    @GetMapping(value = "/allgenres", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/allgenres", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public List<Genre> getAllGenres(){
         return genreRepository.findAll();
     }
 
-    @GetMapping(value = "/genres/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/genres/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<?> getGenreById(@PathVariable Integer id){
         Optional<Genre> genre = genreRepository.findById(id);
         if(genre.isEmpty())
@@ -32,7 +32,7 @@ public class GenreController {
             return ResponseEntity.ok(genre.get());
     }
 
-    @PostMapping(value = "/genres/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/genres/add", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<Genre> addNewGenre(@RequestBody Genre newGenre){
         genreRepository.save(newGenre);
         return ResponseEntity.ok(newGenre);

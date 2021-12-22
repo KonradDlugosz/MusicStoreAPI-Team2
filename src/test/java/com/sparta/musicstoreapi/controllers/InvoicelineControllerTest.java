@@ -19,19 +19,27 @@ public class InvoicelineControllerTest {
 
     private static final String GET_ALL_INVOICELINES = "http://localhost:8080/chinook/invoicelines";
     private static final String GET_INVOICELINE_BY_ID = "http://localhost:8080/chinook/invoiceline?id=11";
-    private static final String POST_INVOICELINE =  "http://localhost:8080/chinook/invoiceline/add";
+    private static final String GET_INVOICELINE_BY_INVOICE_ID = "http://localhost:8080/chinook/invoiceline/1";
+    private static final String POST_INVOICELINE =  "http://localhost:8080/chinook/invoiceline/track/add";
     private static final String PUT_INVOICELINE = "http://localhost:8080/chinook/invoiceline/update";
+    private static final String POST_INVOICE_ALBUM = "";
+    private static final String DELETE_INVOICELINE = "";
+
 
     private static HttpResponse<String> getAllInvoicelinesResponse = null;
     private static HttpResponse<String> getOneInvoicelineResponse = null;
+    private static HttpResponse<String> getInvoicelineByInvoiceIdResponse = null;
 //    private static Invoiceline getOneInvoicelineResponseJSON = null;
     private static HttpResponse<String> postInvoicelineResponse = null;
     private static HttpResponse<String> putInvoicelineResponse = null;
+    private static HttpResponse<String> postInvoicelineAlbum = null;
+    private static HttpResponse<String> deleteInvoiceline = null;
 
     @BeforeAll
     public static void getConnections(){
         getAllInvoicelinesResponse = getRequest(GET_ALL_INVOICELINES);
         getOneInvoicelineResponse = getRequest(GET_INVOICELINE_BY_ID);
+        getInvoicelineByInvoiceIdResponse = getRequest(GET_INVOICELINE_BY_INVOICE_ID);
 //        getOneInvoicelineResponseJSON = getObjectMapper(getRequest(GET_INVOICELINE_BY_ID).body());
         postInvoicelineResponse = postRequest(POST_INVOICELINE);
         putInvoicelineResponse = putRequest(PUT_INVOICELINE);
@@ -106,18 +114,24 @@ public class InvoicelineControllerTest {
 
     @Test
     @DisplayName("2 Given Invoiceline ID, return 200 status")
-    public void getOneInvoiceStatusCode(){
+    public void getOneInvoicelineStatusCode(){
         Assertions.assertEquals(200, getOneInvoicelineResponse.statusCode());
     }
 
     @Test
-    @DisplayName("3 Given new invoiceline, return 200 status")
+    @DisplayName("3 Given invoice ID, return 200 status")
+    public void getOneInvoiceStatusCode(){
+        Assertions.assertEquals(200, getInvoicelineByInvoiceIdResponse.statusCode());
+    }
+
+    @Test
+    @DisplayName("4 Given new invoiceline, return 200 status")
     public void postInvoiceStatusCheck(){
         Assertions.assertEquals(200, postInvoicelineResponse.statusCode());
     }
 
     @Test
-    @DisplayName("4 Given invoiceline update, return 200 status")
+    @DisplayName("5 Given invoiceline update, return 200 status")
     public void putInvoiceStatusCheck(){
         Assertions.assertEquals(200, putInvoicelineResponse.statusCode());
     }

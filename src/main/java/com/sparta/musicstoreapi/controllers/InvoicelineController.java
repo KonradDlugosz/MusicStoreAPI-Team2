@@ -183,13 +183,12 @@ public class InvoicelineController {
                 invoiceline.setUnitPrice(priceAfterDiscount.round(new MathContext(2)));
             }
             invoiceline.setQuantity(1);
-            totalPrice = totalPrice.add(trackRepository.findById(playlistTrack.getId().getTrackId()).get().getUnitPrice());
+            totalPrice = totalPrice.add(invoiceline.getUnitPrice());
             tracksAddedFromPlaylist.add(invoicelineRepository.save(invoiceline));
         }
         //update invoice
         updateInvoice(totalPrice, invoice);
         return tracksAddedFromPlaylist;
-
     }
 
     private void updateInvoice(BigDecimal totalPrice, Invoice invoice) {
@@ -211,7 +210,7 @@ public class InvoicelineController {
                 .filter(openInvoice -> openInvoice.getInvoiceDate().isAfter(Instant.now()))
                 .toList();
 
-        //create new invoice ?
+        //create new invoice
         if(invoiceList.size() >= 1){
             invoice = invoiceList.get(0);
         } else {
@@ -255,5 +254,4 @@ public class InvoicelineController {
         }
         return response;
     }
-    
 }

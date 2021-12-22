@@ -26,8 +26,8 @@ public class AuthController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @PostMapping(value = "/token/add")
-    public String createToken(@RequestParam String email) throws NoSuchAlgorithmException
+    @PostMapping(value = "/token/add/{email}")
+    public String createToken(@PathVariable String email) throws NoSuchAlgorithmException
     {
         Optional<Token> tokenQuery = tokenRepository.findByEmail(email);
         if(tokenQuery.isPresent())
@@ -72,12 +72,12 @@ public class AuthController {
             return null;
     }
 
-    @GetMapping(value = "/chinook/token/findAll")
+    @GetMapping(value = "/token/findAll")
     public List<Token> findTokenAll() {
         return tokenRepository.findAll();
     }
 
-    @GetMapping(value = "/chinook/token/find/{token}")
+    @GetMapping(value = "/token/findByToken/{token}")
     public Token findTokenByToken(@PathVariable String token) {
         Optional<Token> output = tokenRepository.findByToken(token);
         if (output.isEmpty()) {
@@ -86,7 +86,7 @@ public class AuthController {
         return output.get();
     }
 
-    @DeleteMapping(value = "/chinook/token/delete/{id}")
+    @DeleteMapping(value = "/token/deleteById/{id}")
     public ResponseEntity<Integer> deleteTokenById(@PathVariable Integer id) {
 
         Optional<Token> token = tokenRepository.findById(id);
@@ -95,5 +95,20 @@ public class AuthController {
         } else
             tokenRepository.deleteById(id);
         return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/token/deleteByToken/{token}")
+    public ResponseEntity<String> deleteByToken(@PathVariable String token)
+    {
+        Optional<Token> tokenEntity = tokenRepository.findByToken(token);
+        if(tokenEntity.isEmpty())
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        else
+        {
+            tokenRepository.deleteById(tokenEntity.get().getId());
+        }
+        return new ResponseEntity<>(token, HttpStatus.OK);
     }
 }

@@ -3,6 +3,7 @@ package com.sparta.musicstoreapi.controllers;
 import com.sparta.musicstoreapi.entities.*;
 import com.sparta.musicstoreapi.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @RestController
+@RequestMapping(value = "/chinook")
 public class InvoicelineController {
 
     @Autowired
@@ -32,13 +34,13 @@ public class InvoicelineController {
     private PlaylistdiscountRepository playlistdiscountRepository;
 
 
-    @GetMapping(value = "/chinook/invoicelines")
+    @GetMapping(value = "/invoicelines", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
     public List<Invoiceline> findAllInvoicelines(){
         return invoicelineRepository.findAll();
     }
 
-    @GetMapping(value = "/chinook/invoiceline")
-    public Invoiceline findInvoicelineById(@RequestParam Integer id){
+    @GetMapping(value = "/invoiceline/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    public Invoiceline findInvoicelineById(@PathVariable Integer id){
         Optional<Invoiceline> result =  invoicelineRepository.findById(id);
         if(result.isEmpty()) return null;
         return result.get();
@@ -53,7 +55,7 @@ public class InvoicelineController {
                 .toList();
     }
 
-    @PostMapping(value = "/chinook/invoiceline/track/add")
+    @PostMapping(value = "/chinook/invoiceline/track/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
     public Invoiceline addInvoiceline(@RequestParam Integer customerId, @RequestParam Integer trackId){
         BigDecimal totalPrice;
         Invoiceline invoiceline = new Invoiceline();
@@ -93,7 +95,7 @@ public class InvoicelineController {
         return invoicelineRepository.save(invoiceline);
     }
 
-    @PostMapping(value = "/chinook/invoiceline/album/add")
+    @PostMapping(value = "/chinook/invoiceline/album/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
     public List<Invoiceline> addAlbumToInvoiceline(@RequestParam Integer albumId, @RequestParam Integer customerId){
         BigDecimal totalPrice;
         List<Invoiceline> tracksAddedFromAlbum = new ArrayList<>();
@@ -144,7 +146,7 @@ public class InvoicelineController {
         return tracksAddedFromAlbum;
     }
 
-    @PostMapping(value = "/chinook/invoiceline/playlist/add")
+    @PostMapping(value = "/chinook/invoiceline/playlist/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
     public List<Invoiceline> addPlaylistToInvoiceLine(@RequestParam Integer playlistId, @RequestParam Integer customerId){
         BigDecimal totalPrice;
         List<Invoiceline> tracksAddedFromPlaylist = new ArrayList<>();
@@ -183,13 +185,12 @@ public class InvoicelineController {
                 invoiceline.setUnitPrice(priceAfterDiscount.round(new MathContext(2)));
             }
             invoiceline.setQuantity(1);
-            totalPrice = totalPrice.add(trackRepository.findById(playlistTrack.getId().getTrackId()).get().getUnitPrice());
+            totalPrice = totalPrice.add(invoiceline.getUnitPrice());
             tracksAddedFromPlaylist.add(invoicelineRepository.save(invoiceline));
         }
         //update invoice
         updateInvoice(totalPrice, invoice);
         return tracksAddedFromPlaylist;
-
     }
 
     private void updateInvoice(BigDecimal totalPrice, Invoice invoice) {
@@ -211,7 +212,7 @@ public class InvoicelineController {
                 .filter(openInvoice -> openInvoice.getInvoiceDate().isAfter(Instant.now()))
                 .toList();
 
-        //create new invoice ?
+        //create new invoice
         if(invoiceList.size() >= 1){
             invoice = invoiceList.get(0);
         } else {
@@ -226,9 +227,10 @@ public class InvoicelineController {
             invoiceRepository.save(invoice);
         }
         return invoice;
+
     }
 
-    @PutMapping(value = "/chinook/invoiceline/update")
+    @PutMapping(value = "/invoiceline/update", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
     public Invoiceline updateInvoiceline(@RequestBody Invoiceline newState) {
         Optional<Invoiceline> oldState = invoicelineRepository.findById(newState.getId());
         if (oldState.isEmpty()) {
@@ -255,5 +257,4 @@ public class InvoicelineController {
         }
         return response;
     }
-    
 }

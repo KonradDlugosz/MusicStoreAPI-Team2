@@ -353,6 +353,100 @@ Example for Email: "eduardo@woodstock.com.br":
     "supportRepId": 4
 }
 ```
+### **Invoice**
+
+#### *GET all invoices*
+
+URL endpoint: chinook/invoices
+
+Response: list of all invoices
+
+```json
+[
+  {
+    "id": 1,
+    "invoiceDate": "2009-01-01T00:00:00Z",
+    "billingAddress": "Theodor-Heuss-Straße 34",
+    "billingCity": "Stuttgart",
+    "billingState": null,
+    "billingCountry": "Germany",
+    "billingPostalCode": "70174",
+    "total": 1.98
+  },
+  {
+    "id": 2,
+    "invoiceDate": "2009-01-02T00:00:00Z",
+    "billingAddress": "Ullevålsveien 14",
+    "billingCity": "Oslo",
+    "billingState": null,
+    "billingCountry": "Norway",
+    "billingPostalCode": "0171",
+    "total": 3.96
+  },
+```
+
+#### *GET invoice by ID*
+
+URL endpoint: /chinook/invoice/{trackId}
+
+Response: invoice for given ID
+
+Example for invoice with ID: **11**
+
+```json
+{
+  "id": 11,
+  "invoiceDate": "2009-02-03T00:00:00Z",
+  "billingAddress": "4 Chatham Street",
+  "billingCity": "Dublin",
+  "billingState": "Dublin",
+  "billingCountry": "Ireland",
+  "billingPostalCode": null,
+  "total": 5.94
+}
+```
+
+#### *POST invoice*
+
+URL endpoint: /chinook/invoice/add
+
+Response: Insert a new invoice into the invoice table
+
+Example for invoice in json format:
+
+```json
+{
+  "customerId": 2,
+  "invoiceDate": "2009-02-03T00:00:00Z",
+  "billingAddress": "3 Chatham Street",
+  "billingCity": "Dublin",
+  "billingState": "Dublin",
+  "billingCountry": "Ireland",
+  "billingPostalCode": null,
+  "total": 5.94
+}
+```
+
+#### *PUT invoice*
+
+URL endpoint: /chinook/invoice/update
+
+Response: Update a new invoice into the invoice table
+
+Example for invoice in json format:
+
+```json
+{
+  "customerId": 2,
+  "invoiceDate": "2009-02-03T00:00:00Z",
+  "billingAddress": "3 Chatham Street",
+  "billingCity": "Dublin",
+  "billingState": "Dublin",
+  "billingCountry": "Ireland",
+  "billingPostalCode": null,
+  "total": 5.94
+}
+```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

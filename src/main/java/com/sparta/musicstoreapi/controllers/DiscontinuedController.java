@@ -24,7 +24,7 @@ public class DiscontinuedController {
     @Autowired
     ObjectMapper mapper;
 
-    @PostMapping(value = "/track/discontinue/{trackId}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/track/discontinue/{trackId}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
     public ResponseEntity<?> discontinueTrack(@PathVariable Integer trackId, @RequestBody Discontinued discontinued) {
         Optional<Track> trackResult = trackRepository.findById(trackId);
         if (trackResult.isEmpty()) {
@@ -38,18 +38,18 @@ public class DiscontinuedController {
         }
     }
 
-    @GetMapping(value = "/track/discontinued/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/track/discontinued/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
     public Discontinued getIsDiscontinued(@PathVariable Integer id) {
         Optional<Discontinued> result = discontinuedRepository.findById(id);
         return result.get();
     }
 
-    @GetMapping(value = "/tracks/discontinued", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/tracks/discontinued", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
     public List<Discontinued> getAllDiscontinued() {
         return discontinuedRepository.findAll();
     }
 
-    @DeleteMapping(value = "/track/discontinued/delete/{trackId}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @DeleteMapping(value = "/track/discontinued/delete/{trackId}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
     public String deleteRow(@PathVariable Integer trackId) {
         Track result = trackRepository.getById(trackId);
         Integer toBeDeleted = discontinuedRepository.findByTrackId(result).getId();
@@ -57,7 +57,7 @@ public class DiscontinuedController {
         return "Row with : " + trackId + " deleted.";
     }
 
-    @PutMapping(value = "/track/discontinue/update/{trackId}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PutMapping(value = "/track/discontinue/update/{trackId}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<?> updateDiscontinued(@PathVariable Integer trackId, @RequestBody Discontinued newState) {
         Optional<Track> trackResult = trackRepository.findById(trackId);
         Track result = trackRepository.getById(trackId);

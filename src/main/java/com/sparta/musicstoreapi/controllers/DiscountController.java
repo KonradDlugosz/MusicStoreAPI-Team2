@@ -29,12 +29,12 @@ public class DiscountController {
     /**
      *  ALBUM Discounts requests
      */
-    @GetMapping(value = "/album-discount", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/album-discount", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
     public List<Albumdiscount> getAllAlbumDiscounts(){
         return albumdiscountRepository.findAll();
     }
 
-    @GetMapping(value = "/album-discount/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/album-discount/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<?> getAlbumDiscountByID(@PathVariable Integer id){
         Optional<Albumdiscount> albumdiscount = albumdiscountRepository.findById(id);
         if(albumdiscount.isPresent())
@@ -44,12 +44,12 @@ public class DiscountController {
     }
 
 
-    @PostMapping(value = "album-discount/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "album-discount/add", produces = { MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE })
     public Albumdiscount addAlbumDiscount(@RequestBody Albumdiscount albumdiscount){
        return albumdiscountRepository.save(albumdiscount);
     }
 
-    @PutMapping(value = "album-discount/update", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PutMapping(value = "album-discount/update", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<?> updateAlbumDiscount(@RequestBody Albumdiscount albumdiscount){
         Optional<Albumdiscount> oldState = albumdiscountRepository.findById(albumdiscount.getId());
         if(oldState.isPresent()) {
@@ -61,7 +61,7 @@ public class DiscountController {
         }
     }
 
-    @DeleteMapping(value = "album-discount/delete/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @DeleteMapping(value = "album-discount/delete/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
     public Map<String,Boolean> deleteAlbumDiscount(@PathVariable Integer id){
         Optional<Albumdiscount> albumdiscount = albumdiscountRepository.findById(id);
         Map<String,Boolean> response = new HashMap<>();
@@ -78,12 +78,12 @@ public class DiscountController {
      * TRACKS discount requests
      */
 
-    @GetMapping(value = "/tracks-discount", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/tracks-discount", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
     public List<Trackdiscount> getAllTracksDiscounts(){
         return trackdiscountRepository.findAll();
     }
 
-    @GetMapping(value = "/tracks-discount/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/tracks-discount/{id}", produces = {  MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<?> getTrackDiscountByID(@PathVariable Integer id){
         Optional<Trackdiscount> trackdiscount = trackdiscountRepository.findById(id);
         if(trackdiscount.isPresent())
@@ -93,12 +93,12 @@ public class DiscountController {
     }
 
 
-    @PostMapping(value = "tracks-discount/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "tracks-discount/add", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public Trackdiscount addTrackDiscount(@RequestBody Trackdiscount trackdiscount){
         return trackdiscountRepository.save(trackdiscount);
     }
 
-    @PutMapping(value = "tracks-discount/update", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PutMapping(value = "tracks-discount/update", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<?> updateTrackDiscount(@RequestBody Trackdiscount trackdiscount){
         Optional<Trackdiscount> oldState = trackdiscountRepository.findById(trackdiscount.getId());
         if(oldState.isPresent()) {
@@ -110,7 +110,7 @@ public class DiscountController {
         }
     }
 
-    @DeleteMapping(value = "tracks-discount/delete/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @DeleteMapping(value = "tracks-discount/delete/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public Map<String,Boolean> deleteTrackDiscount(@PathVariable Integer id){
         Optional<Trackdiscount> trackdiscount = trackdiscountRepository.findById(id);
         Map<String,Boolean> response = new HashMap<>();
@@ -128,12 +128,12 @@ public class DiscountController {
      * PLAYLISTS discount requests
      */
 
-    @GetMapping(value = "/playlists-discount", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/playlists-discount", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public List<Playlistdiscount> getAllPlaylistsDiscounts(){
         return playlistdiscountRepository.findAll();
     }
 
-    @GetMapping(value = "/playlists-discount/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/playlists-discount/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<?> getPlaylistsDiscountByID(@PathVariable Integer id){
         Optional<Playlistdiscount> playlistdiscount = playlistdiscountRepository.findById(id);
         if(playlistdiscount.isPresent())
@@ -143,12 +143,12 @@ public class DiscountController {
     }
 
 
-    @PostMapping(value = "playlists-discount/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "playlists-discount/add", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public Playlistdiscount addPlaylistsDiscount(@RequestBody Playlistdiscount playlistdiscount){
         return playlistdiscountRepository.save(playlistdiscount);
     }
 
-    @PutMapping(value = "playlists-discount/update", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PutMapping(value = "playlists-discount/update", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<?> updatePlaylistsDiscount(@RequestBody Playlistdiscount playlistdiscount){
         Optional<Playlistdiscount> oldState = playlistdiscountRepository.findById(playlistdiscount.getId());
         if(oldState.isPresent()) {
@@ -160,7 +160,7 @@ public class DiscountController {
         }
     }
 
-    @DeleteMapping(value = "playlists-discount/delete/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @DeleteMapping(value = "playlists-discount/delete/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public Map<String,Boolean> deletePlaylistsDiscount(@PathVariable Integer id){
         Optional<Playlistdiscount> playlistdiscount = playlistdiscountRepository.findById(id);
         Map<String,Boolean> response = new HashMap<>();

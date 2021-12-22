@@ -17,6 +17,9 @@
       <ul>
         <li><a href="#track">Track</a></li>
       </ul>
+	    <ul>
+        <li><a href="#customer">Customer</a></li>
+      </ul>
     </li>
       <li><a href="#tools-and-Frameworks">Tools and Frameworks</a></li>
 	<li><a href="#credits-and-contact">Credits and Contact</a></li>
@@ -208,6 +211,152 @@ Example for artist **AC/DC** with ID : **1**
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+### **Customer**
+
+#### *GET all customers*
+
+URL endpoint: chinook/allcustomer
+
+Response: list of all customers
+
+```json
+[
+    {
+        "id": 1,
+        "firstName": "Luís",
+        "lastName": "Gonçalves",
+        "company": "Embraer - Empresa Brasileira de Aeronáutica S.A.",
+        "address": "Av. Brigadeiro Faria Lima, 2170",
+        "city": "São José dos Campos",
+        "state": "SP",
+        "country": "Brazil",
+        "postalCode": "12227-000",
+        "phone": "+55 (12) 3923-5555",
+        "fax": "+55 (12) 3923-5566",
+        "email": "luisg@embraer.com.br",
+        "supportRepId": 4
+    },
+    {
+        "id": 2,
+        "firstName": "Leonie",
+        "lastName": "Köhler",
+        "company": null,
+        "address": "Theodor-Heuss-Straße 34",
+        "city": "Stuttgart",
+        "state": null,
+        "country": "Germany",
+        "postalCode": "70174",
+        "phone": "+49 0711 2842222",
+        "fax": null,
+        "email": "leonekohler@surfeu.de",
+        "supportRepId": 6
+    },
+...
+```
+
+
+
+#### *GET customer by ID*
+
+URL endpoint: /chinook/customer/{customerID}
+
+Response: customer for given ID
+
+Example for customer with ID: **10**
+
+```json
+{
+    "id": 10,
+    "firstName": "Eduardo",
+    "lastName": "Martins",
+    "company": "Woodstock Discos",
+    "address": "Rua Dr. Falcão Filho, 155",
+    "city": "São Paulo",
+    "state": "SP",
+    "country": "Brazil",
+    "postalCode": "01007-010",
+    "phone": "+55 (11) 3033-5446",
+    "fax": "+55 (11) 3033-4564",
+    "email": "eduardo@woodstock.com.br",
+    "supportRepId": 4
+}
+```
+
+#### *POST customer*
+
+URL endpoint: /chinook/customer/add
+
+Response: Inserts a new customer into the Customer Table
+
+Example for customer in json format:
+```json
+{
+    "firstName": "Eduardo",
+    "lastName": "Martins",
+    "company": "Woodstock Discos",
+    "address": "Rua Dr. Falcão Filho, 155",
+    "city": "São Paulo",
+    "state": "SP",
+    "country": "Brazil",
+    "postalCode": "01007-010",
+    "phone": "+55 (11) 3033-5446",
+    "fax": "+55 (11) 3033-4564",
+    "email": "eduardo@woodstock.com.br",
+    "supportRepId": 4
+}
+```
+
+#### *PUT customer*
+
+URL endpoint: /chinook/customer/update/{customerID}
+
+Response: Updates an existsing customer by ID
+
+Example for customer of ID: 10, being updated with:
+```json
+{
+    "firstName": "Eduardo",
+    "lastName": "Martins",
+    "company": "Woodstock Discos",
+    "address": "Rua Dr. Falcão Filho, 155",
+    "city": "São Paulo",
+    "state": "SP",
+    "country": "Brazil",
+    "postalCode": "01007-010",
+    "phone": "+55 (11) 3033-5446",
+    "fax": "+55 (11) 3033-4564",
+    "email": "eduardo@woodstock.com.br",
+    "supportRepId": 4
+}
+```
+
+#### *GET customer by Email*
+
+URL endpoint: /chinook/customer/email/{email}
+
+Response: customer that matches the given email
+
+Example for Email: "eduardo@woodstock.com.br":
+```json
+{
+    "firstName": "Eduardo",
+    "lastName": "Martins",
+    "company": "Woodstock Discos",
+    "address": "Rua Dr. Falcão Filho, 155",
+    "city": "São Paulo",
+    "state": "SP",
+    "country": "Brazil",
+    "postalCode": "01007-010",
+    "phone": "+55 (11) 3033-5446",
+    "fax": "+55 (11) 3033-4564",
+    "email": "eduardo@woodstock.com.br",
+    "supportRepId": 4
+}
+```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
 ---
 
 ## Credits and Contact
@@ -219,16 +368,3 @@ Example for artist **AC/DC** with ID : **1**
 ## License
 
 **Free**
-
-### Setup the IsDiscontinued SQL Query:
-
-```
-USE `Chinook`;
-
-CREATE TABLE `Discontinued`
-(
-	`TrackId` int,
-	FOREIGN KEY (`TrackId`) REFERENCES `Track`(`TrackId`),
-    `IsDiscontinued` BOOLEAN
-);
-```

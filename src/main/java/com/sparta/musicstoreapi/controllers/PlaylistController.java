@@ -8,6 +8,7 @@ import com.sparta.musicstoreapi.repositories.PlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,17 +16,19 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping(value = "/chinook")
 public class PlaylistController {
     @Autowired
     private PlaylistRepository playlistRepository;
     @Autowired
     private ObjectMapper objectMapper;
+
     //CREATE - Level 2 permissions
-    @PostMapping(value = "/chinook/playlist/add")
+    @PostMapping(value = "/playlist/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
     public Playlist insertPlaylist(@RequestBody Playlist newPlaylist){ return playlistRepository.save(newPlaylist);}
     //UPDATE - Level 2 permissions
 
-    @PutMapping(value = "/chinook/playlist/update/{id}")
+    @PutMapping(value = "/playlist/update/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<String> updatePlaylistById(@PathVariable Integer id){
         Optional<Playlist> result = playlistRepository.findById(id);
         HttpHeaders headers = new HttpHeaders();
@@ -41,11 +44,12 @@ public class PlaylistController {
         }
         return new ResponseEntity<String>("{\"message\": \"no match found\"}", headers, HttpStatus.OK);
     }
-    @GetMapping(value = "/chinook/playlists")
+    @GetMapping(value = "/playlists", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
     //READ - Get all, get by ID
     public List<Playlist> getAllPlaylists(){ return playlistRepository.findAll(); }
-    @GetMapping(value = "/chinook/playlist")
-    public Playlist getPlaylist(@RequestParam Integer id){
+
+    @GetMapping(value = "/playlist/{id}")
+    public Playlist getPlaylist(@PathVariable Integer id){
         Optional<Playlist> result = playlistRepository.findById(id);
         if(result.isPresent()){
             return result.get();
@@ -54,7 +58,7 @@ public class PlaylistController {
         }
     }
     //DELETE - Level 2 permissions
-    @DeleteMapping(value = "/chinook/playlist/delete")
-    public void deletePlaylist(@RequestParam Integer id){ playlistRepository.deleteById(id); }
+    @DeleteMapping(value = "/playlist/delete/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    public void deletePlaylist(@PathVariable Integer id){ playlistRepository.deleteById(id); }
 
 }

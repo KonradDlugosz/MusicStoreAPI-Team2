@@ -23,7 +23,6 @@ public class PlaylistTesting {
 
     private static HttpResponse<String> getAllPlaylistsResponse = null;
     private static HttpResponse<String> getOnePlaylistResponse = null;
-    private static Playlist getOnePlaylistResponseJSON = null;
     private static HttpResponse<String> postPlaylistResponse = null;
     private static HttpResponse<String> putPlaylistResponse = null;
 
@@ -31,7 +30,6 @@ public class PlaylistTesting {
     public static void getConnections(){
         getAllPlaylistsResponse = getRequest(GET_ALL_PLAYLISTS);
         getOnePlaylistResponse = getRequest(GET_PLAYLIST_BY_ID);
-        getOnePlaylistResponseJSON = getObjectMapper(getRequest(GET_PLAYLIST_BY_ID).body());
         postPlaylistResponse = postRequest(POST_PLAYLIST);
         putPlaylistResponse = putRequest(PUT_PLAYLIST);
     }
@@ -50,17 +48,6 @@ public class PlaylistTesting {
                 .header("Content-Type", "application/json")
                 .build();
         return getResponse(request);
-    }
-    public static Playlist getObjectMapper(String json) {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.findAndRegisterModules();
-        Playlist playlist = null;
-        try {
-            playlist = mapper.readValue(json, Playlist.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return playlist;
     }
     public static HttpResponse<String> postRequest(String url){
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))

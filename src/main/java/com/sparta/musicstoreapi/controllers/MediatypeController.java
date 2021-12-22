@@ -19,12 +19,12 @@ public class MediatypeController {
     @Autowired
     private MediatypeRepository mediatypeRepository;
 
-    @GetMapping(value = "/allmediatypes", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/allmediatypes", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public List<Mediatype> getAllMediatypes() {
         return mediatypeRepository.findAll();
     }
 
-    @GetMapping(value = "/mediatypes/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/mediatypes/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<?> getMediatypesById(@PathVariable Integer id) {
         Optional<Mediatype> mediatype = mediatypeRepository.findById(id);
         if (mediatype.isEmpty())
@@ -34,13 +34,13 @@ public class MediatypeController {
     }
 
 
-    @PostMapping(value = "/mediatype/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/mediatype/add", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<Mediatype> addNewMediatype(@RequestBody Mediatype newMediatype) {
         mediatypeRepository.save(newMediatype);
         return ResponseEntity.ok(newMediatype);
     }
 
-    @PutMapping(value = "/mediatype/update", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PutMapping(value = "/mediatype/update", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<Mediatype> updateMediatype(@Valid @RequestBody Mediatype mediatype) {
         Optional<Mediatype> results = mediatypeRepository.findById(mediatype.getId());
         if (results.isPresent()) {

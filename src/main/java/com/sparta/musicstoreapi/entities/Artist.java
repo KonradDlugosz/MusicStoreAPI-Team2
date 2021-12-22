@@ -1,9 +1,13 @@
 package com.sparta.musicstoreapi.entities;
 
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "artist")
+@Indexed
 public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,6 +15,7 @@ public class Artist {
     private Integer id;
 
     @Column(name = "Name", length = 120)
+    @Field
     private String name;
 
     public String getName() {

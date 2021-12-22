@@ -57,6 +57,7 @@ public class PlaylistController {
             return null;
         }
     }
+  
     //DELETE - Level 2 permissions
     @DeleteMapping(value = "/playlist/delete/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public void deletePlaylist(@PathVariable Integer id){ playlistRepository.deleteById(id); }

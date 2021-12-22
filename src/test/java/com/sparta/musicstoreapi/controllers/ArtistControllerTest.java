@@ -91,25 +91,25 @@ public class ArtistControllerTest {
     }
     @Test
     @DisplayName("1: Given all Artist request, return 200 status")
-    public void getAllInvoicesStatusCode(){
+    public void getAllArtistsStatusCode(){
         Assertions.assertEquals(200, getAllArtistsResponse.statusCode());
     }
 
     @Test
     @DisplayName("2: Given Artist ID, return 200 status")
-    public void getOneInvoiceStatusCode(){
+    public void getOneArtistStatusCode(){
         Assertions.assertEquals(200, getOneArtistResponse.statusCode());
     }
 
     @Test
-    @DisplayName("3: Given new Artist invoice, return 200 status")
-    public void postInvoiceStatusCheck(){
+    @DisplayName("3: Given new Artist, return 200 status")
+    public void postArtistStatusCheck(){
         Assertions.assertEquals(200, postArtistResponse.statusCode());
     }
 
     @Test
     @DisplayName("4: Given Artist update, return 200 status")
-    public void putInvoiceStatusCheck(){
+    public void putArtistStatusCheck(){
         Assertions.assertEquals(200, putArtistResponse.statusCode());
     }
 

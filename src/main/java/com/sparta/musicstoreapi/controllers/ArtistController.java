@@ -2,6 +2,7 @@ package com.sparta.musicstoreapi.controllers;
 
 import com.sparta.musicstoreapi.entities.Artist;
 import com.sparta.musicstoreapi.repositories.ArtistRepository;
+import com.sparta.musicstoreapi.utils.ArtistDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +47,4 @@ public class ArtistController {
         artistRepository.save(newState);
         return newState;
     }
-
-
 }

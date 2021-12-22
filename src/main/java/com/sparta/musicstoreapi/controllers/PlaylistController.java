@@ -24,11 +24,11 @@ public class PlaylistController {
     private ObjectMapper objectMapper;
 
     //CREATE - Level 2 permissions
-    @PostMapping(value = "/playlist/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/playlist/add", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public Playlist insertPlaylist(@RequestBody Playlist newPlaylist){ return playlistRepository.save(newPlaylist);}
     //UPDATE - Level 2 permissions
 
-    @PutMapping(value = "/playlist/update/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PutMapping(value = "/playlist/update/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<String> updatePlaylistById(@PathVariable Integer id){
         Optional<Playlist> result = playlistRepository.findById(id);
         HttpHeaders headers = new HttpHeaders();
@@ -44,7 +44,7 @@ public class PlaylistController {
         }
         return new ResponseEntity<String>("{\"message\": \"no match found\"}", headers, HttpStatus.OK);
     }
-    @GetMapping(value = "/playlists", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/playlists", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     //READ - Get all, get by ID
     public List<Playlist> getAllPlaylists(){ return playlistRepository.findAll(); }
 
@@ -57,4 +57,9 @@ public class PlaylistController {
             return null;
         }
     }
+  
+    //DELETE - Level 2 permissions
+    @DeleteMapping(value = "/playlist/delete/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    public void deletePlaylist(@PathVariable Integer id){ playlistRepository.deleteById(id); }
+
 }

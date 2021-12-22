@@ -19,12 +19,12 @@ public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @GetMapping(value = "/allemployees", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/allemployees", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
 
-    @GetMapping(value = "/employees/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/employees/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<?> getEmployeeById(@PathVariable Integer id) {
         Optional<Employee> employee = employeeRepository.findById(id);
         if (employee.isEmpty())
@@ -34,13 +34,13 @@ public class EmployeeController {
     }
 
 
-    @PostMapping(value = "/employee/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/employee/add", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<Employee> addNewEmployee(@RequestBody Employee newEmployee) {
         employeeRepository.save(newEmployee);
         return ResponseEntity.ok(newEmployee);
     }
 
-    @PutMapping(value = "/employees/update", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PutMapping(value = "/employees/update", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<Employee> updateEmployee(@Valid @RequestBody Employee employee) {
         Optional<Employee> results = employeeRepository.findById(employee.getId());
         if (results.isPresent()) {

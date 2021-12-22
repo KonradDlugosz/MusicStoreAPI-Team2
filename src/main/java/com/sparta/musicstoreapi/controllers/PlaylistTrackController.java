@@ -22,6 +22,7 @@ public class PlaylistTrackController {
     @Autowired
     private TrackRepository trackRepository;
     //CREATE
+
     @PostMapping(value = "/chinook/playlisttrack/add/{playlistID}/{trackID}")
     public Playlisttrack insertPlaylist(@PathVariable Integer playlistID, @PathVariable Integer trackID){
         if(!playlistRepository.existsById(playlistID)){ return null; }
@@ -34,10 +35,12 @@ public class PlaylistTrackController {
             Playlisttrack newPlaylisttrack = new Playlisttrack();
             newPlaylisttrack.setId(newPlaylisttrackId);
             return newPlaylisttrack;
+
         }
         return null;
     }
     //UPDATE
+
     @PutMapping(value = "/chinook/playlisttrack/update")
     public Playlisttrack updatePlaylistTrack(@RequestBody Playlisttrack newPlaylistTrack){
         Optional<Playlisttrack> oldState = playlisttrackRepository.findById(newPlaylistTrack.getId());
@@ -45,6 +48,7 @@ public class PlaylistTrackController {
         playlisttrackRepository.save(newPlaylistTrack);
         return newPlaylistTrack;
     }
+
     @GetMapping(value = "/chinook/playlisttracks")
     //READ - Get all, get by ID
     public List<Playlisttrack> getAllPlaylists(){ return playlisttrackRepository.findAll(); }
@@ -54,6 +58,15 @@ public class PlaylistTrackController {
                 .filter( playlisttrack -> playlisttrack.getId().getPlaylistId() == playlistID)
                 .toList();
     }
+
+    @GetMapping(value = "/playlisttrack", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    public Playlisttrack getPlaylistTrackByID(@RequestParam Integer id){
+        return null;
+    }
+    //DELETE
+    @DeleteMapping(value = "/playlisttrack/delete", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    public void deletePlaylist(@RequestParam Integer id){}
+
     @GetMapping(value = "/chinook/playlisttrack/{playlistID}/{trackID}")
     public Playlisttrack getPlaylistByPlaylistIDAndTrackID(@PathVariable Integer playlistID,@PathVariable Integer trackID){
         Optional<Playlisttrack> playlistTrackExists = playlisttrackRepository.findAll().stream()
@@ -64,5 +77,6 @@ public class PlaylistTrackController {
         }
         return null;
     }
+
 }
 

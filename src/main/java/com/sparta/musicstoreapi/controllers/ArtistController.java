@@ -20,8 +20,8 @@ public class ArtistController {
     }
 
     @GetMapping(value = "/chinook/artist/{id}")
-    public Artist findArtistById(@PathVariable Integer id) {
-        Artist result = artistRepository.getById(id);
+    public Optional<Artist> findArtistById(@PathVariable Integer id) {
+        Optional<Artist> result = artistRepository.findById(id);
         if (result.equals(null)) {
             System.err.println("Result not found or is null");
             return null;

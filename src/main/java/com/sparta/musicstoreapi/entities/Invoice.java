@@ -119,4 +119,15 @@ public class Invoice {
     public Invoice(Integer id) {
         this.id =id;
     }
+
+    public Invoice(Customer customerId, Instant invoiceDate, String billingAddress, String billingCity, String billingState, String billingCountry, String billingPostalCode, BigDecimal total) {
+        this.customerId = customerId;
+        this.invoiceDate = invoiceDate;
+        this.billingAddress = billingAddress;
+        this.billingCity = billingCity;
+        this.billingState = billingState;
+        this.billingCountry = billingCountry;
+        this.billingPostalCode = billingPostalCode;
+        this.total = total;
+    }
 }

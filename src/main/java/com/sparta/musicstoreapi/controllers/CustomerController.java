@@ -3,6 +3,7 @@ package com.sparta.musicstoreapi.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.musicstoreapi.entities.Customer;
+import com.sparta.musicstoreapi.entities.Track;
 import com.sparta.musicstoreapi.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,24 +60,17 @@ public class CustomerController {
 
     /**
      * Update customer by id. If id doesnt exist return no match found
-      * @param id customer id
      * @return no match found if no id
      */
-    @PutMapping(value = "/customer/update/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-    public ResponseEntity<String> updateCustomerById(@PathVariable Integer id){
-        Optional<Customer> result = customerRepository.findById(id);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("content-type", "application/json; charset=utf-8");
-        if(result.isPresent()){
-            try{
-                ResponseEntity<String> responseEntity =
-                        new ResponseEntity<String>(objectMapper.writeValueAsString(result.get()), headers, HttpStatus.OK);
-                return responseEntity;
-            }catch (JsonProcessingException e){
-                e.printStackTrace();
-            }
+    @PutMapping(value = "/customer/update", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<String> updateCustomer(@Valid @RequestBody Customer customer){
+        Optional<Customer> customerToUpdate = customerRepository.findById(customer.getId());
+        if(customerToUpdate.isPresent()){
+            customerRepository.save(customer);
+            return new ResponseEntity<String>("Customer updated", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Customer doesn't exists.", HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<String>("{\"message\": \"no match found\"}", headers, HttpStatus.OK);
     }
 
     @GetMapping(value = "/customer/email", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })

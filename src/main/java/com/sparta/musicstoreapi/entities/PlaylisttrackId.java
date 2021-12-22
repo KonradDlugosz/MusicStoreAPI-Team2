@@ -1,10 +1,10 @@
 package com.sparta.musicstoreapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -13,15 +13,18 @@ public class PlaylisttrackId implements Serializable {
     private static final long serialVersionUID = -2374584036195361466L;
     @Column(name = "PlaylistId", nullable = false)
     private Integer playlistId;
-    @Column(name = "TrackId", nullable = false)
-    private Integer trackId;
 
-    public Integer getTrackId() {
-        return trackId;
+    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "TrackId", nullable = false)
+    private Track track;
+
+    public Track getTrack() {
+        return track;
     }
 
-    public void setTrackId(Integer trackId) {
-        this.trackId = trackId;
+    public void setTrack(Track track) {
+        this.track = track;
     }
 
     public Integer getPlaylistId() {
@@ -34,7 +37,7 @@ public class PlaylisttrackId implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(playlistId, trackId);
+        return Objects.hash(playlistId, track);
     }
 
     @Override
@@ -43,6 +46,6 @@ public class PlaylisttrackId implements Serializable {
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         PlaylisttrackId entity = (PlaylisttrackId) o;
         return Objects.equals(this.playlistId, entity.playlistId) &&
-                Objects.equals(this.trackId, entity.trackId);
+                Objects.equals(this.track, entity.track);
     }
 }

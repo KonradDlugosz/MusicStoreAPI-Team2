@@ -8,6 +8,7 @@ import com.sparta.musicstoreapi.repositories.ArtistRepository;
 import com.sparta.musicstoreapi.repositories.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,12 +30,12 @@ public class TrackController {
     @Autowired
     private AlbumRepository albumRepository;
 
-    @GetMapping(value = "/tracks")
+    @GetMapping(value = "/tracks", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<Track> getAllTracks(){
         return trackRepository.findAll();
     }
 
-    @GetMapping(value = "/tracks/{id}")
+    @GetMapping(value = "/tracks/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<?> getTrackById(@PathVariable Integer id){
         Optional<Track> track = trackRepository.findById(id);
         if(track.isEmpty())
@@ -43,12 +44,12 @@ public class TrackController {
             return ResponseEntity.ok(track.get());
     }
 
-    @GetMapping(value = "/tracks-by-name")
+    @GetMapping(value = "/tracks-by-name", produces = {MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE})
     public List<Track> getTrackBySearch(@RequestParam String name){
         return trackRepository.findByNameContains(name);
     }
 
-    @GetMapping(value = "/tracks-by-album/{albumId}")
+    @GetMapping(value = "/tracks-by-album/{albumId}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
     public List<Track> getTrackByAlbumID(@PathVariable Integer albumId){
         List<Track> trackByAlbumId = trackRepository
                 .findAll()
@@ -58,7 +59,7 @@ public class TrackController {
         return trackByAlbumId;
     }
 
-    @GetMapping(value = "/tracks-by-artist/{artistId}")
+    @GetMapping(value = "/tracks-by-artist/{artistId}", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE,})
     public List<Track> getTrackByArtist(@PathVariable Integer artistId){
 
         List<Track> allTracksForArtist = new ArrayList<>();
@@ -83,12 +84,12 @@ public class TrackController {
     }
 
 
-    @PostMapping(value = "tracks/add")
+    @PostMapping(value = "tracks/add", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
     public Track addNewTrac(@Valid @RequestBody Track track){
         return trackRepository.save(track);
     }
 
-    @PutMapping(value = "tracks/update")
+    @PutMapping(value = "tracks/update", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<String> updateTrack(@Valid @RequestBody Track track){
         Optional<Track> trackToUpdate = trackRepository.findById(track.getId());
         if(trackToUpdate.isPresent()){

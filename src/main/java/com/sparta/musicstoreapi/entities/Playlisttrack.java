@@ -1,8 +1,9 @@
 package com.sparta.musicstoreapi.entities;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "playlisttrack")
@@ -17,4 +18,5 @@ public class Playlisttrack {
     public void setId(PlaylisttrackId id) {
         this.id = id;
     }
+
 }

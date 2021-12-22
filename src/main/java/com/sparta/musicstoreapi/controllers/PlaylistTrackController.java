@@ -14,7 +14,7 @@ public class PlaylistTrackController {
     @Autowired
     private PlaylisttrackRepository playlisttrackRepository;
     //CREATE
-    @PostMapping(value = "/chinnok/playlist/add")
+    @PostMapping(value = "/chinook/playlisttrack/add")
     public Playlisttrack insertPlaylist(@RequestParam Playlisttrack newPlaylistTrack){
         Optional<Playlisttrack> PlaylistTrackExists = playlisttrackRepository.findById(newPlaylistTrack.getId());
         if(PlaylistTrackExists.isEmpty()){
@@ -24,21 +24,24 @@ public class PlaylistTrackController {
         return null;
     }
     //UPDATE
-    @PutMapping(value = "/chinnok/playlist/update")
+    @PutMapping(value = "/chinook/playlisttrack/update")
     public Playlisttrack updatePlaylistTrack(@RequestParam Playlisttrack newPlaylistTrack){
         Optional<Playlisttrack> oldState = playlisttrackRepository.findById(newPlaylistTrack.getId());
         if(oldState.isEmpty()) return null;
         playlisttrackRepository.save(newPlaylistTrack);
         return newPlaylistTrack;
     }
-    @GetMapping(value = "/chinnok/playlists")
+    @GetMapping(value = "/chinook/playlisttracks")
     //READ - Get all, get by ID
-    public List<Playlisttrack> getAllPlaylists(){ return playlisttrackRepository.findAll(); }
-    @GetMapping(value = "/chinnok/playlist")
+    public List<Playlisttrack> getAllPlaylists(){
+        return playlisttrackRepository.findAll();
+    }
+
+    @GetMapping(value = "/chinook/playlisttrack")
     public Playlisttrack getPlaylistTrackByID(@RequestParam Integer id){
         return null;
     }
     //DELETE
-    @DeleteMapping(value = "/chinnok/playlist/delete")
+    @DeleteMapping(value = "/chinook/playlisttrack/delete")
     public void deletePlaylist(@RequestParam Integer id){}
 }

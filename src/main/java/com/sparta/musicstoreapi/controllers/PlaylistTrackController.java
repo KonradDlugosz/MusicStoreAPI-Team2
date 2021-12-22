@@ -33,7 +33,10 @@ public class PlaylistTrackController {
     }
     @GetMapping(value = "/chinook/playlisttracks")
     //READ - Get all, get by ID
-    public List<Playlisttrack> getAllPlaylists(){ return playlisttrackRepository.findAll(); }
+    public List<Playlisttrack> getAllPlaylists(){
+        return playlisttrackRepository.findAll();
+    }
+
     @GetMapping(value = "/chinook/playlisttrack")
     public Playlisttrack getPlaylistTrackByID(@RequestParam Integer id){
         return null;

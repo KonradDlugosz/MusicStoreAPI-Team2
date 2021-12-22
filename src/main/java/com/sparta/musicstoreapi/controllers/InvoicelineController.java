@@ -3,6 +3,7 @@ package com.sparta.musicstoreapi.controllers;
 import com.sparta.musicstoreapi.entities.*;
 import com.sparta.musicstoreapi.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @RestController
+@RequestMapping(value = "/chinook")
 public class InvoicelineController {
 
     @Autowired
@@ -32,13 +34,13 @@ public class InvoicelineController {
     private PlaylistdiscountRepository playlistdiscountRepository;
 
 
-    @GetMapping(value = "/chinook/invoicelines")
+    @GetMapping(value = "/invoicelines", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
     public List<Invoiceline> findAllInvoicelines(){
         return invoicelineRepository.findAll();
     }
 
-    @GetMapping(value = "/chinook/invoiceline")
-    public Invoiceline findInvoicelineById(@RequestParam Integer id){
+    @GetMapping(value = "/invoiceline/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    public Invoiceline findInvoicelineById(@PathVariable Integer id){
         Optional<Invoiceline> result =  invoicelineRepository.findById(id);
         if(result.isEmpty()) return null;
         return result.get();
@@ -225,9 +227,10 @@ public class InvoicelineController {
             invoiceRepository.save(invoice);
         }
         return invoice;
+
     }
 
-    @PutMapping(value = "/chinook/invoiceline/update")
+    @PutMapping(value = "/invoiceline/update", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
     public Invoiceline updateInvoiceline(@RequestBody Invoiceline newState) {
         Optional<Invoiceline> oldState = invoicelineRepository.findById(newState.getId());
         if (oldState.isEmpty()) {

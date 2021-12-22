@@ -11,7 +11,7 @@
     <li>
       <a href="#about-the-project">About The Project</a>
     </li>
-    <li><a href="#getting-started">Getting Started</a></li>
+    <li><a href="#checklist">Checklist</a></li>
     <li>
       <a href="#Entities">Entities</a>
       <ul>
@@ -19,24 +19,37 @@
       </ul>
     </li>
       <li><a href="#tools-and-Frameworks">Tools and Frameworks</a></li>
+	<li><a href="#credits-and-contact">Credits and Contact</a></li>
+	  <li><a href="#license">License</a></li>
   </ol>
 </details>
 
 ## About The Project
 
-//TODO 
+>Create an API that can manipulate a Music Store Database, with retrieving, updating and inserting data from and into the tables in the database.
+>
+>Keep in mind when coding of SOLID principles, design patterns, Java standard practices, git conflicts when merging, JDBC configuration and OOP. 
+>
+>Add addtional functionality such as Token Access, advanced search functions and a few extra tables such as the Discount Table.
 
-## Getting Started
+## Checklist
 
-//TODO
+- [x] SOLID principles
+- [x] Java standard practices
+- [x] Use of git and sorting merging conflicts
+- [x] Use of JDBC
+- [x] Entities, Repositories and Controllers
+- [x] Access Token Implementation
+- [ ] Advanced Search Functions
+- [x] Junit Testing
 
 ## Entities
 
 This section demonstrates how to use requests for given entity. 
 
-### Track
+### **Track**
 
-#### GET all tracks
+#### *GET all tracks*
 
 URL endpoint: chinook/tracks
 
@@ -71,7 +84,7 @@ Response: list of all tracks
 
 
 
-#### GET track by ID
+#### *GET track by ID*
 
 URL endpoint: /chinook/tracks/{trackId}
 
@@ -95,7 +108,7 @@ Example for track with ID: **100**
 
 
 
-#### GET track by name
+#### *GET track by name*
 
 URL endpoint: /chinook/tracks-by-name?name=Balls
 
@@ -121,7 +134,7 @@ Example for track with name: **"Out of exile"**
 
 
 
-#### GET track by album ID 
+#### *GET track by album ID*
 
 URL endpoint: /chinook/tracks-by-album/{albumId}
 
@@ -158,7 +171,7 @@ Example for album with ID: **9**
 
 
 
-#### GET track by artist ID 
+#### *GET track by artist ID*
 
 URL endpoint: /chinook/tracks-by-artist/{artistId}
 
@@ -195,9 +208,17 @@ Example for artist **AC/DC** with ID : **1**
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+---
 
+## Credits and Contact
 
+[Kamil](https://github.com/rwenmax) • [Konrad](https://github.com/KonradDlugosz) • [Talal](https://github.com/talal1998) • [Alex](https://github.com/alexsusanu) • [Anthony](https://github.com/MagerXser) • [Ed](https://github.com/EdBencito) • [Nikolas](https://github.com/Moodhunter34) • [Ishmael](https://github.com/ishariffSG) • [Mihai](https://github.com)  
 
+---
+
+## License
+
+**Free**
 
 ### Setup the IsDiscontinued SQL Query:
 

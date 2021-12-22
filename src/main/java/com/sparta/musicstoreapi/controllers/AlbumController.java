@@ -24,7 +24,7 @@ public class AlbumController {
     @Autowired
     ObjectMapper mapper;
 
-    @GetMapping(value = "/album/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/album/{id}", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE,})
     public ResponseEntity<String> getAlbumById(@PathVariable Integer id) {
         Optional<Album> result = albumRepository.findById(id);
         HttpHeaders headers = new HttpHeaders();
@@ -39,12 +39,12 @@ public class AlbumController {
         } return new ResponseEntity<String>("{\"message\": \"That album doesnt exist\"}", headers, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/albums", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/albums", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
     public List<Album> getAllAlbums() {
         return albumRepository.findAll();
     }
 
-    @PostMapping(value = "/album/insert" , produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/album/insert" , produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
     public String insertAlbum(@RequestBody Album album) {
         if (albumRepository.existsById(album.getId())) {
             return "Album already exists.";
@@ -54,7 +54,7 @@ public class AlbumController {
         }
     }
 
-    @PutMapping(value = "/album/update" , produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PutMapping(value = "/album/update" , produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public Album updateAlbum(@RequestBody Album newState) {
         Optional<Album> oldState = albumRepository.findById(newState.getId());
         if (oldState.isEmpty()) {

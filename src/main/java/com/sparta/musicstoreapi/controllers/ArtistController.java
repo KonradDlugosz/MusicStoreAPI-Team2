@@ -17,12 +17,12 @@ public class ArtistController {
     @Autowired
     private ArtistRepository artistRepository;
 
-    @GetMapping(value = "/artist/findAll", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/artist/findAll", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public List<Artist> findAllArtists() {
         return artistRepository.findAll();
     }
 
-    @GetMapping(value = "/artist/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/artist/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
     public Optional<Artist> findArtistById(@PathVariable Integer id) {
         Optional<Artist> result = artistRepository.findById(id);
         if (result.equals(null)) {
@@ -32,12 +32,12 @@ public class ArtistController {
         return result;
     }
 
-    @PostMapping(value = "/artist/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/artist/add", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE,})
     public Artist addArtist(@RequestBody Artist newArtist) {
         return artistRepository.save(newArtist);
     }
 
-    @PutMapping(value = "/artist/update", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PutMapping(value = "/artist/update", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE, })
     public Artist updateCustomerById(@RequestBody Artist newState) {
         Optional<Artist> oldState = artistRepository.findById(newState.getId());
         if (oldState.isEmpty()) {

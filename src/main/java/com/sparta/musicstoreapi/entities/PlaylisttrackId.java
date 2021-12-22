@@ -13,18 +13,15 @@ public class PlaylisttrackId implements Serializable {
     private static final long serialVersionUID = -2374584036195361466L;
     @Column(name = "PlaylistId", nullable = false)
     private Integer playlistId;
+    @Column(name = "TrackId", nullable = false)
+    private Integer trackId;
 
-    @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "TrackId", nullable = false)
-    private Track track;
-
-    public Track getTrack() {
-        return track;
+    public Integer getTrackId() {
+        return trackId;
     }
 
-    public void setTrack(Track track) {
-        this.track = track;
+    public void setTrackId(Integer trackId) {
+        this.trackId = trackId;
     }
 
     public Integer getPlaylistId() {
@@ -37,7 +34,7 @@ public class PlaylisttrackId implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(playlistId, track);
+        return Objects.hash(playlistId, trackId);
     }
 
     @Override
@@ -46,6 +43,6 @@ public class PlaylisttrackId implements Serializable {
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         PlaylisttrackId entity = (PlaylisttrackId) o;
         return Objects.equals(this.playlistId, entity.playlistId) &&
-                Objects.equals(this.track, entity.track);
+                Objects.equals(this.trackId, entity.trackId);
     }
 }

@@ -3,6 +3,7 @@ package com.sparta.musicstoreapi.controllers;
 import com.sparta.musicstoreapi.entities.*;
 import com.sparta.musicstoreapi.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -53,7 +54,7 @@ public class InvoicelineController {
                 .toList();
     }
 
-    @PostMapping(value = "/chinook/invoiceline/track/add")
+    @PostMapping(value = "/chinook/invoiceline/track/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
     public Invoiceline addInvoiceline(@RequestParam Integer customerId, @RequestParam Integer trackId){
         BigDecimal totalPrice;
         Invoiceline invoiceline = new Invoiceline();
@@ -93,7 +94,7 @@ public class InvoicelineController {
         return invoicelineRepository.save(invoiceline);
     }
 
-    @PostMapping(value = "/chinook/invoiceline/album/add")
+    @PostMapping(value = "/chinook/invoiceline/album/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
     public List<Invoiceline> addAlbumToInvoiceline(@RequestParam Integer albumId, @RequestParam Integer customerId){
         BigDecimal totalPrice;
         List<Invoiceline> tracksAddedFromAlbum = new ArrayList<>();
@@ -144,7 +145,7 @@ public class InvoicelineController {
         return tracksAddedFromAlbum;
     }
 
-    @PostMapping(value = "/chinook/invoiceline/playlist/add")
+    @PostMapping(value = "/chinook/invoiceline/playlist/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
     public List<Invoiceline> addPlaylistToInvoiceLine(@RequestParam Integer playlistId, @RequestParam Integer customerId){
         BigDecimal totalPrice;
         List<Invoiceline> tracksAddedFromPlaylist = new ArrayList<>();

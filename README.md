@@ -43,7 +43,7 @@
 - [ ] Advanced Search Functions
 - [x] Junit Testing
 
-## Entities
+## Functions
 
 This section demonstrates how to use requests for given entity. 
 

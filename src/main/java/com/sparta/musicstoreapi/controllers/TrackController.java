@@ -30,11 +30,7 @@ public class TrackController {
     @Autowired
     private AlbumRepository albumRepository;
 
-<<<<<<< HEAD
     @GetMapping(value = "/tracks", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-=======
-    @GetMapping(value = "/tracks", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
->>>>>>> dev
     public List<Track> getAllTracks(){
         return trackRepository.findAll();
     }
@@ -48,20 +44,12 @@ public class TrackController {
             return ResponseEntity.ok(track.get());
     }
 
-<<<<<<< HEAD
     @GetMapping(value = "/tracks-by-name", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-=======
-    @GetMapping(value = "/tracks-by-name", produces = {MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE})
->>>>>>> dev
     public List<Track> getTrackBySearch(@RequestParam String name){
         return trackRepository.findByNameContains(name);
     }
 
-<<<<<<< HEAD
     @GetMapping(value = "/tracks-by-album/{albumId}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-=======
-    @GetMapping(value = "/tracks-by-album/{albumId}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
->>>>>>> dev
     public List<Track> getTrackByAlbumID(@PathVariable Integer albumId){
         List<Track> trackByAlbumId = trackRepository
                 .findAll()
@@ -71,11 +59,7 @@ public class TrackController {
         return trackByAlbumId;
     }
 
-<<<<<<< HEAD
     @GetMapping(value = "/tracks-by-artist/{artistId}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-=======
-    @GetMapping(value = "/tracks-by-artist/{artistId}", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE,})
->>>>>>> dev
     public List<Track> getTrackByArtist(@PathVariable Integer artistId){
 
         List<Track> allTracksForArtist = new ArrayList<>();
@@ -100,11 +84,7 @@ public class TrackController {
     }
 
 
-<<<<<<< HEAD
     @PostMapping(value = "tracks/add", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-=======
-    @PostMapping(value = "tracks/add", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
->>>>>>> dev
     public Track addNewTrac(@Valid @RequestBody Track track){
         return trackRepository.save(track);
     }

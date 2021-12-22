@@ -45,7 +45,7 @@ public class InvoicelineController {
         if(result.isEmpty()) return null;
         return result.get();
     }
-    
+
     @GetMapping(value = "/chinook/invoiceline/{invoiceId}")
     public List<Invoiceline> findAllInvoicelinesForId(@PathVariable Integer invoiceId){
         return invoicelineRepository

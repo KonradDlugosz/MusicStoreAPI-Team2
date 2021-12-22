@@ -215,7 +215,7 @@ Example for artist **AC/DC** with ID : **1**
 
 #### *GET all customers*
 
-URL endpoint: chinook/customers
+URL endpoint: chinook/allcustomer
 
 Response: list of all customers
 
@@ -234,55 +234,22 @@ Response: list of all customers
         "phone": "+55 (12) 3923-5555",
         "fax": "+55 (12) 3923-5566",
         "email": "luisg@embraer.com.br",
-        "supportRepId": {
-            "id": 3,
-            "lastName": "Peacock",
-            "firstName": "Jane",
-            "title": "Sales Support Agent",
-            "reportsTo": {
-                "id": 2,
-                "lastName": "Edwards",
-                "firstName": "Nancy",
-                "title": "Sales Manager",
-                "reportsTo": {
-                    "id": 1,
-                    "lastName": "Adams",
-                    "firstName": "Andrew",
-                    "title": "General Manager",
-                    "reportsTo": null,
-                    "birthDate": "1962-02-18T00:00:00Z",
-                    "hireDate": "2002-08-13T23:00:00Z",
-                    "address": "11120 Jasper Ave NW",
-                    "city": "Edmonton",
-                    "state": "AB",
-                    "country": "Canada",
-                    "postalCode": "T5K 2N1",
-                    "phone": "+1 (780) 428-9482",
-                    "fax": "+1 (780) 428-3457",
-                    "email": "andrew@chinookcorp.com"
-                },
-                "birthDate": "1958-12-08T00:00:00Z",
-                "hireDate": "2002-04-30T23:00:00Z",
-                "address": "825 8 Ave SW",
-                "city": "Calgary",
-                "state": "AB",
-                "country": "Canada",
-                "postalCode": "T2P 2T3",
-                "phone": "+1 (403) 262-3443",
-                "fax": "+1 (403) 262-3322",
-                "email": "nancy@chinookcorp.com"
-            },
-            "birthDate": "1973-08-28T23:00:00Z",
-            "hireDate": "2002-03-31T23:00:00Z",
-            "address": "1111 6 Ave SW",
-            "city": "Calgary",
-            "state": "AB",
-            "country": "Canada",
-            "postalCode": "T2P 5M5",
-            "phone": "+1 (403) 262-3443",
-            "fax": "+1 (403) 262-6712",
-            "email": "jane@chinookcorp.com"
-        }
+        "supportRepId": 4
+    },
+    {
+        "id": 2,
+        "firstName": "Leonie",
+        "lastName": "Köhler",
+        "company": null,
+        "address": "Theodor-Heuss-Straße 34",
+        "city": "Stuttgart",
+        "state": null,
+        "country": "Germany",
+        "postalCode": "70174",
+        "phone": "+49 0711 2842222",
+        "fax": null,
+        "email": "leonekohler@surfeu.de",
+        "supportRepId": 6
     },
 ...
 ```
@@ -311,55 +278,7 @@ Example for customer with ID: **10**
     "phone": "+55 (11) 3033-5446",
     "fax": "+55 (11) 3033-4564",
     "email": "eduardo@woodstock.com.br",
-    "supportRepId": {
-        "id": 4,
-        "lastName": "Park",
-        "firstName": "Margaret",
-        "title": "Sales Support Agent",
-        "reportsTo": {
-            "id": 2,
-            "lastName": "Edwards",
-            "firstName": "Nancy",
-            "title": "Sales Manager",
-            "reportsTo": {
-                "id": 1,
-                "lastName": "Adams",
-                "firstName": "Andrew",
-                "title": "General Manager",
-                "reportsTo": null,
-                "birthDate": "1962-02-18T00:00:00Z",
-                "hireDate": "2002-08-13T23:00:00Z",
-                "address": "11120 Jasper Ave NW",
-                "city": "Edmonton",
-                "state": "AB",
-                "country": "Canada",
-                "postalCode": "T5K 2N1",
-                "phone": "+1 (780) 428-9482",
-                "fax": "+1 (780) 428-3457",
-                "email": "andrew@chinookcorp.com"
-            },
-            "birthDate": "1958-12-08T00:00:00Z",
-            "hireDate": "2002-04-30T23:00:00Z",
-            "address": "825 8 Ave SW",
-            "city": "Calgary",
-            "state": "AB",
-            "country": "Canada",
-            "postalCode": "T2P 2T3",
-            "phone": "+1 (403) 262-3443",
-            "fax": "+1 (403) 262-3322",
-            "email": "nancy@chinookcorp.com"
-        },
-        "birthDate": "1947-09-18T23:00:00Z",
-        "hireDate": "2003-05-02T23:00:00Z",
-        "address": "683 10 Street SW",
-        "city": "Calgary",
-        "state": "AB",
-        "country": "Canada",
-        "postalCode": "T2P 5G3",
-        "phone": "+1 (403) 263-4423",
-        "fax": "+1 (403) 263-4289",
-        "email": "margaret@chinookcorp.com"
-    }
+    "supportRepId": 4
 }
 ```
 

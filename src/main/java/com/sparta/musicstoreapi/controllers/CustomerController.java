@@ -67,9 +67,9 @@ public class CustomerController {
         Optional<Customer> customerToUpdate = customerRepository.findById(customer.getId());
         if(customerToUpdate.isPresent()){
             customerRepository.save(customer);
-            return new ResponseEntity<String>("Track updated", HttpStatus.OK);
+            return new ResponseEntity<String>("Customer updated", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Track doesn't exists.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Customer doesn't exists.", HttpStatus.NOT_FOUND);
         }
     }
 

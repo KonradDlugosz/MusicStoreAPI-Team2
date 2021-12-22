@@ -53,8 +53,4 @@ public class PlaylistController {
             return null;
         }
     }
-    //DELETE - Level 2 permissions
-    @DeleteMapping(value = "/chinook/playlist/delete")
-    public void deletePlaylist(@RequestParam Integer id){ playlistRepository.deleteById(id); }
-
 }

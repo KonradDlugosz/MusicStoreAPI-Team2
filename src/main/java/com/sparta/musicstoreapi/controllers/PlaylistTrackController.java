@@ -1,31 +1,45 @@
 package com.sparta.musicstoreapi.controllers;
 
-import com.sparta.musicstoreapi.entities.Playlist;
 import com.sparta.musicstoreapi.entities.Playlisttrack;
+import com.sparta.musicstoreapi.entities.PlaylisttrackId;
+import com.sparta.musicstoreapi.entities.Track;
+import com.sparta.musicstoreapi.repositories.PlaylistRepository;
 import com.sparta.musicstoreapi.repositories.PlaylisttrackRepository;
+import com.sparta.musicstoreapi.repositories.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 public class PlaylistTrackController {
     @Autowired
+    private PlaylistRepository playlistRepository;
+    @Autowired
     private PlaylisttrackRepository playlisttrackRepository;
+    @Autowired
+    private TrackRepository trackRepository;
     //CREATE
-    @PostMapping(value = "/chinook/playlisttrack/add")
-    public Playlisttrack insertPlaylist(@RequestParam Playlisttrack newPlaylistTrack){
-        Optional<Playlisttrack> PlaylistTrackExists = playlisttrackRepository.findById(newPlaylistTrack.getId());
-        if(PlaylistTrackExists.isEmpty()){
-            playlisttrackRepository.save(newPlaylistTrack);
-            return newPlaylistTrack;
+    @PostMapping(value = "/chinook/playlisttrack/add/{playlistID}/{trackID}")
+    public Playlisttrack insertPlaylist(@PathVariable Integer playlistID, @PathVariable Integer trackID){
+        if(!playlistRepository.existsById(playlistID)){ return null; }
+        Optional<Track> trackExists = trackRepository.findById(trackID);
+        if(trackExists.isPresent()){
+            PlaylisttrackId newPlaylisttrackId = new PlaylisttrackId();
+            newPlaylisttrackId.setPlaylistId(playlistID);
+            newPlaylisttrackId.setTrack(trackExists.get());
+            if(playlisttrackRepository.existsById(newPlaylisttrackId)){ return null; }
+            Playlisttrack newPlaylisttrack = new Playlisttrack();
+            newPlaylisttrack.setId(newPlaylisttrackId);
+            return newPlaylisttrack;
         }
         return null;
     }
     //UPDATE
     @PutMapping(value = "/chinook/playlisttrack/update")
-    public Playlisttrack updatePlaylistTrack(@RequestParam Playlisttrack newPlaylistTrack){
+    public Playlisttrack updatePlaylistTrack(@RequestBody Playlisttrack newPlaylistTrack){
         Optional<Playlisttrack> oldState = playlisttrackRepository.findById(newPlaylistTrack.getId());
         if(oldState.isEmpty()) return null;
         playlisttrackRepository.save(newPlaylistTrack);
@@ -34,11 +48,20 @@ public class PlaylistTrackController {
     @GetMapping(value = "/chinook/playlisttracks")
     //READ - Get all, get by ID
     public List<Playlisttrack> getAllPlaylists(){ return playlisttrackRepository.findAll(); }
-    @GetMapping(value = "/chinook/playlisttrack")
-    public Playlisttrack getPlaylistTrackByID(@RequestParam Integer id){
+    @GetMapping(value = "/chinook/playlisttrack/{playlistID}")
+    public List<Playlisttrack> getPlaylistByPlaylistID(@PathVariable Integer playlistID){
+        return playlisttrackRepository.findAll().stream()
+                .filter( playlisttrack -> playlisttrack.getId().getPlaylistId() == playlistID)
+                .toList();
+    }
+    @GetMapping(value = "/chinook/playlisttrack/{playlistID}/{trackID}")
+    public Playlisttrack getPlaylistByPlaylistIDAndTrackID(@PathVariable Integer playlistID,@PathVariable Integer trackID){
+        Optional<Playlisttrack> playlistTrackExists = playlisttrackRepository.findAll().stream()
+                .filter(playlisttrack -> playlisttrack.getId().getPlaylistId() == playlistID && playlisttrack.getId().getTrack().getId() == trackID)
+                .findFirst();
+        if(playlistTrackExists.isPresent()){
+            return playlistTrackExists.get();
+        }
         return null;
     }
-    //DELETE
-    @DeleteMapping(value = "/chinook/playlisttrack/delete")
-    public void deletePlaylist(@RequestParam Integer id){}
 }

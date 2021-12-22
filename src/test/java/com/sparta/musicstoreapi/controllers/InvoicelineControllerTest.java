@@ -24,7 +24,7 @@ public class InvoicelineControllerTest {
 
     private static HttpResponse<String> getAllInvoicelinesResponse = null;
     private static HttpResponse<String> getOneInvoicelineResponse = null;
-//    private static Invoiceline getOneInvoicelineResponseJSON = null;
+    private static Invoiceline getOneInvoicelineResponseJSON = null;
     private static HttpResponse<String> postInvoicelineResponse = null;
     private static HttpResponse<String> putInvoicelineResponse = null;
 
@@ -32,7 +32,7 @@ public class InvoicelineControllerTest {
     public static void getConnections(){
         getAllInvoicelinesResponse = getRequest(GET_ALL_INVOICELINES);
         getOneInvoicelineResponse = getRequest(GET_INVOICELINE_BY_ID);
-//        getOneInvoicelineResponseJSON = getObjectMapper(getRequest(GET_INVOICELINE_BY_ID).body());
+ //       getOneInvoicelineResponseJSON = getObjectMapper(getRequest(GET_INVOICELINE_BY_ID).body());
         postInvoicelineResponse = postRequest(POST_INVOICELINE);
         putInvoicelineResponse = putRequest(PUT_INVOICELINE);
     }

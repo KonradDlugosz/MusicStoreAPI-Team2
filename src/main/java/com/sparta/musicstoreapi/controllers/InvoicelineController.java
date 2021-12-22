@@ -144,18 +144,6 @@ public class InvoicelineController {
         return tracksAddedFromAlbum;
     }
 
-<<<<<<< HEAD
-        @PostMapping(value = "/chinook/invoiceline/playlist/add")
-    public List<Invoiceline> addPlaylistToInvoiceLine(@RequestParam Integer playlistId, @RequestParam Integer customerId){
-
-            BigDecimal totalPrice;
-            List<Invoiceline> tracksAddedFromPlaylist = new ArrayList<>();
-            Playlistdiscount playlistDiscountToApply = null;
-            Invoice invoice = checkIfOpenInvoiceExists(customerId);
-
-            //Check what tracks to add
-            List<Playlisttrack> trackByPlaylistId = playlisttrackRepository
-=======
     @PostMapping(value = "/chinook/invoiceline/playlist/add")
     public List<Invoiceline> addPlaylistToInvoiceLine(@RequestParam Integer playlistId, @RequestParam Integer customerId){
         BigDecimal totalPrice;
@@ -164,51 +152,10 @@ public class InvoicelineController {
         Invoice invoice = checkIfOpenInvoiceExists(customerId);
         //Check what tracks to add
         List<Playlisttrack> trackByPlaylistId = playlisttrackRepository
->>>>>>> InvoiceLineDiscounts
                 .findAll()
                 .stream()
                 .filter(track -> track.getId().getPlaylistId() == playlistId)
                 .toList();
-<<<<<<< HEAD
-
-            //find all playlists discounts
-            List<Playlistdiscount> playlistDiscountsList = playlistdiscountRepository.findAll();
-            for(Playlistdiscount playlistdiscount : playlistDiscountsList){
-                if(playlistdiscount.getPlayListId() == playlistId){
-                    playlistDiscountToApply = playlistdiscount;
-                }
-            }
-
-            //Get current total
-            totalPrice = invoiceRepository.findById(invoice.getId()).get().getTotal();
-
-            //Add each track from playlist
-            for(Playlisttrack playlistTrack: trackByPlaylistId){
-                Invoiceline invoiceline = new Invoiceline();
-                invoiceline.setInvoiceId(invoiceRepository.findById(invoice.getId()).get());
-                invoiceline.setTrackId(trackRepository.findById(playlistTrack.getId().getPlaylistId()).get());
-                //Check if album on discount
-                if(playlistDiscountToApply == null){
-                    invoiceline.setUnitPrice(trackRepository.findById(playlistId).get().getUnitPrice());
-                }
-                else if(playlistDiscountToApply.getPlayListId() == playlistId){
-                    BigDecimal discount = playlistDiscountToApply.getAmount();
-                    BigDecimal price = playlistTrack.getId().
-                    BigDecimal discountAmount = price.multiply(discount);
-                    BigDecimal priceAfterDiscount = price.subtract(discountAmount);
-                    invoiceline.setUnitPrice(priceAfterDiscount.round(new MathContext(2)));
-                }
-                invoiceline.setQuantity(1);
-                totalPrice = totalPrice.add(track.getUnitPrice());
-                tracksAddedFromAlbum.add(invoicelineRepository.save(invoiceline));
-            }
-
-            //update invoice
-            updateInvoice(totalPrice, invoice);
-            return tracksAddedFromAlbum;
-        }
-
-=======
         //find all playlists discounts
         List<Playlistdiscount> playlistDiscountsList = playlistdiscountRepository.findAll();
         for(Playlistdiscount playlistdiscount : playlistDiscountsList){
@@ -242,7 +189,6 @@ public class InvoicelineController {
         //update invoice
         updateInvoice(totalPrice, invoice);
         return tracksAddedFromPlaylist;
->>>>>>> InvoiceLineDiscounts
 
     }
 

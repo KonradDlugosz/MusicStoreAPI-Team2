@@ -3,6 +3,8 @@ DROP TABLE IF EXISTS albumDiscount;
 DROP TABLE IF EXISTS trackDiscount;
 DROP TABLE IF EXISTS playlistDiscount;
 
+DROP TABLE IF EXISTS Discontinued;
+
  CREATE TABLE albumDiscount(
 	Id INT NOT NULL auto_increment,
     AlbumId int NOT NULL,
@@ -28,4 +30,11 @@ DROP TABLE IF EXISTS playlistDiscount;
     Amount decimal(3,2),
     PRIMARY KEY (Id),
 	FOREIGN KEY (PlayListId) REFERENCES playlist(PlaylistId)
+);
+
+CREATE TABLE `Discontinued`
+(
+	`TrackId` int,
+	FOREIGN KEY (`TrackId`) REFERENCES `Track`(`TrackId`),
+    `IsDiscontinued` BOOLEAN
 );

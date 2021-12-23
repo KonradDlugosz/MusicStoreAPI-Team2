@@ -46,16 +46,16 @@ public class InvoicelineController {
         return result.get();
     }
     
-    @GetMapping(value = "/chinook/invoiceline/{invoiceId}")
-    public List<Invoiceline> findAllInvoicelinesForId(@PathVariable Integer invoiceId){
+    @GetMapping(value = "/invoiceline/invoice/{id}")
+    public List<Invoiceline> findAllInvoicelinesForId(@PathVariable Integer id){
         return invoicelineRepository
                 .findAll()
                 .stream()
-                .filter(invoiceline -> invoiceline.getInvoiceId() == invoiceId)
+                .filter(invoiceline -> invoiceline.getInvoiceId() == id)
                 .toList();
     }
 
-    @PostMapping(value = "/chinook/invoiceline/track/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/invoiceline/track/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
     public Invoiceline addInvoiceline(@RequestParam Integer customerId, @RequestParam Integer trackId){
         BigDecimal totalPrice;
         Invoiceline invoiceline = new Invoiceline();
@@ -95,7 +95,7 @@ public class InvoicelineController {
         return invoicelineRepository.save(invoiceline);
     }
 
-    @PostMapping(value = "/chinook/invoiceline/album/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/invoiceline/album/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
     public List<Invoiceline> addAlbumToInvoiceline(@RequestParam Integer albumId, @RequestParam Integer customerId){
         BigDecimal totalPrice;
         List<Invoiceline> tracksAddedFromAlbum = new ArrayList<>();
@@ -146,7 +146,7 @@ public class InvoicelineController {
         return tracksAddedFromAlbum;
     }
 
-    @PostMapping(value = "/chinook/invoiceline/playlist/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/invoiceline/playlist/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
     public List<Invoiceline> addPlaylistToInvoiceLine(@RequestParam Integer playlistId, @RequestParam Integer customerId){
         BigDecimal totalPrice;
         List<Invoiceline> tracksAddedFromPlaylist = new ArrayList<>();
@@ -240,7 +240,7 @@ public class InvoicelineController {
         return newState;
     }
 
-    @DeleteMapping(value = "/chinook/invoiceline/delete/{id}")
+    @DeleteMapping(value = "/invoiceline/delete/{id}")
     public Map<String, Boolean> deleteInvoiceLine(@PathVariable Integer id){
         Optional<Invoiceline> invoiceline = invoicelineRepository.findById(id);
         Map<String,Boolean> response = new HashMap<>();

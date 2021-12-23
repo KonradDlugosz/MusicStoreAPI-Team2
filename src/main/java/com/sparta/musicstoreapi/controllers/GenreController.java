@@ -1,7 +1,9 @@
 package com.sparta.musicstoreapi.controllers;
 
 import com.sparta.musicstoreapi.entities.Genre;
+import com.sparta.musicstoreapi.entities.Token;
 import com.sparta.musicstoreapi.repositories.GenreRepository;
+import com.sparta.musicstoreapi.repositories.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,8 +19,10 @@ public class GenreController {
 
     @Autowired
     private GenreRepository genreRepository;
+    @Autowired
+    private TokenRepository tokenRepository;
 
-    @GetMapping(value = "/allgenres", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    @GetMapping(value = "/genres", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public List<Genre> getAllGenres(){
         return genreRepository.findAll();
     }
@@ -32,9 +36,15 @@ public class GenreController {
             return ResponseEntity.ok(genre.get());
     }
 
-    @PostMapping(value = "/genres/add", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    public ResponseEntity<Genre> addNewGenre(@RequestBody Genre newGenre){
-        genreRepository.save(newGenre);
-        return ResponseEntity.ok(newGenre);
+    @PostMapping(value = "/genres/add/{token}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    public ResponseEntity<Genre> addNewGenre(@RequestBody Genre newGenre, @PathVariable String token){
+        Optional<Token> tokenResult = tokenRepository.findByToken(token);
+        if (tokenResult.isPresent()) {
+            if (tokenResult.get().getPermissionLevel() >= 2) {
+                genreRepository.save(newGenre);
+                return ResponseEntity.ok(newGenre);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 }

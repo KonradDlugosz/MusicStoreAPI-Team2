@@ -13,14 +13,14 @@ import java.net.http.HttpResponse;
 
 public class InvoicelineControllerTest {
 
-    private static final String GET_ALL_INVOICELINES = "http://localhost:8080/chinook/invoicelines";
-    private static final String GET_INVOICELINE_BY_ID = "http://localhost:8080/chinook/invoiceline?id=11";
-    private static final String GET_INVOICELINE_BY_INVOICE_ID = "http://localhost:8080/chinook/invoiceline/1";
-    private static final String POST_INVOICELINE_TRACK =  "http://localhost:8080/chinook/invoiceline/track/add?customerId=1&trackId=10";
-    private static final String PUT_INVOICELINE = "http://localhost:8080/chinook/invoiceline/update";
-    private static final String POST_INVOICELINE_ALBUM = "http://localhost:8080/chinook/invoiceline/album/add?customerId=11&albumId=1";
-    private static final String POST_INVOICELINE_PLAYLIST = "http://localhost:8080/chinook/invoiceline/playlist/add?playlistId=12&customerId=8";
-    private static final String DELETE_INVOICELINE = "http://localhost:8080/chinook/invoiceline/delete/2292";
+    private static final String GET_ALL_INVOICELINES = "http://localhost:8080/chinook/invoicelines/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String GET_INVOICELINE_BY_ID = "http://localhost:8080/chinook/invoiceline/11/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String GET_INVOICELINE_BY_INVOICE_ID = "http://localhost:8080/chinook/invoice/1/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String POST_INVOICELINE_TRACK =  "http://localhost:8080/chinook/invoiceline/track/add/1/10/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String PUT_INVOICELINE = "http://localhost:8080/chinook/invoiceline/update/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String POST_INVOICELINE_ALBUM = "http://localhost:8080/chinook/invoiceline/album/add/11/1/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String POST_INVOICELINE_PLAYLIST = "http://localhost:8080/chinook/invoiceline/playlist/add/8/12/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String DELETE_INVOICELINE = "http://localhost:8080/chinook/invoiceline/delete/2292/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
 
 
     private static HttpResponse<String> getAllInvoicelinesResponse = null;

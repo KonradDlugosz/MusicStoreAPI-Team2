@@ -17,10 +17,10 @@ import java.net.http.HttpResponse;
 
 public class InvoiceControllerTest {
 
-    private static final String GET_ALL_INVOICES = "http://localhost:8080/chinook/invoices";
-    private static final String GET_INVOICE_BY_ID = "http://localhost:8080/chinook/invoice?id=11";
-    private static final String POST_INVOICE =  "http://localhost:8080/chinook/invoice/add";
-    private static final String PUT_INVOICE = "http://localhost:8080/chinook/invoice/update";
+    private static final String GET_ALL_INVOICES = "http://localhost:8080/chinook/invoices/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String GET_INVOICE_BY_ID = "http://localhost:8080/chinook/invoice/11/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String POST_INVOICE =  "http://localhost:8080/chinook/invoice/add/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String PUT_INVOICE = "http://localhost:8080/chinook/invoice/update/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
 
     private static HttpResponse<String> getAllInvoicesResponse = null;
     private static HttpResponse<String> getOneInvoiceResponse = null;

@@ -39,7 +39,7 @@
         <li><a href="#genre">Genre</a></li>
       </ul>
 	    <ul>
-        <li><a href="#mediatype">Medaitype</a></li>
+        <li><a href="#mediatype">Media-type</a></li>
       </ul>
 	    <ul>
         <li><a href="#playlist-tracks">Playlist Tracks</a></li>
@@ -1627,6 +1627,8 @@ Example
   "Os Paralamas Do Sucesso"
 ]
 ```
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ---
 
 

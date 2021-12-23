@@ -1731,7 +1731,6 @@ Example 1: {word} = mo
         }
     }
 ```
-
 Example 2: {word} = san
 
 ```json

@@ -18,6 +18,9 @@
         <li><a href="#track">Track</a></li>
       </ul>
 	    <ul>
+        <li><a href="#discount">Discount</a></li>
+      </ul>
+	    <ul>
         <li><a href="#customer">Customer</a></li>
       </ul>
       <ul>

@@ -17,9 +17,9 @@ import java.net.http.HttpResponse;
 public class PlaylistTesting {
 
     private static final String GET_ALL_PLAYLISTS = "http://localhost:8080/chinook/playlists";
-    private static final String GET_PLAYLIST_BY_ID = "http://localhost:8080/chinook/playlist?id=11";
-    private static final String POST_PLAYLIST =  "http://localhost:8080/chinook/playlist/add";
-    private static final String PUT_PLAYLIST = "http://localhost:8080/chinook/playlist/update";
+    private static final String GET_PLAYLIST_BY_ID = "http://localhost:8080/chinook/playlist/11";
+    private static final String POST_PLAYLIST =  "http://localhost:8080/chinook/playlist/add/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String PUT_PLAYLIST = "http://localhost:8080/chinook/playlist/update/10/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
 
     private static HttpResponse<String> getAllPlaylistsResponse = null;
     private static HttpResponse<String> getOnePlaylistResponse = null;
@@ -65,7 +65,6 @@ public class PlaylistTesting {
                 .header("Content-Type", "application/json")
                 .PUT(HttpRequest.BodyPublishers.ofString("""
                         {
-                            "id": 19,
                             "name": "MTV"
                         }
                         """))

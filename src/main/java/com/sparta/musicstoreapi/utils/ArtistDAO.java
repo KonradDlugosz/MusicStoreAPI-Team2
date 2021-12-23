@@ -17,7 +17,7 @@ public class ArtistDAO {
     @Autowired
     EntityManager entityManager;
 
-    public List<Artist> searchQuery () {
+    public List<Artist> searchQuery (String s) {
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
         List<Artist> listArtist = new ArrayList<>();
 
@@ -29,7 +29,7 @@ public class ArtistDAO {
         org.apache.lucene.search.Query luceneQuery = queryBuilder
                 .keyword()
                 .onField("name")
-                .matching("aerosmith")
+                .matching(s)
                 .createQuery();
 
         FullTextQuery jpaQuery = (FullTextQuery) fullTextEntityManager.createFullTextQuery(luceneQuery, Artist.class);

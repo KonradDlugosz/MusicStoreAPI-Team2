@@ -51,9 +51,9 @@ public class ArtistController {
         return newState;
     }
 
-    @GetMapping(value = "/search")
-    public List<Artist> search(){
+    @GetMapping(value = "/search/{s}")
+    public List<Artist> search(@PathVariable String s){
 //        ArtistDAO artistDAO = new ArtistDAO();
-        return artistDAO.searchQuery();
+        return artistDAO.searchQuery(s);
     }
 }

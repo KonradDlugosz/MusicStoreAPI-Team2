@@ -99,7 +99,7 @@ public class AlbumControllerTest {
     }
 
     @Test
-    @DisplayName("1.3 Given PUT request, return update album")
+    @DisplayName("1.4 Given PUT request, return update album")
     public void putAlbum(){
         Assertions.assertEquals(200, putAlbumResponse.statusCode() );
     }

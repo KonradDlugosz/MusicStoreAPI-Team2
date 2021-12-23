@@ -3,7 +3,6 @@ package com.sparta.musicstoreapi.controllers;
 import com.sparta.musicstoreapi.entities.Artist;
 import com.sparta.musicstoreapi.repositories.ArtistRepository;
 import com.sparta.musicstoreapi.utils.ArtistDAO;
-import org.hibernate.search.annotations.Indexed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +16,9 @@ public class ArtistController {
 
     @Autowired
     private ArtistRepository artistRepository;
+
+    @Autowired
+    private ArtistDAO artistDAO;
 
     @GetMapping(value = "/artist/findAll", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public List<Artist> findAllArtists() {
@@ -47,5 +49,11 @@ public class ArtistController {
         }
         artistRepository.save(newState);
         return newState;
+    }
+
+    @GetMapping(value = "/search")
+    public List<Artist> search(){
+//        ArtistDAO artistDAO = new ArtistDAO();
+        return artistDAO.searchQuery();
     }
 }

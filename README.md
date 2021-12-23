@@ -72,7 +72,7 @@
 >
 >Keep in mind when coding of SOLID principles, design patterns, Java standard practices, git conflicts when merging, JDBC configuration and OOP. 
 >
->Add addtional functionality such as Token Access, advanced search functions and a few extra tables such as the Discount Table.
+>Add additional functionality such as Token Access, advanced search functions and a few extra tables such as the Discount Table.
 
 ## Checklist
 

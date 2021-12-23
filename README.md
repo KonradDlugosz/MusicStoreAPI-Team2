@@ -1322,9 +1322,9 @@ Example for genre in json format:
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-###**Mediatype**
+### **Mediatype**
 
-####*Get all mediatypes*
+#### *Get all mediatypes*
 
 URL endpoint: chinook/allmediatypes
 
@@ -1351,7 +1351,7 @@ Response: list of all mediatypes
 ...
 ```
 
-####*Get mediatype by ID*
+#### *Get mediatype by ID*
 
 URL endpoint: /chinook/mediatype/{mediatypeId}
 
@@ -1366,7 +1366,7 @@ Example for mediatype with ID: 5
 }
 ```
 
-####*POST mediatype*
+#### *POST mediatype*
 
 URL endpoint: /chinook/mediatype/add
 
@@ -1382,9 +1382,9 @@ Example for mediatype in json format:
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-###**Playlist**
+### **Playlist**
 
-####*Get all playlists*
+#### *Get all playlists*
 
 URL endpoint: chinook/playlists
 
@@ -1415,7 +1415,7 @@ Response: list of all playlists
 ...
 ```
 
-####*GET playlist by ID*
+#### *GET playlist by ID*
 
 URL endpoint: /chinook/playlist/{playlistId}
 
@@ -1430,7 +1430,7 @@ Example for playlist with ID: 6
 }
 ```
 
-####*POST playlist*
+#### *POST playlist*
 
 URL endpoint: /chinook/playlist/add
 
@@ -1444,7 +1444,7 @@ Example for playlist in json format:
 }
 ```
 
-####*PUT playlist*
+#### *PUT playlist*
 
 URL endpoint: /chinook/playlist/update/{playlistId}
 
@@ -1458,7 +1458,7 @@ Example for playlist of ID: 15, being updated with:
 }
 ```
 
-####*DELETE playlist*
+#### *DELETE playlist*
 
 URL endpoint: /chinook/playlist/delete/{playlistId}
 
@@ -1466,9 +1466,9 @@ Response: Deletes an existing playlist by ID
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-###**Playlist Tracks**
+### **Playlist Tracks**
 
-####*GET all playlist tracks*
+#### *GET all playlist tracks*
 
 URL endpoint: chinook/playlisttracks
 
@@ -1496,7 +1496,7 @@ Response: list of all playlist tracks
 ...
 ```
 
-####*GET specific track from specific playlist*
+#### *GET specific track from specific playlist*
 
 URL endpoint: /chinook/playlisttrack/{playlistId}/{trackId}
 
@@ -1513,7 +1513,7 @@ Example: playlist with ID 17 and track ID 3
 }
 ```
 
-####*POST specific track in playlist*
+#### *POST specific track in playlist*
 
 URL endpoint: /chinook/playlisttrack/add/{playlistId}/{trackId}
 
@@ -1530,7 +1530,7 @@ Example: adding in playlist with ID 17 track with ID 4
 }
 ```
 
-####*PUT playlist track*
+#### *PUT playlist track*
 
 URL endpoint: /chinook/playlisttrack/update
 
@@ -1546,7 +1546,7 @@ Example: adding in playlist with ID 8 track with ID 276
 }
 ```
 
-####*DELETE playlist track*
+#### *DELETE playlist track*
 
 URL endpoint: /chinook/playlisttrack/delete
 

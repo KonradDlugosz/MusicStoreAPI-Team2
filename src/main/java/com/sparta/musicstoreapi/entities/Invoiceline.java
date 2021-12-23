@@ -25,6 +25,14 @@ public class Invoiceline {
     @Column(name = "Quantity", nullable = false)
     private Integer quantity;
 
+    public Invoiceline(Invoice invoiceId) {
+        this.invoiceId = invoiceId;
+    }
+
+    public Invoiceline() {
+
+    }
+
     public Integer getQuantity() {
         return quantity;
     }
@@ -42,8 +50,8 @@ public class Invoiceline {
     }
 
 
-    public String getTrackId() {
-        return trackId.getName();
+    public Integer getTrackId() {
+        return trackId.getId();
     }
 
     public void setTrackId(Track trackId) {

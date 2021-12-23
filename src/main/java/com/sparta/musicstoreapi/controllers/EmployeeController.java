@@ -4,6 +4,7 @@ import com.sparta.musicstoreapi.entities.Employee;
 import com.sparta.musicstoreapi.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,17 +13,18 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping(value = "/chinook")
 public class EmployeeController {
 
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @GetMapping(value = "/chinook/allemployees")
+    @GetMapping(value = "/allemployees", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
 
-    @GetMapping(value = "/chinook/employees/{id}")
+    @GetMapping(value = "/employees/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<?> getEmployeeById(@PathVariable Integer id) {
         Optional<Employee> employee = employeeRepository.findById(id);
         if (employee.isEmpty())
@@ -32,13 +34,13 @@ public class EmployeeController {
     }
 
 
-    @PostMapping(value = "/chinook/employee/add")
+    @PostMapping(value = "/employee/add", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<Employee> addNewEmployee(@RequestBody Employee newEmployee) {
         employeeRepository.save(newEmployee);
         return ResponseEntity.ok(newEmployee);
     }
 
-    @PutMapping(value = "/chinook/employees/update")
+    @PutMapping(value = "/employees/update", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<Employee> updateEmployee(@Valid @RequestBody Employee employee) {
         Optional<Employee> results = employeeRepository.findById(employee.getId());
         if (results.isPresent()) {

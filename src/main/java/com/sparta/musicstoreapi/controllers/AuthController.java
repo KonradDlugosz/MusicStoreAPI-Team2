@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping(value = "/chinook")
 public class AuthController {
     @Autowired
     private TokenRepository tokenRepository;

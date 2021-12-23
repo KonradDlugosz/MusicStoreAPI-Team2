@@ -3,9 +3,9 @@ package com.sparta.musicstoreapi.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.musicstoreapi.entities.Album;
+import com.sparta.musicstoreapi.entities.Token;
 import com.sparta.musicstoreapi.repositories.AlbumRepository;
-import jdk.security.jarsigner.JarSignerException;
-import org.apache.coyote.Response;
+import com.sparta.musicstoreapi.repositories.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,16 +17,20 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping(value = "/chinook")
 public class AlbumController {
 
     @Autowired
     private AlbumRepository albumRepository;
+    @Autowired
+    private TokenRepository tokenRepository;
 
     @Autowired
     ObjectMapper mapper;
 
-    @GetMapping(value = "/chinook/album", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-    public ResponseEntity<String> getAlbumById(@RequestParam Integer id) {
+
+    @GetMapping(value = "/album/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    public ResponseEntity<String> getAlbumById(@PathVariable Integer id) {
         Optional<Album> result = albumRepository.findById(id);
         HttpHeaders headers = new HttpHeaders();
         headers.add("content-type", "application/json; charset=utf-8");
@@ -37,31 +41,44 @@ public class AlbumController {
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
-        } return new ResponseEntity<String>("{\"message\": \"That album doesnt exist\"}", headers, HttpStatus.OK);
+        }
+        return new ResponseEntity<String>("{\"message\": \"That album doesnt exist\"}", headers, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/chinook/albums", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/albums", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public List<Album> getAllAlbums() {
         return albumRepository.findAll();
     }
 
-    @PostMapping(value = "/chinook/album/insert" , produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-    public String insertAlbum(@RequestBody Album album) {
-        if (albumRepository.existsById(album.getId())) {
-            return "Album already exists.";
-        } else {
-            albumRepository.save(album);
-            return "Saved";
+    @PostMapping(value = "/album/add/{token}" , produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    public ResponseEntity<String> insertAlbum(@RequestBody Album album, @PathVariable String token) {
+        Optional<Token> tokenResult = tokenRepository.findByToken(token);
+        if (tokenResult.isPresent()) {
+            if (tokenResult.get().getPermissionLevel() >= 1) {
+                if (albumRepository.existsById(album.getId())) {
+                    return new ResponseEntity<String>("{\"message\": \"Album already exists\"}", HttpStatus.CONFLICT);
+                } else {
+                    albumRepository.save(album);
+                    return new ResponseEntity<String>("{\"message\": \"Saved\"}", HttpStatus.OK);
+                }
+            }
         }
+        return new ResponseEntity<String>("{\"message\": \"Unauthorized\"}", HttpStatus.UNAUTHORIZED);
     }
 
-    @PutMapping(value = "/chinook/album/update" , produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-    public Album updateAlbum(@RequestBody Album newState) {
-        Optional<Album> oldState = albumRepository.findById(newState.getId());
-        if (oldState.isEmpty()) {
-            return null;
+    @PutMapping(value = "/album/update/{token}" , produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    public ResponseEntity<Album> updateAlbum(@RequestBody Album newState, @PathVariable String token) {
+        Optional<Token> tokenResult = tokenRepository.findByToken(token);
+        if (tokenResult.isPresent()) {
+            if (tokenResult.get().getPermissionLevel() >= 1) {
+                Optional<Album> oldState = albumRepository.findById(newState.getId());
+                if (oldState.isEmpty()) {
+                    return new ResponseEntity<Album>((Album) null, HttpStatus.NOT_FOUND);
+                }
+                albumRepository.save(newState);
+                return new ResponseEntity<Album>(newState, HttpStatus.OK);
+            }
         }
-        albumRepository.save(newState);
-        return newState;
+        return new ResponseEntity<Album>((Album) null, HttpStatus.UNAUTHORIZED);
     }
 }

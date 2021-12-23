@@ -3,23 +3,25 @@ package com.sparta.musicstoreapi.controllers;
 import com.sparta.musicstoreapi.entities.Artist;
 import com.sparta.musicstoreapi.repositories.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping(value = "/chinook")
 public class ArtistController {
 
     @Autowired
     private ArtistRepository artistRepository;
 
-    @GetMapping(value = "/chinook/artist/findAll")
+    @GetMapping(value = "/artist/findAll", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public List<Artist> findAllArtists() {
         return artistRepository.findAll();
     }
 
-    @GetMapping(value = "/chinook/artist/{id}")
+    @GetMapping(value = "/artist/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
     public Optional<Artist> findArtistById(@PathVariable Integer id) {
         Optional<Artist> result = artistRepository.findById(id);
         if (result.equals(null)) {
@@ -29,12 +31,12 @@ public class ArtistController {
         return result;
     }
 
-    @PostMapping(value = "/chinook/artist/add")
+    @PostMapping(value = "/artist/add", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE,})
     public Artist addArtist(@RequestBody Artist newArtist) {
         return artistRepository.save(newArtist);
     }
 
-    @PutMapping(value = "/chinook/artist/update")
+    @PutMapping(value = "/artist/update", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE, })
     public Artist updateCustomerById(@RequestBody Artist newState) {
         Optional<Artist> oldState = artistRepository.findById(newState.getId());
         if (oldState.isEmpty()) {

@@ -48,10 +48,10 @@
         <li><a href="#mediatype">Media-type</a></li>
       </ul>
 	    <ul>
-        <li><a href="#playlist-tracks">Playlist Tracks</a></li>
+        <li><a href="#playlists">Playlists</a></li>
       </ul>
 	    <ul>
-        <li><a href="#playlist">Playlist</a></li>
+        <li><a href="#playlist-tracks">Playlist Tracks</a></li>
       </ul>
 	    <ul>
         <li><a href="#popularity-functions">Popularity functions</a></li>

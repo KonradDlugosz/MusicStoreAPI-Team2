@@ -19,3 +19,14 @@ create event deleteTokens
     DO
         Delete from tokens
         Where tokens.ts_expiration <= CURRENT_TIMESTAMP;
+
+
+select Name, popularity.counter from track as t
+INNER join
+    (select TrackId, count(TrackId) as counter from invoiceline
+    group by TrackId
+    )
+    AS popularity
+    on popularity.TrackId = t.TrackId
+order by popularity.counter DESC
+LIMIT 5;

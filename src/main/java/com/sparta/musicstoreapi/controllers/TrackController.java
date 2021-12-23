@@ -1,5 +1,6 @@
 package com.sparta.musicstoreapi.controllers;
 
+import com.sparta.musicstoreapi.config.SpringJdbcConfig;
 import com.sparta.musicstoreapi.entities.Album;
 import com.sparta.musicstoreapi.entities.Artist;
 import com.sparta.musicstoreapi.entities.Track;
@@ -9,11 +10,15 @@ import com.sparta.musicstoreapi.repositories.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sql.DataSource;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -28,6 +33,7 @@ public class TrackController {
 
     @Autowired
     private AlbumRepository albumRepository;
+
 
     @GetMapping(value = "/tracks")
     public List<Track> getAllTracks(){

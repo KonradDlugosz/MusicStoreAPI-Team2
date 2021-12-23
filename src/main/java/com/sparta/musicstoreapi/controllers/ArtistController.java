@@ -20,7 +20,7 @@ public class ArtistController {
     @Autowired
     private TokenRepository tokenRepository;
 
-    @GetMapping(value = "/artist/findAll", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    @GetMapping(value = "/artists", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public List<Artist> findAllArtists() {
         return artistRepository.findAll();
     }
@@ -39,7 +39,7 @@ public class ArtistController {
     public Artist addArtist(@RequestBody Artist newArtist, @PathVariable String token) {
         Optional<Token> tokenResult = tokenRepository.findByToken(token);
         if (tokenResult.isPresent()) {
-            if (tokenResult.get().getPermissionLevel() >= 1) {
+            if (tokenResult.get().getPermissionLevel() >= 2) {
                 return artistRepository.save(newArtist);
             }
         }
@@ -50,7 +50,7 @@ public class ArtistController {
     public Artist updateCustomerById(@RequestBody Artist newState, @PathVariable String token) {
         Optional<Token> tokenResult = tokenRepository.findByToken(token);
         if (tokenResult.isPresent()) {
-            if (tokenResult.get().getPermissionLevel() >= 1) {
+            if (tokenResult.get().getPermissionLevel() >= 2) {
                 Optional<Artist> oldState = artistRepository.findById(newState.getId());
                 if (oldState.isEmpty()) {
                     System.err.println("Result not found or is null");

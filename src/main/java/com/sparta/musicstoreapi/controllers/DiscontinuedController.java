@@ -46,9 +46,19 @@ public class DiscontinuedController {
         return discResult.get();
     }
 
-    @GetMapping(value = "/tracks/discontinued", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
-    public List<Discontinued> getAllDiscontinued() {
+    @GetMapping(value = "/tracks/discontinued/everything", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
+    public List<Discontinued> getAllTableEntries() {
+        return discontinuedRepository.findAll();
+    }
+
+    @GetMapping(value = "/tracks/discontinued/true", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
+    public List<Discontinued> getAllDiscontinuedTrue() {
         return discontinuedRepository.findAllByIsDiscontinuedTrue();
+    }
+
+    @GetMapping(value = "/tracks/discontinued/false", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
+    public List<Discontinued> getAllDiscontinuedFalse() {
+        return discontinuedRepository.findAllByIsDiscontinuedFalse();
     }
 
     @DeleteMapping(value = "/track/discontinued/delete/{trackId}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })

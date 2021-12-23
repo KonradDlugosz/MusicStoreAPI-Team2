@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface DiscontinuedRepository extends JpaRepository<Discontinued, Integer> {
     List<Discontinued> findAllByIsDiscontinuedTrue();
+    List<Discontinued> findAllByIsDiscontinuedFalse();
     Discontinued findByTrackId(Track trackId);
 }

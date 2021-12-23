@@ -41,8 +41,9 @@ public class DiscontinuedController {
     @GetMapping(value = "/track/discontinued/{trackId}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
     public Discontinued getIsDiscontinued(@PathVariable Integer trackId) {
         Track result = trackRepository.getById(trackId);
-        Optional<Discontinued> discontinuedResult = discontinuedRepository.findById(result.getId());
-        return discontinuedResult.get();
+        Integer id = discontinuedRepository.findByTrackId(result).getId();
+        Optional<Discontinued> discResult = discontinuedRepository.findById(id);
+        return discResult.get();
     }
 
     @GetMapping(value = "/tracks/discontinued", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })

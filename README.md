@@ -987,9 +987,9 @@ Example for invoiceline deleted in json format with ID: **10**
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-**Artists**
+### **Artists**
 
-*Get All artists*
+#### *Get All artists*
 
 URL endpoint: /chinook/artist/findAll
 
@@ -1016,7 +1016,7 @@ Response: list of all artists
 ...
 ```
 
-*GET Artist by ID*
+#### *GET Artist by ID*
 
 URL endpoint: /chinook/artist/{artistId}
 
@@ -1031,7 +1031,7 @@ Example for artist with ID: 22
 }
 ```
 
-*POST artist*
+#### *POST artist*
 
 URL endpoint: /chinook/artist/add -requires body to send with request
 
@@ -1045,7 +1045,7 @@ Example body of new artist:
 }
 ```
 
-*PUT artist*
+#### *PUT artist*
 
 URL endpoint: /chinook/artist/update
 
@@ -1062,9 +1062,15 @@ Example body of updated artist:
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+
+
+
+### **Album**
+
 **Album**
 
-*Get All albums*
+
+#### *Get All albums*
 
 URL endpoint: /chinook/albums
 
@@ -1091,7 +1097,7 @@ Response: list of all albums
 ...
 ```
 
-*Get Album by ID*
+#### *Get Album by ID*
 
 URL endpoint: chinook/album/{albumId}
 
@@ -1113,7 +1119,7 @@ Example for album with id : 99
 
 ---
 
-*Put Album*
+#### *Put Album*
 
 URL endpoint: chinook/album/update/{albumid}
 
@@ -1133,9 +1139,9 @@ Example for album of ID: 21, being updated with:
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-**Employee**
+### **Employee**
 
-*Get all employees*
+#### *Get all employees*
 
 URL endpoint: chinook/allemployees
 
@@ -1197,7 +1203,7 @@ Response: list of all employees
 
 ```
 
-*GET employee by ID*
+#### *GET employee by ID*
 
 URL endpoint: /chinook/employees/{employeeId}
 
@@ -1241,7 +1247,7 @@ Example for employee with ID: 6
 }
 ```
 
-POST employee
+#### *POST employee*
 
 URL endpoint: /chinook/employee/add
 
@@ -1268,7 +1274,7 @@ Example for employee in json fotmat:
 }
 ```
 
-*PUT employee*
+#### *PUT employee*
 
 URL endpoint: /chinook/employee/update/{updateID}
 
@@ -1297,9 +1303,9 @@ Example of employee of ID: 1, being updated with:
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-**Genre**
+### **Genre**
 
-*Get all genres*
+#### *Get all genres*
 
 URL endpoint: chinook/allgenres
 
@@ -1326,7 +1332,7 @@ Response: list of all genres
 ...
 ```
 
-*Get genre by ID*
+#### *Get genre by ID*
 
 URL endpoint: /chinook/genre/{genreId}
 
@@ -1341,7 +1347,7 @@ Example for genre with ID: 15
 }
 ```
 
-*POST genre*
+#### *POST genre*
 
 URL endpoint: /chinook/genre/add
 
@@ -1357,9 +1363,10 @@ Example for genre in json format:
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+
 ### **Mediatype**
 
-#### *Get all mediatypes*
+### *Get all mediatypes*
 
 URL endpoint: chinook/allmediatypes
 
@@ -1386,7 +1393,7 @@ Response: list of all mediatypes
 ...
 ```
 
-#### *Get mediatype by ID*
+#### *Getmediatype by ID*
 
 URL endpoint: /chinook/mediatype/{mediatypeId}
 
@@ -1417,7 +1424,7 @@ Example for mediatype in json format:
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### **Playlist**
+### **Playlists**
 
 #### *Get all playlists*
 
@@ -1493,11 +1500,17 @@ Example for playlist of ID: 15, being updated with:
 }
 ```
 
-#### *DELETE playlist*
+#### DELETE playlist
 
 URL endpoint: /chinook/playlist/delete/{playlistId}
 
 Response: Deletes an existing playlist by ID
+
+```json
+Playlist deleted
+```
+
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -1581,11 +1594,17 @@ Example: adding in playlist with ID 8 track with ID 276
 }
 ```
 
-#### *DELETE playlist track*
+#### DELETE playlist track
 
 URL endpoint: /chinook/playlisttrack/delete
 
 Response: deleting a specified playlist
+
+```json
+Playlist Track Deleted
+```
+
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

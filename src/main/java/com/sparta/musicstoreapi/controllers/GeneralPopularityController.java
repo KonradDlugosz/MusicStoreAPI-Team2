@@ -77,4 +77,38 @@ public class GeneralPopularityController
         }
         return output;
     }
+
+    @GetMapping(value = "genres/top5")
+    public List<String> getTopFiveGenres() throws IOException {
+        SpringJdbcConfig cfg = new SpringJdbcConfig();
+        DataSource ds = cfg.dataSource();
+
+        JdbcTemplate template = new JdbcTemplate(ds);
+        List<Map<String, Object>> rows = template.queryForList("");
+
+        List<String> output = new ArrayList<>();
+
+        for(Map<String, Object> row : rows)
+        {
+            output.add((String) row.get("title"));
+        }
+        return output;
+    }
+
+    @GetMapping(value = "playlists/top5")
+    public List<String> getTopFiveArtists() throws IOException {
+        SpringJdbcConfig cfg = new SpringJdbcConfig();
+        DataSource ds = cfg.dataSource();
+
+        JdbcTemplate template = new JdbcTemplate(ds);
+        List<Map<String, Object>> rows = template.queryForList("");
+
+        List<String> output = new ArrayList<>();
+
+        for(Map<String, Object> row : rows)
+        {
+            output.add((String) row.get("title"));
+        }
+        return output;
+    }
 }

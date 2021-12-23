@@ -28,6 +28,7 @@ public class AlbumController {
     @Autowired
     ObjectMapper mapper;
 
+
     @GetMapping(value = "/album/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<String> getAlbumById(@PathVariable Integer id) {
         Optional<Album> result = albumRepository.findById(id);
@@ -65,7 +66,7 @@ public class AlbumController {
         return new ResponseEntity<String>("{\"message\": \"Unauthorized\"}", HttpStatus.UNAUTHORIZED);
     }
 
-    @PutMapping(value = "/album/update" , produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    @PutMapping(value = "/album/update/{token}" , produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<Album> updateAlbum(@RequestBody Album newState, @PathVariable String token) {
         Optional<Token> tokenResult = tokenRepository.findByToken(token);
         if (tokenResult.isPresent()) {

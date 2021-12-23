@@ -38,15 +38,27 @@ public class DiscontinuedController {
         }
     }
 
-    @GetMapping(value = "/track/discontinued/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
-    public Discontinued getIsDiscontinued(@PathVariable Integer id) {
-        Optional<Discontinued> result = discontinuedRepository.findById(id);
-        return result.get();
+    @GetMapping(value = "/track/discontinued/{trackId}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
+    public Discontinued getIsDiscontinued(@PathVariable Integer trackId) {
+        Track result = trackRepository.getById(trackId);
+        Integer id = discontinuedRepository.findByTrackId(result).getId();
+        Optional<Discontinued> discResult = discontinuedRepository.findById(id);
+        return discResult.get();
     }
 
-    @GetMapping(value = "/tracks/discontinued", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
-    public List<Discontinued> getAllDiscontinued() {
+    @GetMapping(value = "/tracks/discontinued/everything", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
+    public List<Discontinued> getAllTableEntries() {
         return discontinuedRepository.findAll();
+    }
+
+    @GetMapping(value = "/tracks/discontinued/true", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
+    public List<Discontinued> getAllDiscontinuedTrue() {
+        return discontinuedRepository.findAllByIsDiscontinuedTrue();
+    }
+
+    @GetMapping(value = "/tracks/discontinued/false", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
+    public List<Discontinued> getAllDiscontinuedFalse() {
+        return discontinuedRepository.findAllByIsDiscontinuedFalse();
     }
 
     @DeleteMapping(value = "/track/discontinued/delete/{trackId}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })

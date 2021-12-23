@@ -91,8 +91,6 @@ Response: list of all tracks
 ...
 ```
 
-
-
 #### *GET track by ID*
 
 URL endpoint: /chinook/tracks/{trackId}
@@ -114,8 +112,6 @@ Example for track with ID: **100**
     "unitPrice": 0.99
 }
 ```
-
-
 
 #### *GET track by name*
 
@@ -140,8 +136,6 @@ Example for track with name: **"Out of exile"**
     }
 ]
 ```
-
-
 
 #### *GET track by album ID*
 
@@ -178,8 +172,6 @@ Example for album with ID: **9**
 ...
 ```
 
-
-
 #### *GET track by artist ID*
 
 URL endpoint: /chinook/tracks-by-artist/{artistId}
@@ -215,8 +207,6 @@ Example for artist **AC/DC** with ID : **1**
 ...
 ```
 
-
-
 #### POST track
 
 URL endpoint: /chinook/tracks/add - requires body to send with request.
@@ -237,8 +227,6 @@ Example of body for new track:
     "unitPrice": 0.99
 }
 ```
-
-
 
 #### PUT track
 
@@ -263,7 +251,96 @@ Example of body:
 
 ```
 
+#### POST track
 
+URL endpoint: /chinook/tracks/add - requires body to send with request.
+
+Response: details of added tracks
+
+Example of body for new track: 
+
+```json
+{
+    "name": "Breaking The Rules",
+    "albumId": 3,
+    "mediaTypeId": 1,
+    "genreId": 1,
+    "composer": "Angus Young, Malcolm Young, Brian Johnson",
+    "milliseconds": 263288,
+    "bytes": 8596840,
+    "unitPrice": 0.99
+}
+```
+
+#### PUT track
+
+URL endpoint: /chinook/tracks/update - requires body with details to update
+
+Response: updated track
+
+Example of body:
+
+```json
+{
+    "id":10,
+    "name": "Never gonna give you up",
+    "albumId": 3,
+    "mediaTypeId": 1,
+    "genreId": 1,
+    "composer": "Rick Astley",
+    "milliseconds": 263288,
+    "bytes": 8596840,
+    "unitPrice": 0.99
+}
+
+```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+### Discount
+
+Discount controller contains requests for setting, editing and deleting discounts for **tracks, albums and playlists.**  Here is a list of requests endpoint for all the discounts, they follow a pattern of 
+
+**chinook/[table name]/[verb]/[optional - id]** : 
+
+| Request type    | Track discount               | Album discount             | Playlist discount               |
+| --------------- | ---------------------------- | -------------------------- | ------------------------------- |
+| GET all         | /tracks-discount             | /album-discount            | /playlists-discount             |
+| GET by ID       | /tracks-discount/{id}        | /album-discount{id}        | /playlists-discount{id}         |
+| POST discount   | /tracks-discount/add         | /album-discount/add        | /playlists-discount/add         |
+| PUT discount    | /tracks-discount/update      | /album-discount/update     | /playlists-discount/update      |
+| DELETE discount | /tracks-discount/delete/{id} | /album-discount/delete{id} | /playlists-discount/delete/{id} |
+
+***Please not that the post and put methods would require a body for the discount table to be populated ***
+
+Example of JSON body to add discount for tracks: 
+
+```json
+{
+    "trackId": 10,
+    "expiryDate": "2022-11-11",
+    "amount": 0.50
+}
+```
+
+Example to get all track discounts: /chinook/tracks-discount
+
+```json
+[
+    {
+        "id": 1,
+        "trackId": 2,
+        "expiryDate": "2022-11-11",
+        "amount": 0.20
+    },
+    {
+        "id": 3,
+        "trackId": 10,
+        "expiryDate": "2022-11-11",
+        "amount": 0.50
+    }
+]
+```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -507,6 +584,8 @@ Example for invoice in json format with ID: **11**
   "total": 5.94
 }
 ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ### **Invoiceline**
 

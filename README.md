@@ -1681,6 +1681,81 @@ Example
   "Os Paralamas Do Sucesso"
 ]
 ```
+#### *Search in Artist, Album & Playlist  for occurrences of {word} (Work in Progress)*
+
+URL endpoint: chinook/search/{word}
+
+Response: list of occurrences of {word}
+
+Example 1: {word} = mo
+
+```json
+{
+        "id": 173,
+        "title": "No More Tears (Remastered)",
+        "artistId": {
+            "id": 114,
+            "name": "Ozzy Osbourne"
+        }
+    },
+    {
+        "id": 282,
+        "title": "Mozart: Wind Concertos",
+        "artistId": {
+            "id": 216,
+            "name": "Berliner Philharmoniker, Claudio Abbado & Sabine Meyer"
+        }
+    },
+    {
+        "id": 317,
+        "title": "Mozart Gala: Famous Arias",
+        "artistId": {
+            "id": 249,
+            "name": "Sir Georg Solti, Sumi Jo & Wiener Philharmoniker"
+        }
+    },
+    {
+        "id": 345,
+        "title": "Monteverdi: L'Orfeo",
+        "artistId": {
+            "id": 273,
+            "name": "C. Monteverdi, Nigel Rogers - Chiaroscuro; London Baroque; London Cornett & Sackbu"
+        }
+    },
+    {
+        "id": 204,
+        "title": "Morning Dance",
+        "artistId": {
+            "id": 53,
+            "name": "Spyro Gyra"
+        }
+    }
+```
+Example 2: {word} = san
+
+```json
+{
+        "id": 67,
+        "name": "Santana Feat. Eric Clapton"
+    },
+    {
+        "id": 101,
+        "name": "Lulu Santos"
+    },
+    {
+        "id": 242,
+        "name": "Edo de Waart & San Francisco Symphony"
+    },
+    {
+        "id": 245,
+        "name": "Michael Tilson Thomas & San Francisco Symphony"
+    },
+    {
+        "id": 63,
+        "name": "Santana Feat. Lauryn Hill & Cee-Lo"
+    }
+```
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ---

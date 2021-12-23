@@ -95,7 +95,7 @@ public class GeneralPopularityController
         return output;
     }
 
-    @GetMapping(value = "playlists/top5")
+    @GetMapping(value = "artists/top5")
     public List<String> getTopFiveArtists() throws IOException {
         SpringJdbcConfig cfg = new SpringJdbcConfig();
         DataSource ds = cfg.dataSource();

@@ -17,11 +17,11 @@ import java.net.http.HttpResponse;
 
 public class EmployeeControllerTest {
 
-    private static final String GET_ALL_EMPLOYEES = "http://localhost:8080/chinook/allemployees";
-    private static final String GET_EMPLOYEES_BY_ID = "http://localhost:8080/chinook/employees/1";
-    private static final String GET_EMPLOYEE_BY_LASTNAME = "http://localhost:8080/chinook/employees/employee-by-lastname?lastName=Adams";
-    private static final String POST_EMPLOYEE = "http://localhost:8080/chinook/employee/add";
-    private static final String PUT_EMPLOYEE = "http://localhost:8080/chinook/employees/update";
+    private static final String GET_ALL_EMPLOYEES = "http://localhost:8080/chinook/employees/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String GET_EMPLOYEES_BY_ID = "http://localhost:8080/chinook/employee/1/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String GET_EMPLOYEE_BY_LASTNAME = "http://localhost:8080/chinook/employee/employee-by-lastname?lastName=Adams/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String POST_EMPLOYEE = "http://localhost:8080/chinook/employee/add/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String PUT_EMPLOYEE = "http://localhost:8080/chinook/employee/update/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
 
     private static HttpResponse<String> getAllEmployeesResponse = null;
     private static HttpResponse<String> getOneEmployeeResponse = null;

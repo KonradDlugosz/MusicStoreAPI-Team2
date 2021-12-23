@@ -50,6 +50,9 @@
 	    <ul>
         <li><a href="#popularity-functions">Popularity functions</a></li>
       </ul>
+	    <ul>
+        <li><a href="#discontinued">Discontinued</a></li>
+      </ul>
     </li>
       <li><a href="#tools-and-Frameworks">Tools and Frameworks</a></li>
 	<li><a href="#credits-and-contact">Credits and Contact</a></li>

@@ -34,7 +34,7 @@ public class ArtistDAO {
 //                .wildcard()
                 .onFields("name", "title")
                 .withAndAsDefaultOperator()
-                .matching(s)
+                .matching(s+"*")
                 .createQuery();
 
         FullTextQuery jpaQuery = (FullTextQuery) fullTextEntityManager.createFullTextQuery(luceneQuery, Artist.class, Album.class, Playlist.class);

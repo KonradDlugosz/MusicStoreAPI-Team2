@@ -18,11 +18,11 @@ import java.net.http.HttpResponse;
 
 class CustomerControllerTest {
 
-    private static final String GET_ALL_CUSTOMERS = "http://localhost:8080/chinook/allcustomer";
-    private static final String GET_CUSTOMERS_BY_ID = "http://localhost:8080/chinook/customer/1";
-    private static final String GET_CUSTOMER_BY_EMAIL = "http://localhost:8080/chinook/customer/email?email=luisg@embraer.com.br";
-    private static final String POST_CUSTOMER = "http://localhost:8080/chinook/customer/add";
-    private static final String PUT_CUSTOMER = "http://localhost:8080/chinook/customer/update";
+    private static final String GET_ALL_CUSTOMERS = "http://localhost:8080/chinook/customers/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String GET_CUSTOMERS_BY_ID = "http://localhost:8080/chinook/customer/1/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String GET_CUSTOMER_BY_EMAIL = "http://localhost:8080/chinook/customer/findbyemail/email=luisg@embraer.com.br/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String POST_CUSTOMER = "http://localhost:8080/chinook/customer/add/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String PUT_CUSTOMER = "http://localhost:8080/chinook/customer/update/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
 
 
     private static HttpResponse<String> getAllCustomersResponse = null;

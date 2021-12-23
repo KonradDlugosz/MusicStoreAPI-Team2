@@ -20,6 +20,12 @@
 	    <ul>
         <li><a href="#customer">Customer</a></li>
       </ul>
+      <ul>
+        <li><a href="#invoice">Invoice</a></li>
+      </ul>
+      <ul>
+        <li><a href="#invoiceline">Invoiceline</a></li>
+      </ul>
     </li>
       <li><a href="#tools-and-Frameworks">Tools and Frameworks</a></li>
 	<li><a href="#credits-and-contact">Credits and Contact</a></li>
@@ -81,11 +87,9 @@ Response: list of all tracks
         "milliseconds": 342562,
         "bytes": 5510424,
         "unitPrice": 0.99
-    },
-...
+    }
+]
 ```
-
-
 
 #### *GET track by ID*
 
@@ -108,8 +112,6 @@ Example for track with ID: **100**
     "unitPrice": 0.99
 }
 ```
-
-
 
 #### *GET track by name*
 
@@ -134,8 +136,6 @@ Example for track with name: **"Out of exile"**
     }
 ]
 ```
-
-
 
 #### *GET track by album ID*
 
@@ -168,11 +168,9 @@ Example for album with ID: **9**
         "milliseconds": 436453,
         "bytes": 14375310,
         "unitPrice": 0.99
-    },
-...
+    }
+]
 ```
-
-
 
 #### *GET track by artist ID*
 
@@ -205,11 +203,9 @@ Example for artist **AC/DC** with ID : **1**
         "milliseconds": 205662,
         "bytes": 6713451,
         "unitPrice": 0.99
-    },
-...
+    }
+]
 ```
-
-
 
 #### POST track
 
@@ -231,8 +227,6 @@ Example of body for new track:
     "unitPrice": 0.99
 }
 ```
-
-
 
 #### PUT track
 
@@ -257,7 +251,96 @@ Example of body:
 
 ```
 
+#### POST track
 
+URL endpoint: /chinook/tracks/add - requires body to send with request.
+
+Response: details of added tracks
+
+Example of body for new track: 
+
+```json
+{
+    "name": "Breaking The Rules",
+    "albumId": 3,
+    "mediaTypeId": 1,
+    "genreId": 1,
+    "composer": "Angus Young, Malcolm Young, Brian Johnson",
+    "milliseconds": 263288,
+    "bytes": 8596840,
+    "unitPrice": 0.99
+}
+```
+
+#### PUT track
+
+URL endpoint: /chinook/tracks/update - requires body with details to update
+
+Response: updated track
+
+Example of body:
+
+```json
+{
+    "id":10,
+    "name": "Never gonna give you up",
+    "albumId": 3,
+    "mediaTypeId": 1,
+    "genreId": 1,
+    "composer": "Rick Astley",
+    "milliseconds": 263288,
+    "bytes": 8596840,
+    "unitPrice": 0.99
+}
+
+```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+### Discount
+
+Discount controller contains requests for setting, editing and deleting discounts for **tracks, albums and playlists.**  Here is a list of requests endpoint for all the discounts, they follow a pattern of 
+
+**chinook/[table name]/[verb]/[optional - id]** : 
+
+| Request type    | Track discount               | Album discount             | Playlist discount               |
+| --------------- | ---------------------------- | -------------------------- | ------------------------------- |
+| GET all         | /tracks-discount             | /album-discount            | /playlists-discount             |
+| GET by ID       | /tracks-discount/{id}        | /album-discount{id}        | /playlists-discount{id}         |
+| POST discount   | /tracks-discount/add         | /album-discount/add        | /playlists-discount/add         |
+| PUT discount    | /tracks-discount/update      | /album-discount/update     | /playlists-discount/update      |
+| DELETE discount | /tracks-discount/delete/{id} | /album-discount/delete{id} | /playlists-discount/delete/{id} |
+
+***Please not that the post and put methods would require a body for the discount table to be populated ***
+
+Example of JSON body to add discount for tracks: 
+
+```json
+{
+    "trackId": 10,
+    "expiryDate": "2022-11-11",
+    "amount": 0.50
+}
+```
+
+Example to get all track discounts: /chinook/tracks-discount
+
+```json
+[
+    {
+        "id": 1,
+        "trackId": 2,
+        "expiryDate": "2022-11-11",
+        "amount": 0.20
+    },
+    {
+        "id": 3,
+        "trackId": 10,
+        "expiryDate": "2022-11-11",
+        "amount": 0.50
+    }
+]
+```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -300,8 +383,8 @@ Response: list of all customers
         "fax": null,
         "email": "leonekohler@surfeu.de",
         "supportRepId": 6
-    },
-...
+    }
+]
 ```
 
 
@@ -360,7 +443,7 @@ Example for customer in json format:
 
 URL endpoint: /chinook/customer/update/{customerID}
 
-Response: Updates an existsing customer by ID
+Response: Updates an existing customer by ID
 
 Example for customer of ID: 10, being updated with:
 ```json
@@ -401,6 +484,443 @@ Example for Email: "eduardo@woodstock.com.br":
     "fax": "+55 (11) 3033-4564",
     "email": "eduardo@woodstock.com.br",
     "supportRepId": 4
+}
+```
+
+### **Discontinued**
+
+#### *Creating the Table*
+
+```sql
+USE `Chinook`;
+
+CREATE TABLE `Discontinued`
+(
+	`TrackId` int,
+	FOREIGN KEY (`TrackId`) REFERENCES `Track`(`TrackId`),
+    `IsDiscontinued` BOOLEAN
+);
+```
+
+#### *POST discontinued*
+
+URL endpoint: /chinook/track/discontinue/{trackId}
+
+Response: Inserts a pre-existing track by TrackID into the discontinued table
+
+Example for trackId: 300:
+
+```json
+{
+    "isDiscontinued": true
+}
+```
+
+#### *GET ALL Discontinued Entries*
+
+URL endpoint: /chinook/track/discontinue/everything
+
+Response: Gets all entries in the Discontinued Table
+
+```json
+[
+    {
+        "id": 1,
+        "trackId": {
+            "id": 300,
+            "name": "O Erê",
+            "albumId": 27,
+            "mediaTypeId": 1,
+            "genreId": 8,
+            "composer": "Bernardo Vilhena/Bino/Da Gama/Lazao/Toni Garrido",
+            "milliseconds": 206942,
+            "bytes": 6950332,
+            "unitPrice": 0.99
+        },
+        "isDiscontinued": true
+    },
+    {
+        "id": 3,
+        "trackId": {
+            "id": 302,
+            "name": "A Estrada",
+            "albumId": 27,
+            "mediaTypeId": 1,
+            "genreId": 8,
+            "composer": "Da Gama/Lazao/Toni Garrido",
+            "milliseconds": 282174,
+            "bytes": 9344477,
+            "unitPrice": 0.99
+        },
+        "isDiscontinued": false
+    }
+]
+```
+#### *GET ALL Discontinued Entries, where the Track is Discontinued*
+
+URL endpoint: /chinook/track/discontinue/everything/true
+
+Response: Gets all entries in the Discontinued Table where isDiscontinued = true
+
+```json
+[
+    {
+        "id": 1,
+        "trackId": {
+            "id": 300,
+            "name": "O Erê",
+            "albumId": 27,
+            "mediaTypeId": 1,
+            "genreId": 8,
+            "composer": "Bernardo Vilhena/Bino/Da Gama/Lazao/Toni Garrido",
+            "milliseconds": 206942,
+            "bytes": 6950332,
+            "unitPrice": 0.99
+        },
+        "isDiscontinued": true
+    },
+    {
+        "id": 2,
+        "trackId": {
+            "id": 301,
+            "name": "A Sombra Da Maldade",
+            "albumId": 27,
+            "mediaTypeId": 1,
+            "genreId": 8,
+            "composer": "Da Gama/Toni Garrido",
+            "milliseconds": 285231,
+            "bytes": 9544383,
+            "unitPrice": 0.99
+        },
+        "isDiscontinued": true
+    }
+]
+```
+
+#### *GET ALL Discontinued Entries, where the Track is not Discontinued*
+
+URL endpoint: /chinook/track/discontinue/everything/false
+
+Response: Gets all entries in the Discontinued Table where isDiscontinued = false
+
+```json
+[
+    {
+        "id": 3,
+        "trackId": {
+            "id": 302,
+            "name": "A Estrada",
+            "albumId": 27,
+            "mediaTypeId": 1,
+            "genreId": 8,
+            "composer": "Da Gama/Lazao/Toni Garrido",
+            "milliseconds": 282174,
+            "bytes": 9344477,
+            "unitPrice": 0.99
+        },
+        "isDiscontinued": false
+    }
+]
+```
+
+#### *PUT Discontinued*
+
+URL endpoint: /chinook/track/discontinue/update/{trackId}
+
+Response: Changes the value of the isDiscontinued for a specific TrackID
+
+Example for trackId: 300:
+
+```json
+{
+    "isDiscontinued": false
+}
+```
+
+#### *DELETE Discontinued*
+
+URL endpoint: /chinook/track/discontinue/delete/{trackId}
+
+Response: Deletes a row in the Discontinued table through a specific TrackID
+
+Example for trackId: 300:
+
+```json
+Row with : 300 deleted.
+```
+
+### **Invoice**
+
+#### *GET all invoices*
+
+URL endpoint: chinook/invoices
+
+Response: list of all invoices
+
+```json
+[
+  {
+    "id": 1,
+    "invoiceDate": "2009-01-01T00:00:00Z",
+    "billingAddress": "Theodor-Heuss-Straße 34",
+    "billingCity": "Stuttgart",
+    "billingState": null,
+    "billingCountry": "Germany",
+    "billingPostalCode": "70174",
+    "total": 1.98
+  },
+  {
+    "id": 2,
+    "invoiceDate": "2009-01-02T00:00:00Z",
+    "billingAddress": "Ullevålsveien 14",
+    "billingCity": "Oslo",
+    "billingState": null,
+    "billingCountry": "Norway",
+    "billingPostalCode": "0171",
+    "total": 3.96
+  }
+]
+```
+
+#### *GET invoice by ID*
+
+URL endpoint: /chinook/invoice/{invoiceId}
+
+Response: invoice for given ID
+
+Example for invoice with ID: **11**
+
+```json
+{
+  "id": 11,
+  "invoiceDate": "2009-02-03T00:00:00Z",
+  "billingAddress": "4 Chatham Street",
+  "billingCity": "Dublin",
+  "billingState": "Dublin",
+  "billingCountry": "Ireland",
+  "billingPostalCode": null,
+  "total": 5.94
+}
+```
+
+#### *POST invoice*
+
+URL endpoint: /chinook/invoice/add
+
+Response: Insert a new invoice into the invoice table
+
+Example for invoice in json format:
+
+```json
+{
+  "customerId": 2,
+  "invoiceDate": "2009-02-03T00:00:00Z",
+  "billingAddress": "3 Chatham Street",
+  "billingCity": "Dublin",
+  "billingState": "Dublin",
+  "billingCountry": "Ireland",
+  "billingPostalCode": null,
+  "total": 5.94
+}
+```
+
+#### *PUT invoice*
+
+URL endpoint: /chinook/invoice/update
+
+Response: Update a new invoice into the invoice table
+
+Example for invoice in json format with ID: **11**
+
+```json
+{
+  "id": 11,
+  "customerId": 3,
+  "invoiceDate": "2009-02-03T00:00:00Z",
+  "billingAddress": "4 Chatham Street",
+  "billingCity": "Dublin",
+  "billingState": "Dublin",
+  "billingCountry": "Ireland",
+  "billingPostalCode": null,
+  "total": 5.94
+}
+```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+### **Invoiceline**
+
+#### *GET all invoicelines*
+
+URL endpoint: chinook/invoicelines
+
+Response: list of all invoicelines
+
+```json
+[
+  {
+    "id": 1,
+    "invoiceId": 1,
+    "trackId": 2,
+    "unitPrice": 0.99,
+    "quantity": 1
+  },
+  {
+    "id": 2,
+    "invoiceId": 1,
+    "trackId": 4,
+    "unitPrice": 0.99,
+    "quantity": 1
+  }
+]
+```
+
+#### *GET invoicelines by ID*
+
+URL endpoint: chinook/invoiceline/{id}
+
+Response: invoiceline for given ID
+
+Example for invoice with ID: **2**
+
+```json
+{
+  "id": 2,
+  "invoiceId": 1,
+  "trackId": 4,
+  "unitPrice": 0.99,
+  "quantity": 1
+}
+```
+
+#### *GET invoicelines by invoiceID*
+
+URL endpoint: chinook/invoiceline/invoice/{id}
+
+Response: invoicelines for a given invoiceID
+
+Example of the invoicelines for the invoiceID: **1**
+
+```json
+[
+  {
+    "id": 1,
+    "invoiceId": 1,
+    "trackId": 2,
+    "unitPrice": 0.99,
+    "quantity": 1
+  },
+  {
+    "id": 2,
+    "invoiceId": 1,
+    "trackId": 4,
+    "unitPrice": 0.99,
+    "quantity": 1
+  }
+]
+```
+
+#### *POST track into invoiceline*
+
+URL endpoint: chinook/invoiceline/track/add?costumerId=1&trackId=1
+
+Response: added track to an invoiceline
+
+Example of an invoiceline when a trackId has been selected by a customer
+
+```json
+{
+  "id": 2258,
+  "invoiceId": 422,
+  "trackId": 1,
+  "unitPrice": 0.99,
+  "quantity": 1
+}
+```
+
+#### *POST Album into invoiceline*
+
+URL endpoint: chinook/invoiceline/album/add?costumerId=1&albumId=1
+
+Response: added all the tracks from an album to the invoiceline
+
+Example of the invoiceline when an albumId(1) has been selected by a customer
+
+```json
+[
+  {
+    "id": 2259,
+    "invoiceId": 422,
+    "trackId": 1,
+    "unitPrice": 0.99,
+    "quantity": 1
+  },
+  {
+    "id": 2260,
+    "invoiceId": 422,
+    "trackId": 6,
+    "unitPrice": 0.99,
+    "quantity": 1
+  }
+]
+```
+
+#### *POST Playlist into invoiceline*
+
+URL endpoint: chinook/invoiceline/playlist/add?costumerId=1&playlistId=12
+
+Response: added all the tracks from a playlist to the invoiceline
+
+Example of the invoiceline when an playistId (12) has been selected by a customer
+
+```json
+[
+  {
+    "id": 2269,
+    "invoiceId": 422,
+    "trackId": 12,
+    "unitPrice": 0.99,
+    "quantity": 1
+  },
+  {
+    "id": 2270,
+    "invoiceId": 422,
+    "trackId": 12,
+    "unitPrice": 0.99,
+    "quantity": 1
+  }
+]
+```
+
+#### *PUT Update an invoiceline*
+
+URL endpoint: chinnok/invoiceline/update
+
+Response: Update an existing valid invoiceline 
+
+Example for invoiceline in json format with ID: **11**
+
+
+```json
+{
+"invoiceId": 3,
+"trackId": 30,
+"unitPrice": 0.99,
+"quantity": 1
+}
+```
+
+#### *DELETE delete an invoiceline*
+
+URL endpoint: chinnok/invoiceline/delete/{id}
+
+Response: Delete an existing invoiceline
+
+Example for invoiceline deleted in json format with ID: **10**
+
+```json
+{
+  "Deleted": true
 }
 ```
 
@@ -1009,6 +1529,82 @@ URL endpoint: /chinook/playlisttrack/delete
 Response: deleting a specified playlist
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+=======
+### **Popularity functions**
+
+#### *GET top 5 tracks*
+
+URL endpoint: chinook/tracks/top5
+
+Response: list of the top 5 tracks based on number of sales
+
+Example
+
+```json
+[
+    "The Trooper",
+    "Dazed and Confused",
+    "Hallowed Be Thy Name",
+    "The Number Of The Beast",
+    "Sure Know Something"
+]
+```
+
+#### *GET top 5 albums*
+
+URL endpoint: chinook/albums/top5
+
+Response: list of the top 5 albums based on number of sales
+
+Example
+
+```json
+[
+  "Minha Historia",
+  "Greatest Hits",
+  "Unplugged",
+  "Acústico",
+  "Greatest Kiss"
+]
+```
+
+#### *GET top 5 genres*
+
+URL endpoint: chinook/albums/top5
+
+Response: list of the top 5 genres based on number of sales
+
+Example
+
+```json
+[
+  "Rock",
+  "Latin",
+  "Metal",
+  "Alternative & Punk",
+  "Jazz"
+]
+```
+
+#### *GET top 5 artists*
+
+URL endpoint: chinook/albums/top5
+
+Response: list of the top 5 artists based on number of sales
+
+Example
+
+```json
+[
+  "Iron Maiden",
+  "U2",
+  "Metallica",
+  "Led Zeppelin",
+  "Os Paralamas Do Sucesso"
+]
+```
+---
+
 
 ## Credits and Contact
 

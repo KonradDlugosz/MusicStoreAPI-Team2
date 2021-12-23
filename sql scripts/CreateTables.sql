@@ -34,14 +34,14 @@ SET GLOBAL event_scheduler = ON;
 	FOREIGN KEY (PlayListId) REFERENCES playlist(PlaylistId)
 );
 
-CREATE TABLE `Discontinued`
+CREATE TABLE Discontinued
 (
 	`TrackId` int,
 	FOREIGN KEY (`TrackId`) REFERENCES `Track`(`TrackId`),
     `IsDiscontinued` BOOLEAN
 );
 
-CREATE TABLE `tokens`
+CREATE TABLE Tokens
 (
     `TokenID` INT PRIMARY KEY AUTO_INCREMENT,
     `Token` VARCHAR(160) NOT NULL,
@@ -49,6 +49,9 @@ CREATE TABLE `tokens`
     `PermissionLevel` INT NOT NULL,
     ts_expiration TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL 1 WEEK)
 );
+
+INSERT INTO Tokens (Token, Email, PermissionLevel)
+VALUES ("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg", "andrew@chinookcorp.com", 2);
 
 DROP event if exists deleteTokens;
 

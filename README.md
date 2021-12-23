@@ -20,6 +20,12 @@
 	    <ul>
         <li><a href="#customer">Customer</a></li>
       </ul>
+      <ul>
+        <li><a href="#invoice">Invoice</a></li>
+      </ul>
+      <ul>
+        <li><a href="#invoiceline">Invoiceline</a></li>
+      </ul>
     </li>
       <li><a href="#tools-and-Frameworks">Tools and Frameworks</a></li>
 	<li><a href="#credits-and-contact">Credits and Contact</a></li>
@@ -401,6 +407,277 @@ Example for Email: "eduardo@woodstock.com.br":
     "fax": "+55 (11) 3033-4564",
     "email": "eduardo@woodstock.com.br",
     "supportRepId": 4
+}
+```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+### **Invoice**
+
+#### *GET all invoices*
+
+URL endpoint: chinook/invoices
+
+Response: list of all invoices
+
+```json
+[
+  {
+    "id": 1,
+    "invoiceDate": "2009-01-01T00:00:00Z",
+    "billingAddress": "Theodor-Heuss-Straße 34",
+    "billingCity": "Stuttgart",
+    "billingState": null,
+    "billingCountry": "Germany",
+    "billingPostalCode": "70174",
+    "total": 1.98
+  },
+  {
+    "id": 2,
+    "invoiceDate": "2009-01-02T00:00:00Z",
+    "billingAddress": "Ullevålsveien 14",
+    "billingCity": "Oslo",
+    "billingState": null,
+    "billingCountry": "Norway",
+    "billingPostalCode": "0171",
+    "total": 3.96
+  },
+```
+
+#### *GET invoice by ID*
+
+URL endpoint: /chinook/invoice/{invoiceId}
+
+Response: invoice for given ID
+
+Example for invoice with ID: **11**
+
+```json
+{
+  "id": 11,
+  "invoiceDate": "2009-02-03T00:00:00Z",
+  "billingAddress": "4 Chatham Street",
+  "billingCity": "Dublin",
+  "billingState": "Dublin",
+  "billingCountry": "Ireland",
+  "billingPostalCode": null,
+  "total": 5.94
+}
+```
+
+#### *POST invoice*
+
+URL endpoint: /chinook/invoice/add
+
+Response: Insert a new invoice into the invoice table
+
+Example for invoice in json format:
+
+```json
+{
+  "customerId": 2,
+  "invoiceDate": "2009-02-03T00:00:00Z",
+  "billingAddress": "3 Chatham Street",
+  "billingCity": "Dublin",
+  "billingState": "Dublin",
+  "billingCountry": "Ireland",
+  "billingPostalCode": null,
+  "total": 5.94
+}
+```
+
+#### *PUT invoice*
+
+URL endpoint: /chinook/invoice/update
+
+Response: Update a new invoice into the invoice table
+
+Example for invoice in json format with ID: **11**
+
+```json
+{
+  "id": 11,
+  "customerId": 3,
+  "invoiceDate": "2009-02-03T00:00:00Z",
+  "billingAddress": "4 Chatham Street",
+  "billingCity": "Dublin",
+  "billingState": "Dublin",
+  "billingCountry": "Ireland",
+  "billingPostalCode": null,
+  "total": 5.94
+}
+```
+
+### **Invoiceline**
+
+#### *GET all invoicelines*
+
+URL endpoint: chinook/invoicelines
+
+Response: list of all invoicelines
+
+```json
+[
+  {
+    "id": 1,
+    "invoiceId": 1,
+    "trackId": 2,
+    "unitPrice": 0.99,
+    "quantity": 1
+  },
+  {
+    "id": 2,
+    "invoiceId": 1,
+    "trackId": 4,
+    "unitPrice": 0.99,
+    "quantity": 1
+  },
+```
+
+#### *GET invoicelines by ID*
+
+URL endpoint: chinook/invoiceline/{id}
+
+Response: invoiceline for given ID
+
+Example for invoice with ID: **2**
+
+```json
+{
+  "id": 2,
+  "invoiceId": 1,
+  "trackId": 4,
+  "unitPrice": 0.99,
+  "quantity": 1
+}
+```
+
+#### *GET invoicelines by invoiceID*
+
+URL endpoint: chinook/invoiceline/invoice/{id}
+
+Response: invoicelines for a given invoiceID
+
+Example of the invoicelines for the invoiceID: **1**
+
+```json
+[
+  {
+    "id": 1,
+    "invoiceId": 1,
+    "trackId": 2,
+    "unitPrice": 0.99,
+    "quantity": 1
+  },
+  {
+    "id": 2,
+    "invoiceId": 1,
+    "trackId": 4,
+    "unitPrice": 0.99,
+    "quantity": 1
+  }
+]
+```
+
+#### *POST track into invoiceline*
+
+URL endpoint: chinook/invoiceline/track/add?costumerId=1&trackId=1
+
+Response: added track to an invoiceline
+
+Example of an invoiceline when a trackId has been selected by a customer
+
+```json
+{
+  "id": 2258,
+  "invoiceId": 422,
+  "trackId": 1,
+  "unitPrice": 0.99,
+  "quantity": 1
+}
+```
+
+#### *POST Album into invoiceline*
+
+URL endpoint: chinook/invoiceline/album/add?costumerId=1&albumId=1
+
+Response: added all the tracks from an album to the invoiceline
+
+Example of the invoiceline when an albumId(1) has been selected by a customer
+
+```json
+[
+  {
+    "id": 2259,
+    "invoiceId": 422,
+    "trackId": 1,
+    "unitPrice": 0.99,
+    "quantity": 1
+  },
+  {
+    "id": 2260,
+    "invoiceId": 422,
+    "trackId": 6,
+    "unitPrice": 0.99,
+    "quantity": 1
+  },
+```
+
+#### *POST Playlist into invoiceline*
+
+URL endpoint: chinook/invoiceline/playlist/add?costumerId=1&playlistId=12
+
+Response: added all the tracks from a playlist to the invoiceline
+
+Example of the invoiceline when an playistId (12) has been selected by a customer
+
+```json
+[
+  {
+    "id": 2269,
+    "invoiceId": 422,
+    "trackId": 12,
+    "unitPrice": 0.99,
+    "quantity": 1
+  },
+  {
+    "id": 2270,
+    "invoiceId": 422,
+    "trackId": 12,
+    "unitPrice": 0.99,
+    "quantity": 1
+  },
+```
+
+#### *PUT Update an invoiceline*
+
+URL endpoint: chinnok/invoiceline/update
+
+Response: Update an existing valid invoiceline 
+
+Example for invoiceline in json format with ID: **11**
+
+
+```json
+{
+"invoiceId": 3,
+"trackId": 30,
+"unitPrice": 0.99,
+"quantity": 1
+}
+```
+
+#### *DELETE delete an invoiceline*
+
+URL endpoint: chinnok/invoiceline/delete/{id}
+
+Response: Delete an existing invoiceline
+
+Example for invoiceline deleted in json format with ID: **10**
+
+```json
+{
+  "Deleted": true
 }
 ```
 

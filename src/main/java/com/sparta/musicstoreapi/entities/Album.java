@@ -2,11 +2,14 @@ package com.sparta.musicstoreapi.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "album")
+@Indexed
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +17,7 @@ public class Album {
     private Integer id;
 
     @Column(name = "Title", nullable = false, length = 160)
+    @Field
     private String title;
 
     @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property = "id")

@@ -1,6 +1,8 @@
 package com.sparta.musicstoreapi.utils;
 
+import com.sparta.musicstoreapi.entities.Album;
 import com.sparta.musicstoreapi.entities.Artist;
+import com.sparta.musicstoreapi.entities.Playlist;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.Search;
@@ -27,12 +29,15 @@ public class ArtistDAO {
                 .get();
 
         org.apache.lucene.search.Query luceneQuery = queryBuilder
-                .keyword()
-                .onField("name")
+//                .keyword()
+                .simpleQueryString()
+//                .wildcard()
+                .onFields("name", "title")
+                .withAndAsDefaultOperator()
                 .matching(s)
                 .createQuery();
 
-        FullTextQuery jpaQuery = (FullTextQuery) fullTextEntityManager.createFullTextQuery(luceneQuery, Artist.class);
+        FullTextQuery jpaQuery = (FullTextQuery) fullTextEntityManager.createFullTextQuery(luceneQuery, Artist.class, Album.class, Playlist.class);
 
         System.out.println(jpaQuery);
         listArtist = jpaQuery.getResultList();

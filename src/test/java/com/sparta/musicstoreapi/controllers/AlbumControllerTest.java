@@ -52,7 +52,7 @@ public class AlbumControllerTest {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
                 .POST(HttpRequest.BodyPublishers.ofString("""
                             {
-                                "id": 349,
+                                "id": 350,
                                 "title": "TEST ALBUM",
                                 "artistId": {
                                         "name": "AC/DC"

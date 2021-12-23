@@ -55,7 +55,7 @@ public class InvoicelineController {
                 .toList();
     }
 
-    @PostMapping(value = "/invoiceline/track/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/invoiceline/track/add", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public Invoiceline addInvoiceline(@RequestParam Integer customerId, @RequestParam Integer trackId){
         BigDecimal totalPrice;
         Invoiceline invoiceline = new Invoiceline();
@@ -95,7 +95,7 @@ public class InvoicelineController {
         return invoicelineRepository.save(invoiceline);
     }
 
-    @PostMapping(value = "/invoiceline/album/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/invoiceline/album/add", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public List<Invoiceline> addAlbumToInvoiceline(@RequestParam Integer albumId, @RequestParam Integer customerId){
         BigDecimal totalPrice;
         List<Invoiceline> tracksAddedFromAlbum = new ArrayList<>();
@@ -146,7 +146,7 @@ public class InvoicelineController {
         return tracksAddedFromAlbum;
     }
 
-    @PostMapping(value = "/invoiceline/playlist/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/invoiceline/playlist/add", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public List<Invoiceline> addPlaylistToInvoiceLine(@RequestParam Integer playlistId, @RequestParam Integer customerId){
         BigDecimal totalPrice;
         List<Invoiceline> tracksAddedFromPlaylist = new ArrayList<>();

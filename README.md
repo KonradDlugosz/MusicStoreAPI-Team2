@@ -517,6 +517,8 @@ Example for Email: "eduardo@woodstock.com.br":
 }
 ```
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ### **Discontinued**
 
 #### *Creating the Table*
@@ -678,6 +680,8 @@ Example for trackId: 300:
 ```json
 Row with : 300 deleted.
 ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ### **Invoice**
 
@@ -849,6 +853,8 @@ Example of the invoicelines for the invoiceID: **1**
   }
 ]
 ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 #### *POST track into invoiceline*
 
@@ -1030,8 +1036,6 @@ Example body of updated artist:
 ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
 
 **Album**
 

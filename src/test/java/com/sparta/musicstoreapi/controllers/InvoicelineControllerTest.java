@@ -25,6 +25,7 @@ public class InvoicelineControllerTest {
 
     private static HttpResponse<String> getAllInvoicelinesResponse = null;
     private static HttpResponse<String> getOneInvoicelineResponse = null;
+
     private static HttpResponse<String> getInvoicelineByInvoiceIdResponse = null;
 //    private static Invoiceline getOneInvoicelineResponseJSON = null;
     private static HttpResponse<String> postInvoicelineResponse = null;

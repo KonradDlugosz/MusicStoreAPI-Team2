@@ -31,7 +31,7 @@ public class CustomerController {
      * Get all customers
      * @return all customers
      */
-    @GetMapping(value = "/allcustomer", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/allcustomer", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE, })
     public List<Customer> findAllCustomer(){
         return customerRepository.findAll();
     }
@@ -41,7 +41,7 @@ public class CustomerController {
      * @param id customer id
      * @return null if non existent
      */
-    @GetMapping(value = "/customer/{id}", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/customer/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
     public Customer findCustomerById(@PathVariable Integer id){
         Optional<Customer> result =  customerRepository.findById(id);
         if(result.isEmpty()) return null;
@@ -53,7 +53,7 @@ public class CustomerController {
      * @param newCustomer json format
      * @return Customer object
      */
-    @PostMapping(value = "/customer/add", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/customer/add", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE })
     public Customer addCustomer(@RequestBody Customer newCustomer){
         return customerRepository.save(newCustomer);
     }
@@ -62,7 +62,7 @@ public class CustomerController {
      * Update customer by id. If id doesnt exist return no match found
      * @return no match found if no id
      */
-    @PutMapping(value = "/customer/update", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @PutMapping(value = "/customer/update", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<String> updateCustomer(@Valid @RequestBody Customer customer){
         Optional<Customer> customerToUpdate = customerRepository.findById(customer.getId());
         if(customerToUpdate.isPresent()){
@@ -73,7 +73,7 @@ public class CustomerController {
         }
     }
 
-    @GetMapping(value = "/customer/email", produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/customer/email", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE })
     public Customer searchCustomerByEmail(@RequestParam String email){
         return customerRepository.findCustomerByEmail(email);
     }

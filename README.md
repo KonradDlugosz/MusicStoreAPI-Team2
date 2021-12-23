@@ -215,6 +215,56 @@ Example for artist **AC/DC** with ID : **1**
 ...
 ```
 
+
+
+#### POST track
+
+URL endpoint: /chinook/tracks/add - requires body to send with request.
+
+Response: details of added tracks
+
+Example of body for new track: 
+
+```json
+{
+    "name": "Breaking The Rules",
+    "albumId": 3,
+    "mediaTypeId": 1,
+    "genreId": 1,
+    "composer": "Angus Young, Malcolm Young, Brian Johnson",
+    "milliseconds": 263288,
+    "bytes": 8596840,
+    "unitPrice": 0.99
+}
+```
+
+
+
+#### PUT track
+
+URL endpoint: /chinook/tracks/update - requires body with details to update
+
+Response: updated track
+
+Example of body:
+
+```json
+{
+    "id":10,
+    "name": "Never gonna give you up",
+    "albumId": 3,
+    "mediaTypeId": 1,
+    "genreId": 1,
+    "composer": "Rick Astley",
+    "milliseconds": 263288,
+    "bytes": 8596840,
+    "unitPrice": 0.99
+}
+
+```
+
+
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### **Customer**

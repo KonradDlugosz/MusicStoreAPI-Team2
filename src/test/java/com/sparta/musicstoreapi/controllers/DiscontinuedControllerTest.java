@@ -15,22 +15,22 @@ public class DiscontinuedControllerTest {
     private static final String GET_ALL_DISCONTINUED = "http://localhost:8080/chinook/tracks/discontinued";
     private static final String GET_DISCONTINUED_BY_TRACK_ID = "http://localhost:8080/chinook/tracks/1";
     private static final String POST_DISCONTINUED_BY_TRACK_ID = "http://localhost:8080/chinook/track/discontinue/260";
-    private static final String PUT_DISCONTINUED_BY_TRACK_ID = "http://localhost:8080/chinook/track/discontinue/update/";
-    private static final String DELETE_DISCONTINUED_BY_TRACK_ID = "http://localhost:8080/chinook/track/discontinued/delete/1";
+//    private static final String PUT_DISCONTINUED_BY_TRACK_ID = "http://localhost:8080/chinook/track/discontinue/update/";
+//    private static final String DELETE_DISCONTINUED_BY_TRACK_ID = "http://localhost:8080/chinook/track/discontinued/delete/1";
 
     private static HttpResponse<String> getAllDiscontinuedResponse = null;
     private static HttpResponse<String> getDiscontinuedByTrackIdResponse = null;
     private static HttpResponse<String> postDiscontinuedByTrackIdResponse = null;
-    private static HttpResponse<String> putDiscontinuedByTrackIdResponse = null;
-    private static HttpResponse<String> deleteDiscontinuedByTrackIdResponse = null;
+//    private static HttpResponse<String> putDiscontinuedByTrackIdResponse = null;
+//    private static HttpResponse<String> deleteDiscontinuedByTrackIdResponse = null;
 
     @BeforeAll
     public static void getConnections(){
         getAllDiscontinuedResponse = getRequest(GET_ALL_DISCONTINUED);
         getDiscontinuedByTrackIdResponse = getRequest(GET_DISCONTINUED_BY_TRACK_ID);
         postDiscontinuedByTrackIdResponse = discontinuedPostRequest(POST_DISCONTINUED_BY_TRACK_ID);
-        putDiscontinuedByTrackIdResponse = discontinuedPutRequest(PUT_DISCONTINUED_BY_TRACK_ID);
-        deleteDiscontinuedByTrackIdResponse = deleteRequest(DELETE_DISCONTINUED_BY_TRACK_ID);
+//        putDiscontinuedByTrackIdResponse = discontinuedPutRequest(PUT_DISCONTINUED_BY_TRACK_ID);
+//        deleteDiscontinuedByTrackIdResponse = deleteRequest(DELETE_DISCONTINUED_BY_TRACK_ID);
     }
 
     public static HttpResponse<String> getResponse(HttpRequest request) {
@@ -63,25 +63,25 @@ public class DiscontinuedControllerTest {
         return getResponse(request);
     }
 
-    private static HttpResponse<String> discontinuedPutRequest(String url) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
-                .PUT(HttpRequest.BodyPublishers.ofString("""
-                            {
-                                "isDiscontinued": false
-                            }
-                        """))
-                .header("Content-Type", "application/json")
-                .build();
-        return getResponse(request);
-    }
-
-    private static HttpResponse<String> deleteRequest(String url) {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
-                .DELETE()
-                .header("Content-Type", "application/json")
-                .build();
-        return getResponse(request);
-    }
+//    private static HttpResponse<String> discontinuedPutRequest(String url) {
+//        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
+//                .PUT(HttpRequest.BodyPublishers.ofString("""
+//                            {
+//                                "isDiscontinued": false
+//                            }
+//                        """))
+//                .header("Content-Type", "application/json")
+//                .build();
+//        return getResponse(request);
+//    }
+//
+//    private static HttpResponse<String> deleteRequest(String url) {
+//        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
+//                .DELETE()
+//                .header("Content-Type", "application/json")
+//                .build();
+//        return getResponse(request);
+//    }
 
 
     @Test

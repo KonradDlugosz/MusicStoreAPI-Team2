@@ -14,6 +14,9 @@
     <li><a href="#checklist">Checklist</a></li>
     <li>
       <a href="#Entities">Entities</a>
+	    <ul>
+        <li><a href="#token">Token</a></li>
+      </ul>
       <ul>
         <li><a href="#track">Track</a></li>
       </ul>
@@ -88,6 +91,69 @@
 This section demonstrates how to use requests for given entity. 
 
 Functions that Update, Add, Delete or Get sensitive information such as Customer or Employee Data require an additional post-fix of "/{token}", in that post-fix a token is inserted for authentication.
+
+### **Token**
+
+#### *GET all tokens*
+
+URL endpoint: chinook/tokens
+
+Response: list of all tokens 
+
+```json
+[
+    {
+        "id": 1,
+        "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg",
+        "email": "andrew@chinookcorp.com",
+        "permissionLevel": 2
+    },
+    {
+        "id": 2,
+        "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg",
+        "email": "exmaple@chinookcorp.com",
+        "permissionLevel": 1
+    },
+]
+```
+
+#### *GET token by Token*
+
+URL endpoint: /chinook/token/findbytoken/{token}
+
+Response: token object for given token
+
+Example for token with token: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg"
+
+```json
+{
+    "id": 1,
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg",
+    "email": "andrew@chinookcorp.com",
+    "permissionLevel": 2
+}
+```
+
+#### Create token
+
+URL endpoint: /chinook/token/add/{email}
+
+Response: Generates a new token based on the email
+
+
+#### DELETE token by token
+
+URL endpoint: /chinook/token/deletebytoken/{token}
+
+Response: deletes token row from the tokens table based on the given token
+
+#### DELETE token by token id
+
+URL endpoint: /chinook/token/deletebyid/{token}
+
+Response: deletes token row from the tokens table based on the given token id
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ### **Track**
 
@@ -238,50 +304,6 @@ Example for artist **AC/DC** with ID : **1**
         "unitPrice": 0.99
     }
 ]
-```
-
-#### POST track
-
-URL endpoint: /chinook/tracks/add - requires body to send with request.
-
-Response: details of added tracks
-
-Example of body for new track: 
-
-```json
-{
-    "name": "Breaking The Rules",
-    "albumId": 3,
-    "mediaTypeId": 1,
-    "genreId": 1,
-    "composer": "Angus Young, Malcolm Young, Brian Johnson",
-    "milliseconds": 263288,
-    "bytes": 8596840,
-    "unitPrice": 0.99
-}
-```
-
-#### PUT track
-
-URL endpoint: /chinook/tracks/update - requires body with details to update
-
-Response: updated track
-
-Example of body:
-
-```json
-{
-    "id":10,
-    "name": "Never gonna give you up",
-    "albumId": 3,
-    "mediaTypeId": 1,
-    "genreId": 1,
-    "composer": "Rick Astley",
-    "milliseconds": 263288,
-    "bytes": 8596840,
-    "unitPrice": 0.99
-}
-
 ```
 
 #### POST track

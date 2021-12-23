@@ -19,8 +19,8 @@ public class MediatypeControllerTest {
 
     private static final String GET_ALL_MEDIATYPES = "http://localhost:8080/chinook/allmediatypes";
     private static final String GET_MEDIATYPE_BY_ID = "http://localhost:8080/chinook/mediatypes/1";
-    private static final String POST_MEDIATYPE = "http://localhost:8080/chinook/mediatype/add";
-    private static final String PUT_MEDIATYPE = "http://localhost:8080/chinook/mediatype/update";
+    private static final String POST_MEDIATYPE = "http://localhost:8080/chinook/mediatype/add/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String PUT_MEDIATYPE = "http://localhost:8080/chinook/mediatype/update/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
 
     private static HttpResponse<String> getAllMediatypesResponse = null;
     private static HttpResponse<String> getOneMediatypeResponse = null;

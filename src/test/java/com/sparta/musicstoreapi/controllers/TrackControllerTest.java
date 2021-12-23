@@ -18,11 +18,11 @@ public class TrackControllerTest {
 
     private static final String GET_ALL_TRACKS = "http://localhost:8080/chinook/tracks";
     private static final String GET_TRACK_BY_ID = "http://localhost:8080/chinook/tracks/10";
-    private static final String GET_TRACK_BY_NAME = "http://localhost:8080/chinook/tracks-by-name?name=Balls";
+    private static final String GET_TRACK_BY_NAME = "http://localhost:8080/chinook/tracks-by-name/Balls";
     private static final String GET_TRACK_BY_ALBUM = "http://localhost:8080/chinook/tracks-by-album/3";
     private static final String GET_TRACK_BY_ARTIST = "http://localhost:8080/chinook/tracks-by-artist/1";
-    private static final String POST_TRACK =  "http://localhost:8080/chinook/tracks/add";
-    private static final String PUT_TRACK = "http://localhost:8080/chinook/tracks/update";
+    private static final String POST_TRACK =  "http://localhost:8080/chinook/tracks/add/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String PUT_TRACK = "http://localhost:8080/chinook/tracks/update/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
 
     private static HttpResponse<String> getAllTracksResponse = null;
     private static HttpResponse<String> getOneTrackResponse = null;

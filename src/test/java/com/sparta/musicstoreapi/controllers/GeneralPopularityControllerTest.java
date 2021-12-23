@@ -12,10 +12,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class GeneralPopularityControllerTest {
-    private static final String GET_TOP_FIVE_TRACKS = "http://localhost:8080/chinook/tracks/top5";
-    private static final String GET_TOP_FIVE_ALBUMS = "http://localhost:8080/chinook/albums/top5";
-    private static final String GET_TOP_FIVE_GENRES = "http://localhost:8080/chinook/genres/top5";
-    private static final String GET_TOP_FIVE_ARTISTS = "http://localhost:8080/chinook/artists/top5";
+    private static final String GET_TOP_FIVE_TRACKS = "http://localhost:8080/chinook/tracks/top5/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String GET_TOP_FIVE_ALBUMS = "http://localhost:8080/chinook/albums/top5/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String GET_TOP_FIVE_GENRES = "http://localhost:8080/chinook/genres/top5/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String GET_TOP_FIVE_ARTISTS = "http://localhost:8080/chinook/artists/top5/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
 
     private static HttpResponse<String> getTopFiveTracksResponse = null;
     private static HttpResponse<String> getTopFiveAlbumsResponse = null;

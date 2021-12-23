@@ -2,9 +2,11 @@ package com.sparta.musicstoreapi.controllers;
 
 import com.sparta.musicstoreapi.entities.Playlisttrack;
 import com.sparta.musicstoreapi.entities.PlaylisttrackId;
+import com.sparta.musicstoreapi.entities.Token;
 import com.sparta.musicstoreapi.entities.Track;
 import com.sparta.musicstoreapi.repositories.PlaylistRepository;
 import com.sparta.musicstoreapi.repositories.PlaylisttrackRepository;
+import com.sparta.musicstoreapi.repositories.TokenRepository;
 import com.sparta.musicstoreapi.repositories.TrackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,32 +24,50 @@ public class PlaylistTrackController {
     private PlaylisttrackRepository playlisttrackRepository;
     @Autowired
     private TrackRepository trackRepository;
+    @Autowired
+    private TokenRepository tokenRepository;
     //CREATE
 
-    @PostMapping(value = "/chinook/playlisttrack/add/{playlistID}/{trackID}")
-    public Playlisttrack insertPlaylist(@PathVariable Integer playlistID, @PathVariable Integer trackID){
-        if(!playlistRepository.existsById(playlistID)){ return null; }
-        Optional<Track> trackExists = trackRepository.findById(trackID);
-        if(trackExists.isPresent()){
-            PlaylisttrackId newPlaylisttrackId = new PlaylisttrackId();
-            newPlaylisttrackId.setPlaylistId(playlistID);
-            newPlaylisttrackId.setTrackId(trackExists.get().getId());
-            if(playlisttrackRepository.existsById(newPlaylisttrackId)){ return null; }
-            Playlisttrack newPlaylisttrack = new Playlisttrack();
-            newPlaylisttrack.setId(newPlaylisttrackId);
-            return newPlaylisttrack;
+    @PostMapping(value = "/chinook/playlisttrack/add/{playlistID}/{trackID}/{token}")
+    public Playlisttrack insertPlaylist(@PathVariable Integer playlistID, @PathVariable Integer trackID, @PathVariable String token){
+        Optional<Token> tokenResult = tokenRepository.findByToken(token);
+        if (tokenResult.isPresent()) {
+            if (tokenResult.get().getPermissionLevel() >= 2) {
+                if (!playlistRepository.existsById(playlistID)) {
+                    return null;
+                }
+                Optional<Track> trackExists = trackRepository.findById(trackID);
+                if (trackExists.isPresent()) {
+                    PlaylisttrackId newPlaylisttrackId = new PlaylisttrackId();
+                    newPlaylisttrackId.setPlaylistId(playlistID);
+                    newPlaylisttrackId.setTrackId(trackExists.get().getId());
+                    if (playlisttrackRepository.existsById(newPlaylisttrackId)) {
+                        return null;
+                    }
+                    Playlisttrack newPlaylisttrack = new Playlisttrack();
+                    newPlaylisttrack.setId(newPlaylisttrackId);
+                    return newPlaylisttrack;
 
+                }
+                return null;
+            }
         }
         return null;
     }
     //UPDATE
 
-    @PutMapping(value = "/chinook/playlisttrack/update")
-    public Playlisttrack updatePlaylistTrack(@RequestBody Playlisttrack newPlaylistTrack){
-        Optional<Playlisttrack> oldState = playlisttrackRepository.findById(newPlaylistTrack.getId());
-        if(oldState.isEmpty()) return null;
-        playlisttrackRepository.save(newPlaylistTrack);
-        return newPlaylistTrack;
+    @PutMapping(value = "/chinook/playlisttrack/update/{token}")
+    public Playlisttrack updatePlaylistTrack(@RequestBody Playlisttrack newPlaylistTrack, @PathVariable String token){
+        Optional<Token> tokenResult = tokenRepository.findByToken(token);
+        if (tokenResult.isPresent()) {
+            if (tokenResult.get().getPermissionLevel() >= 2) {
+                Optional<Playlisttrack> oldState = playlisttrackRepository.findById(newPlaylistTrack.getId());
+                if (oldState.isEmpty()) return null;
+                playlisttrackRepository.save(newPlaylistTrack);
+                return newPlaylistTrack;
+            }
+        }
+        return null;
     }
 
     @GetMapping(value = "/chinook/playlisttracks")
@@ -60,13 +80,11 @@ public class PlaylistTrackController {
                 .toList();
     }
 
-    @GetMapping(value = "/playlisttrack", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    @GetMapping(value = "/chinook/playlisttrack", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public Playlisttrack getPlaylistTrackByID(@RequestParam Integer id){
         return null;
     }
-    //DELETE
-    @DeleteMapping(value = "/playlisttrack/delete", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    public void deletePlaylist(@RequestParam Integer id){}
+
 
     @GetMapping(value = "/chinook/playlisttrack/{playlistID}/{trackID}")
     public Playlisttrack getPlaylistByPlaylistIDAndTrackID(@PathVariable Integer playlistID,@PathVariable Integer trackID){

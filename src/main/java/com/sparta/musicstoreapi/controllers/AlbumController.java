@@ -55,12 +55,8 @@ public class AlbumController {
         Optional<Token> tokenResult = tokenRepository.findByToken(token);
         if (tokenResult.isPresent()) {
             if (tokenResult.get().getPermissionLevel() >= 2) {
-                if (albumRepository.existsById(album.getId())) {
-                    return new ResponseEntity<String>("{\"message\": \"Album already exists\"}", HttpStatus.CONFLICT);
-                } else {
-                    albumRepository.save(album);
-                    return new ResponseEntity<String>("{\"message\": \"Saved\"}", HttpStatus.OK);
-                }
+                albumRepository.save(album);
+                return new ResponseEntity<String>("{\"message\": \"Saved\"}", HttpStatus.OK);
             }
         }
         return new ResponseEntity<String>("{\"message\": \"Unauthorized\"}", HttpStatus.UNAUTHORIZED);

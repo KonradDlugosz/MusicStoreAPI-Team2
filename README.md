@@ -39,7 +39,7 @@
         <li><a href="#genre">Genre</a></li>
       </ul>
 	    <ul>
-        <li><a href="#mediatype">Medaitype</a></li>
+        <li><a href="#mediatype">Media-type</a></li>
       </ul>
 	    <ul>
         <li><a href="#playlist-tracks">Playlist Tracks</a></li>
@@ -49,6 +49,9 @@
       </ul>
 	    <ul>
         <li><a href="#popularity-functions">Popularity functions</a></li>
+      </ul>
+	    <ul>
+        <li><a href="#discontinued">Discontinued</a></li>
       </ul>
     </li>
       <li><a href="#tools-and-Frameworks">Tools and Frameworks</a></li>
@@ -73,12 +76,15 @@
 - [x] Use of JDBC
 - [x] Entities, Repositories and Controllers
 - [x] Access Token Implementation
-- [ ] Advanced Search Functions
+- [x] Advanced Search Functions
 - [x] Junit Testing
+- [x] Required Authentication for Chosen Requests with varying Permission Levels
 
 ## Functions
 
 This section demonstrates how to use requests for given entity. 
+
+Functions that Update, Add, Delete or Get sensitive information such as Customer or Employee Data require an additional post-fix of "/{token}", in that post-fix a token is inserted for authentication.
 
 ### **Track**
 
@@ -511,6 +517,8 @@ Example for Email: "eduardo@woodstock.com.br":
 }
 ```
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ### **Discontinued**
 
 #### *Creating the Table*
@@ -672,6 +680,8 @@ Example for trackId: 300:
 ```json
 Row with : 300 deleted.
 ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ### **Invoice**
 
@@ -843,6 +853,8 @@ Example of the invoicelines for the invoiceID: **1**
   }
 ]
 ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 #### *POST track into invoiceline*
 
@@ -1027,7 +1039,11 @@ Example body of updated artist:
 
 
 
+
 ### **Album**
+
+**Album**
+
 
 #### *Get All albums*
 
@@ -1640,6 +1656,8 @@ Example
   "Os Paralamas Do Sucesso"
 ]
 ```
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ---
 
 

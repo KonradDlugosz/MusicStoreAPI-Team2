@@ -18,9 +18,9 @@ import java.net.http.HttpResponse;
 
 class GenreControllerTest {
 
-    private static final String GET_ALL_GENRES = "http://localhost:8080/chinook/allgenres";
+    private static final String GET_ALL_GENRES = "http://localhost:8080/chinook/genres";
     private static final String GET_GENRE_BY_ID = "http://localhost:8080/chinook/genres/1";
-    private static final String POST_GENRE = "http://localhost:8080/chinook/genres/add";
+    private static final String POST_GENRE = "http://localhost:8080/chinook/genres/add/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
 
     private static HttpResponse<String> getAllGenresResponse = null;
     private static HttpResponse<String> getOneGenreResponse = null;

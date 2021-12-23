@@ -28,6 +28,7 @@ public class AlbumController {
     @Autowired
     ObjectMapper mapper;
 
+
     @GetMapping(value = "/album/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<String> getAlbumById(@PathVariable Integer id) {
         Optional<Album> result = albumRepository.findById(id);
@@ -53,7 +54,7 @@ public class AlbumController {
     public ResponseEntity<String> insertAlbum(@RequestBody Album album, @PathVariable String token) {
         Optional<Token> tokenResult = tokenRepository.findByToken(token);
         if (tokenResult.isPresent()) {
-            if (tokenResult.get().getPermissionLevel() >= 1) {
+            if (tokenResult.get().getPermissionLevel() >= 2) {
                 if (albumRepository.existsById(album.getId())) {
                     return new ResponseEntity<String>("{\"message\": \"Album already exists\"}", HttpStatus.CONFLICT);
                 } else {
@@ -65,11 +66,11 @@ public class AlbumController {
         return new ResponseEntity<String>("{\"message\": \"Unauthorized\"}", HttpStatus.UNAUTHORIZED);
     }
 
-    @PutMapping(value = "/album/update" , produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    @PutMapping(value = "/album/update/{token}" , produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public ResponseEntity<Album> updateAlbum(@RequestBody Album newState, @PathVariable String token) {
         Optional<Token> tokenResult = tokenRepository.findByToken(token);
         if (tokenResult.isPresent()) {
-            if (tokenResult.get().getPermissionLevel() >= 1) {
+            if (tokenResult.get().getPermissionLevel() >= 2) {
                 Optional<Album> oldState = albumRepository.findById(newState.getId());
                 if (oldState.isEmpty()) {
                     return new ResponseEntity<Album>((Album) null, HttpStatus.NOT_FOUND);

@@ -1,7 +1,12 @@
 package com.sparta.musicstoreapi.controllers;
 
 import com.sparta.musicstoreapi.entities.Artist;
+import com.sparta.musicstoreapi.entities.Token;
+import com.sparta.musicstoreapi.entities.Token;
 import com.sparta.musicstoreapi.repositories.ArtistRepository;
+import com.sparta.musicstoreapi.utils.ArtistDAO;
+import com.sparta.musicstoreapi.repositories.TokenRepository;
+import com.sparta.musicstoreapi.repositories.TokenRepository;
 import com.sparta.musicstoreapi.utils.ArtistDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,7 +25,10 @@ public class ArtistController {
     @Autowired
     private ArtistDAO artistDAO;
 
-    @GetMapping(value = "/artist/findAll", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    @Autowired
+    private TokenRepository tokenRepository;
+
+    @GetMapping(value = "/artists", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public List<Artist> findAllArtists() {
         return artistRepository.findAll();
     }
@@ -35,25 +43,39 @@ public class ArtistController {
         return result;
     }
 
-    @PostMapping(value = "/artist/add", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE,})
-    public Artist addArtist(@RequestBody Artist newArtist) {
-        return artistRepository.save(newArtist);
+    @PostMapping(value = "/artist/add/{token}", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE,})
+    public Artist addArtist(@RequestBody Artist newArtist, @PathVariable String token) {
+        Optional<Token> tokenResult = tokenRepository.findByToken(token);
+        if (tokenResult.isPresent()) {
+            if (tokenResult.get().getPermissionLevel() >= 2) {
+                return artistRepository.save(newArtist);
+            }
+        }
+        return null;
     }
 
-    @PutMapping(value = "/artist/update", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE, })
-    public Artist updateCustomerById(@RequestBody Artist newState) {
-        Optional<Artist> oldState = artistRepository.findById(newState.getId());
-        if (oldState.isEmpty()) {
-            System.err.println("Result not found or is null");
-            return null;
+    @PutMapping(value = "/artist/update/{token}", produces = { MediaType.APPLICATION_JSON_VALUE , MediaType.APPLICATION_XML_VALUE, })
+    public Artist updateCustomerById(@RequestBody Artist newState, @PathVariable String token) {
+        Optional<Token> tokenResult = tokenRepository.findByToken(token);
+        if (tokenResult.isPresent()) {
+            if (tokenResult.get().getPermissionLevel() >= 2) {
+                Optional<Artist> oldState = artistRepository.findById(newState.getId());
+                if (oldState.isEmpty()) {
+                    System.err.println("Result not found or is null");
+                    return null;
+                }
+                artistRepository.save(newState);
+                return newState;
+            }
         }
-        artistRepository.save(newState);
-        return newState;
+        return null;
     }
+
 
     @GetMapping(value = "/search/{s}")
     public List<Artist> search(@PathVariable String s){
 //        ArtistDAO artistDAO = new ArtistDAO();
         return artistDAO.searchQuery(s);
     }
+
 }

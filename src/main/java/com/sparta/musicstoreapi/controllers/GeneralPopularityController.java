@@ -77,7 +77,7 @@ public class GeneralPopularityController
 
         for(Map<String, Object> row : rows)
         {
-            output.add((String) row.get("title"));
+            output.add((String) row.get("name"));
         }
         return output;
     }
@@ -100,7 +100,7 @@ public class GeneralPopularityController
 
         for(Map<String, Object> row : rows)
         {
-            output.add((String) row.get("title"));
+            output.add((String) row.get("name"));
         }
         return output;
     }

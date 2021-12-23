@@ -17,8 +17,8 @@ import java.net.http.HttpResponse;
 public class ArtistControllerTest {
     private static final String GET_ALL_ARTIST = "http://localhost:8080/chinook/artist/findAll";
     private static final String GET_ARTIST_BY_ID = "http://localhost:8080/chinook/artist/1";
-    private static final String POST_ARTIST = "http://localhost:8080/chinook/artist/add";
-    private static final String PUT_ARTIST = "http://localhost:8080/chinook/artist/update";
+    private static final String POST_ARTIST = "http://localhost:8080/chinook/artist/add/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String PUT_ARTIST = "http://localhost:8080/chinook/artist/update/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
 
     private static HttpResponse<String> getAllArtistsResponse = null;
     private static HttpResponse<String> getOneArtistResponse = null;

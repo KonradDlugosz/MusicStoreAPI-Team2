@@ -29,7 +29,7 @@ public class TokenControllerTest
 
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
             HttpUriRequest httppost = RequestBuilder.post()
-                    .setUri(new URI("http://localhost:8080/token/add/" + email))
+                    .setUri(new URI("http://localhost:8080/chinook/token/add/" + email))
                     .build();
 
             try (CloseableHttpResponse response = httpclient.execute(httppost)) {
@@ -44,7 +44,7 @@ public class TokenControllerTest
     public void testFindAll() throws IOException{
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
             HttpUriRequest httppost = RequestBuilder.get()
-                    .setUri(new URI("http://localhost:8080/token/findAll"))
+                    .setUri(new URI("http://localhost:8080/chinook/tokens/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg"))
                     .addParameter("email", email)
                     .build();
 
@@ -63,7 +63,7 @@ public class TokenControllerTest
     {
         try (CloseableHttpClient httpclient = HttpClients.createDefault())
         {
-            URIBuilder uri = new URIBuilder("http://localhost:8080/token/findByToken/"+ token);
+            URIBuilder uri = new URIBuilder("http://localhost:8080/chinook/token/findbytoken/"+ token + "/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg");
             HttpUriRequest httppost = RequestBuilder.get()
                     .setUri(uri.toString())
                     .build();
@@ -83,7 +83,7 @@ public class TokenControllerTest
     {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
 
-            URIBuilder uri = new URIBuilder("http://localhost:8080/token/deleteByToken/"+ token);
+            URIBuilder uri = new URIBuilder("http://localhost:8080/chinook/token/deletebytoken/"+ token + "/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg");
             HttpUriRequest httppost = RequestBuilder.delete()
                     .setUri(uri.toString())
                     .build();

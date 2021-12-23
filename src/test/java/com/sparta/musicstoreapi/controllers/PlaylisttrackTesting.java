@@ -19,8 +19,8 @@ public class PlaylisttrackTesting {
 
     private static final String GET_ALL_PLAYLISTTRACKS = "http://localhost:8080/chinook/playlisttracks";
     private static final String GET_PLAYLISTTRACK_BY_PALYLISTID_TRACKID = "http://localhost:8080/chinook/playlisttrack/11/1";
-    private static final String POST_PLAYLISTTRACK =  "http://localhost:8080/chinook/playlisttrack/add/1/1";
-    private static final String PUT_PLAYLISTTRACK = "http://localhost:8080/chinook/playlisttrack/update";
+    private static final String POST_PLAYLISTTRACK =  "http://localhost:8080/chinook/playlisttrack/add/1/1/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String PUT_PLAYLISTTRACK = "http://localhost:8080/chinook/playlisttrack/update/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
 
     private static HttpResponse<String> getAllPlaylistTracksResponse = null;
     private static HttpResponse<String> getOnePlaylistTrackResponse = null;

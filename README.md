@@ -73,12 +73,15 @@
 - [x] Use of JDBC
 - [x] Entities, Repositories and Controllers
 - [x] Access Token Implementation
-- [ ] Advanced Search Functions
+- [x] Advanced Search Functions
 - [x] Junit Testing
+- [x] Required Authentication for Chosen Requests with varying Permission Levels
 
 ## Functions
 
 This section demonstrates how to use requests for given entity. 
+
+Functions that Update, Add, Delete or Get sensitive information such as Customer or Employee Data require an additional post-fix of "/{token}", in that post-fix a token is inserted for authentication.
 
 ### **Track**
 

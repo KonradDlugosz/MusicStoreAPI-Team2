@@ -443,7 +443,7 @@ Example for customer in json format:
 
 URL endpoint: /chinook/customer/update/{customerID}
 
-Response: Updates an existsing customer by ID
+Response: Updates an existing customer by ID
 
 Example for customer of ID: 10, being updated with:
 ```json
@@ -487,7 +487,167 @@ Example for Email: "eduardo@woodstock.com.br":
 }
 ```
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+### **Discontinued**
+
+#### *Creating the Table*
+
+```sql
+USE `Chinook`;
+
+CREATE TABLE `Discontinued`
+(
+	`TrackId` int,
+	FOREIGN KEY (`TrackId`) REFERENCES `Track`(`TrackId`),
+    `IsDiscontinued` BOOLEAN
+);
+```
+
+#### *POST discontinued*
+
+URL endpoint: /chinook/track/discontinue/{trackId}
+
+Response: Inserts a pre-existing track by TrackID into the discontinued table
+
+Example for trackId: 300:
+
+```json
+{
+    "isDiscontinued": true
+}
+```
+
+#### *GET ALL Discontinued Entries*
+
+URL endpoint: /chinook/track/discontinue/everything
+
+Response: Gets all entries in the Discontinued Table
+
+```json
+[
+    {
+        "id": 1,
+        "trackId": {
+            "id": 300,
+            "name": "O Erê",
+            "albumId": 27,
+            "mediaTypeId": 1,
+            "genreId": 8,
+            "composer": "Bernardo Vilhena/Bino/Da Gama/Lazao/Toni Garrido",
+            "milliseconds": 206942,
+            "bytes": 6950332,
+            "unitPrice": 0.99
+        },
+        "isDiscontinued": true
+    },
+    {
+        "id": 3,
+        "trackId": {
+            "id": 302,
+            "name": "A Estrada",
+            "albumId": 27,
+            "mediaTypeId": 1,
+            "genreId": 8,
+            "composer": "Da Gama/Lazao/Toni Garrido",
+            "milliseconds": 282174,
+            "bytes": 9344477,
+            "unitPrice": 0.99
+        },
+        "isDiscontinued": false
+    }
+]
+```
+#### *GET ALL Discontinued Entries, where the Track is Discontinued*
+
+URL endpoint: /chinook/track/discontinue/everything/true
+
+Response: Gets all entries in the Discontinued Table where isDiscontinued = true
+
+```json
+[
+    {
+        "id": 1,
+        "trackId": {
+            "id": 300,
+            "name": "O Erê",
+            "albumId": 27,
+            "mediaTypeId": 1,
+            "genreId": 8,
+            "composer": "Bernardo Vilhena/Bino/Da Gama/Lazao/Toni Garrido",
+            "milliseconds": 206942,
+            "bytes": 6950332,
+            "unitPrice": 0.99
+        },
+        "isDiscontinued": true
+    },
+    {
+        "id": 2,
+        "trackId": {
+            "id": 301,
+            "name": "A Sombra Da Maldade",
+            "albumId": 27,
+            "mediaTypeId": 1,
+            "genreId": 8,
+            "composer": "Da Gama/Toni Garrido",
+            "milliseconds": 285231,
+            "bytes": 9544383,
+            "unitPrice": 0.99
+        },
+        "isDiscontinued": true
+    }
+]
+```
+
+#### *GET ALL Discontinued Entries, where the Track is not Discontinued*
+
+URL endpoint: /chinook/track/discontinue/everything/false
+
+Response: Gets all entries in the Discontinued Table where isDiscontinued = false
+
+```json
+[
+    {
+        "id": 3,
+        "trackId": {
+            "id": 302,
+            "name": "A Estrada",
+            "albumId": 27,
+            "mediaTypeId": 1,
+            "genreId": 8,
+            "composer": "Da Gama/Lazao/Toni Garrido",
+            "milliseconds": 282174,
+            "bytes": 9344477,
+            "unitPrice": 0.99
+        },
+        "isDiscontinued": false
+    }
+]
+```
+
+#### *PUT Discontinued*
+
+URL endpoint: /chinook/track/discontinue/update/{trackId}
+
+Response: Changes the value of the isDiscontinued for a specific TrackID
+
+Example for trackId: 300:
+
+```json
+{
+    "isDiscontinued": false
+}
+```
+
+#### *DELETE Discontinued*
+
+URL endpoint: /chinook/track/discontinue/delete/{trackId}
+
+Response: Deletes a row in the Discontinued table through a specific TrackID
+
+Example for trackId: 300:
+
+```json
+Row with : 300 deleted.
+```
 
 ### **Invoice**
 

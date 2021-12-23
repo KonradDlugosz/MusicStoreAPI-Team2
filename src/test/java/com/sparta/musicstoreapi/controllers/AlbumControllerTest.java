@@ -14,8 +14,8 @@ import java.net.http.HttpResponse;
 public class AlbumControllerTest {
     private static final String GET_ALL_ALBUMS = "http://localhost:8080/chinook/albums";
     private static final String GET_ALBUM_BY_ID = "http://localhost:8080/chinook/album/1";
-    private static final String POST_ALBUM = "http://localhost:8080/chinook/album/insert";
-    private static final String PUT_ALBUM = "http://localhost:8080/chinook/album/update";
+    private static final String POST_ALBUM = "http://localhost:8080/chinook/album/add/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
+    private static final String PUT_ALBUM = "http://localhost:8080/chinook/album/update/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
 
     private static HttpResponse<String> getAllAlbumResponse = null;
     private static HttpResponse<String> getAlbumByIdResponse = null;
@@ -52,7 +52,7 @@ public class AlbumControllerTest {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
                 .POST(HttpRequest.BodyPublishers.ofString("""
                             {
-                                "id": 349,
+                                "id": 350,
                                 "title": "TEST ALBUM",
                                 "artistId": {
                                         "name": "AC/DC"
@@ -68,7 +68,7 @@ public class AlbumControllerTest {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
                 .PUT(HttpRequest.BodyPublishers.ofString("""
                             {
-                                "id": 349,
+                                "id": 50,
                                 "title": "TEST ALBUM",
                                 "artistId": {
                                         "name": "Aerosmith"

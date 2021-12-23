@@ -16,7 +16,7 @@ public class DiscontinuedControllerTest {
     private static final String GET_ALL_DISCONTINUED_WHERE_TRUE = "http://localhost:8080/chinook/tracks/discontinued/true";
     private static final String GET_ALL_DISCONTINUED_WHERE_FALSE = "http://localhost:8080/chinook/tracks/discontinued/false";
     private static final String GET_DISCONTINUED_BY_TRACK_ID = "http://localhost:8080/chinook/tracks/1";
-    private static final String POST_DISCONTINUED_BY_TRACK_ID = "http://localhost:8080/chinook/track/discontinue/260";
+    private static final String POST_DISCONTINUED_BY_TRACK_ID = "http://localhost:8080/chinook/track/discontinue/10/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbmRyZXdAY2hpbm9va2NvcnAuY29tIn0.IB8oVEAMZs-7sW8Yrqgj_oOj8bM1piDfAU9ho42YWEg";
 
 
     private static HttpResponse<String> getAllDiscontinuedEntriesResponse = null;

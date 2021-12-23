@@ -780,8 +780,67 @@ Response: list of the top 5 tracks based on number of sales
 Example
 
 ```json
+[
+    "The Trooper",
+    "Dazed and Confused",
+    "Hallowed Be Thy Name",
+    "The Number Of The Beast",
+    "Sure Know Something"
+]
+```
 
+#### *GET top 5 albums*
 
+URL endpoint: chinook/albums/top5
+
+Response: list of the top 5 albums based on number of sales
+
+Example
+
+```json
+[
+  "Minha Historia",
+  "Greatest Hits",
+  "Unplugged",
+  "Acústico",
+  "Greatest Kiss"
+]
+```
+
+#### *GET top 5 genres*
+
+URL endpoint: chinook/albums/top5
+
+Response: list of the top 5 genres based on number of sales
+
+Example
+
+```json
+[
+  "Rock",
+  "Latin",
+  "Metal",
+  "Alternative & Punk",
+  "Jazz"
+]
+```
+
+#### *GET top 5 artists*
+
+URL endpoint: chinook/albums/top5
+
+Response: list of the top 5 artists based on number of sales
+
+Example
+
+```json
+[
+  "Iron Maiden",
+  "U2",
+  "Metallica",
+  "Led Zeppelin",
+  "Os Paralamas Do Sucesso"
+]
 ```
 ---
 

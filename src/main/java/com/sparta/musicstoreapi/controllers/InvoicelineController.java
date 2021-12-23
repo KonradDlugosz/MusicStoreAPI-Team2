@@ -78,44 +78,50 @@ public class InvoicelineController {
     @PostMapping(value = "/invoiceline/track/add/{customerId}/{trackId}/{token}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
     public Invoiceline addInvoiceline(@PathVariable Integer customerId, @PathVariable Integer trackId, @PathVariable String token){
         Optional<Token> tokenResult = tokenRepository.findByToken(token);
-        if (tokenResult.isPresent()) {
-            if (tokenResult.get().getPermissionLevel() >= 0) {
-                BigDecimal totalPrice;
-                Invoiceline invoiceline = new Invoiceline();
-                Invoice invoice = checkIfOpenInvoiceExists(customerId);
-                Trackdiscount trackdiscount = null;
+        List<Integer> trackLibrary = checkIfTrackInLibrary(customerId);
+        if(trackLibrary.contains(trackId)){
+            System.out.println("Already in library!");
+        }
+        else {
+            if (tokenResult.isPresent()) {
+                if (tokenResult.get().getPermissionLevel() >= 0) {
+                    BigDecimal totalPrice;
+                    Invoiceline invoiceline = new Invoiceline();
+                    Invoice invoice = checkIfOpenInvoiceExists(customerId);
+                    Trackdiscount trackdiscount = null;
 
-                //Create invoice line for track
-                invoiceline.setInvoiceId(invoiceRepository.findById(invoice.getId()).get());
-                invoiceline.setTrackId(trackRepository.findById(trackId).get());
-                invoiceline.setUnitPrice(trackRepository.findById(trackId).get().getUnitPrice());
-                invoiceline.setQuantity(1);
+                    //Create invoice line for track
+                    invoiceline.setInvoiceId(invoiceRepository.findById(invoice.getId()).get());
+                    invoiceline.setTrackId(trackRepository.findById(trackId).get());
+                    invoiceline.setUnitPrice(trackRepository.findById(trackId).get().getUnitPrice());
+                    invoiceline.setQuantity(1);
 
-                //Get current total
-                totalPrice = invoiceRepository.findById(invoice.getId()).get().getTotal();
+                    //Get current total
+                    totalPrice = invoiceRepository.findById(invoice.getId()).get().getTotal();
 
-                List<Trackdiscount> tracksdiscountList = trackdiscountRepository.findAll();
-                for (Trackdiscount track : tracksdiscountList) {
-                    if (track.getTrackId() == trackId) {
-                        trackdiscount = track;
+                    List<Trackdiscount> tracksdiscountList = trackdiscountRepository.findAll();
+                    for (Trackdiscount track : tracksdiscountList) {
+                        if (track.getTrackId() == trackId) {
+                            trackdiscount = track;
+                        }
                     }
-                }
 
-                if (trackdiscount == null) {
+                    if (trackdiscount == null) {
+                        totalPrice = totalPrice.add(invoiceline.getUnitPrice());
+                        updateInvoice(totalPrice, invoice);
+                        return invoicelineRepository.save(invoiceline);
+                    } else if (trackdiscount.getTrackId() == trackId) {
+                        BigDecimal discount = trackdiscount.getAmount();
+                        BigDecimal price = trackRepository.findById(trackId).get().getUnitPrice();
+                        BigDecimal discountAmount = price.multiply(discount);
+                        BigDecimal priceAfterDiscount = price.subtract(discountAmount);
+                        invoiceline.setUnitPrice(priceAfterDiscount.round(new MathContext(2)));
+                    }
+
                     totalPrice = totalPrice.add(invoiceline.getUnitPrice());
                     updateInvoice(totalPrice, invoice);
                     return invoicelineRepository.save(invoiceline);
-                } else if (trackdiscount.getTrackId() == trackId) {
-                    BigDecimal discount = trackdiscount.getAmount();
-                    BigDecimal price = trackRepository.findById(trackId).get().getUnitPrice();
-                    BigDecimal discountAmount = price.multiply(discount);
-                    BigDecimal priceAfterDiscount = price.subtract(discountAmount);
-                    invoiceline.setUnitPrice(priceAfterDiscount.round(new MathContext(2)));
                 }
-
-                totalPrice = totalPrice.add(invoiceline.getUnitPrice());
-                updateInvoice(totalPrice, invoice);
-                return invoicelineRepository.save(invoiceline);
             }
         }
         return null;
@@ -148,25 +154,30 @@ public class InvoicelineController {
 
                 //Get current total
                 totalPrice = invoiceRepository.findById(invoice.getId()).get().getTotal();
+                List<Integer> trackLibrary = checkIfTrackInLibrary(customerId);
 
                 //Add each track from album
                 for (Track track : trackByAlbumId) {
-                    Invoiceline invoiceline = new Invoiceline();
-                    invoiceline.setInvoiceId(invoiceRepository.findById(invoice.getId()).get());
-                    invoiceline.setTrackId(trackRepository.findById(track.getId()).get());
-                    //Check if album on discount
-                    if (albumdiscountToApply == null) {
-                        invoiceline.setUnitPrice(track.getUnitPrice());
-                    } else if (albumdiscountToApply.getAlbumId() == albumId) {
-                        BigDecimal discount = albumdiscountToApply.getAmount();
-                        BigDecimal price = track.getUnitPrice();
-                        BigDecimal discountAmount = price.multiply(discount);
-                        BigDecimal priceAfterDiscount = price.subtract(discountAmount);
-                        invoiceline.setUnitPrice(priceAfterDiscount.round(new MathContext(2)));
+                    if(trackLibrary.contains(track.getId())){
+                        System.out.println("Already in library!");
+                    } else {
+                        Invoiceline invoiceline = new Invoiceline();
+                        invoiceline.setInvoiceId(invoiceRepository.findById(invoice.getId()).get());
+                        invoiceline.setTrackId(trackRepository.findById(track.getId()).get());
+                        //Check if album on discount
+                        if (albumdiscountToApply == null) {
+                            invoiceline.setUnitPrice(track.getUnitPrice());
+                        } else if (albumdiscountToApply.getAlbumId() == albumId) {
+                            BigDecimal discount = albumdiscountToApply.getAmount();
+                            BigDecimal price = track.getUnitPrice();
+                            BigDecimal discountAmount = price.multiply(discount);
+                            BigDecimal priceAfterDiscount = price.subtract(discountAmount);
+                            invoiceline.setUnitPrice(priceAfterDiscount.round(new MathContext(2)));
+                        }
+                        invoiceline.setQuantity(1);
+                        totalPrice = totalPrice.add(track.getUnitPrice());
+                        tracksAddedFromAlbum.add(invoicelineRepository.save(invoiceline));
                     }
-                    invoiceline.setQuantity(1);
-                    totalPrice = totalPrice.add(track.getUnitPrice());
-                    tracksAddedFromAlbum.add(invoicelineRepository.save(invoiceline));
                 }
 
                 //update invoice
@@ -202,24 +213,29 @@ public class InvoicelineController {
 
                 //Get current total
                 totalPrice = invoiceRepository.findById(invoice.getId()).get().getTotal();
+                List<Integer> trackLibrary = checkIfTrackInLibrary(customerId);
                 //Add each track from playlist
                 for (Playlisttrack playlistTrack : trackByPlaylistId) {
-                    Invoiceline invoiceline = new Invoiceline();
-                    invoiceline.setInvoiceId(invoiceRepository.findById(invoice.getId()).get());
-                    invoiceline.setTrackId(trackRepository.findById(playlistTrack.getId().getPlaylistId()).get());
-                    //Check if playlist on discount
-                    if (playlistDiscountToApply == null) {
-                        invoiceline.setUnitPrice(trackRepository.findById(playlistTrack.getId().getTrackId()).get().getUnitPrice());
-                    } else if (playlistDiscountToApply.getPlayListId() == playlistId) {
-                        BigDecimal discount = playlistDiscountToApply.getAmount();
-                        BigDecimal price = trackRepository.findById(playlistTrack.getId().getTrackId()).get().getUnitPrice();
-                        BigDecimal discountAmount = price.multiply(discount);
-                        BigDecimal priceAfterDiscount = price.subtract(discountAmount);
-                        invoiceline.setUnitPrice(priceAfterDiscount.round(new MathContext(2)));
+                    if(trackLibrary.contains(playlistTrack.getId().getTrackId())){
+                        System.out.println("Already in library!");
+                    } else {
+                        Invoiceline invoiceline = new Invoiceline();
+                        invoiceline.setInvoiceId(invoiceRepository.findById(invoice.getId()).get());
+                        invoiceline.setTrackId(trackRepository.findById(playlistTrack.getId().getPlaylistId()).get());
+                        //Check if playlist on discount
+                        if (playlistDiscountToApply == null) {
+                            invoiceline.setUnitPrice(trackRepository.findById(playlistTrack.getId().getTrackId()).get().getUnitPrice());
+                        } else if (playlistDiscountToApply.getPlayListId() == playlistId) {
+                            BigDecimal discount = playlistDiscountToApply.getAmount();
+                            BigDecimal price = trackRepository.findById(playlistTrack.getId().getTrackId()).get().getUnitPrice();
+                            BigDecimal discountAmount = price.multiply(discount);
+                            BigDecimal priceAfterDiscount = price.subtract(discountAmount);
+                            invoiceline.setUnitPrice(priceAfterDiscount.round(new MathContext(2)));
+                        }
+                        invoiceline.setQuantity(1);
+                        totalPrice = totalPrice.add(invoiceline.getUnitPrice());
+                        tracksAddedFromPlaylist.add(invoicelineRepository.save(invoiceline));
                     }
-                    invoiceline.setQuantity(1);
-                    totalPrice = totalPrice.add(invoiceline.getUnitPrice());
-                    tracksAddedFromPlaylist.add(invoicelineRepository.save(invoiceline));
                 }
                 //update invoice
                 updateInvoice(totalPrice, invoice);
@@ -263,7 +279,20 @@ public class InvoicelineController {
             invoiceRepository.save(invoice);
         }
         return invoice;
+    }
 
+    private List<Integer> checkIfTrackInLibrary(Integer customerId){
+        List<Invoice> customerInvoices = invoiceRepository.findAll().stream().filter(invoice ->  invoice.getCustomerId() == customerId).toList();
+
+        List<Integer> trackLibrary = new ArrayList<>();
+
+        for(Invoice invoice : customerInvoices){
+            List<Invoiceline> customerInvoicesLines = invoicelineRepository.findAll().stream().filter(invoiceline -> invoiceline.getInvoiceId() == invoice.getId()).toList();
+                    for(Invoiceline invoiceline: customerInvoicesLines){
+                        trackLibrary.add(invoiceline.getTrackId());
+                    }
+        }
+        return trackLibrary;
     }
 
     @PutMapping(value = "/invoiceline/update/{token}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })

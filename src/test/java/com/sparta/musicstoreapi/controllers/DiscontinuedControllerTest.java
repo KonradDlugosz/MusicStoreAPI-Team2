@@ -102,16 +102,16 @@ public class DiscontinuedControllerTest {
         Assertions.assertEquals(200, postDiscontinuedByTrackIdResponse.statusCode() );
     }
 
-    @Test
-    @DisplayName("1.4 Given PUT by Track ID, update discontinued boolean")
-    public void putDiscontinuedByIdTest(){
-        Assertions.assertEquals(200, putDiscontinuedByTrackIdResponse.statusCode() );
-    }
-
-    @Test
-    @DisplayName("1.5 Given DELETE by Track ID, delete row")
-    public void deleteDiscontinuedByTrackIdTest(){
-        Assertions.assertEquals(200, deleteDiscontinuedByTrackIdResponse.statusCode() );
-    }
+//    @Test
+//    @DisplayName("1.4 Given PUT by Track ID, update discontinued boolean")
+//    public void putDiscontinuedByIdTest(){
+//        Assertions.assertEquals(200, putDiscontinuedByTrackIdResponse.statusCode() );
+//    }
+//
+//    @Test
+//    @DisplayName("1.5 Given DELETE by Track ID, delete row")
+//    public void deleteDiscontinuedByTrackIdTest(){
+//        Assertions.assertEquals(200, deleteDiscontinuedByTrackIdResponse.statusCode() );
+//    }
 
 }

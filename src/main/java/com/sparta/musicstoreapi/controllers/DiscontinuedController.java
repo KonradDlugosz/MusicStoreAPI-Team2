@@ -38,15 +38,16 @@ public class DiscontinuedController {
         }
     }
 
-    @GetMapping(value = "/track/discontinued/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
-    public Discontinued getIsDiscontinued(@PathVariable Integer id) {
-        Optional<Discontinued> result = discontinuedRepository.findById(id);
-        return result.get();
+    @GetMapping(value = "/track/discontinued/{trackId}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
+    public Discontinued getIsDiscontinued(@PathVariable Integer trackId) {
+        Track result = trackRepository.getById(trackId);
+        Optional<Discontinued> discontinuedResult = discontinuedRepository.findById(result.getId());
+        return discontinuedResult.get();
     }
 
     @GetMapping(value = "/tracks/discontinued", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })
     public List<Discontinued> getAllDiscontinued() {
-        return discontinuedRepository.findAll();
+        return discontinuedRepository.findAllByIsDiscontinuedTrue();
     }
 
     @DeleteMapping(value = "/track/discontinued/delete/{trackId}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, })

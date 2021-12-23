@@ -87,8 +87,8 @@ Response: list of all tracks
         "milliseconds": 342562,
         "bytes": 5510424,
         "unitPrice": 0.99
-    },
-...
+    }
+]
 ```
 
 #### *GET track by ID*
@@ -168,8 +168,8 @@ Example for album with ID: **9**
         "milliseconds": 436453,
         "bytes": 14375310,
         "unitPrice": 0.99
-    },
-...
+    }
+]
 ```
 
 #### *GET track by artist ID*
@@ -203,8 +203,8 @@ Example for artist **AC/DC** with ID : **1**
         "milliseconds": 205662,
         "bytes": 6713451,
         "unitPrice": 0.99
-    },
-...
+    }
+]
 ```
 
 #### POST track
@@ -383,8 +383,8 @@ Response: list of all customers
         "fax": null,
         "email": "leonekohler@surfeu.de",
         "supportRepId": 6
-    },
-...
+    }
+]
 ```
 
 
@@ -678,7 +678,8 @@ Response: list of all invoices
     "billingCountry": "Norway",
     "billingPostalCode": "0171",
     "total": 3.96
-  },
+  }
+]
 ```
 
 #### *GET invoice by ID*
@@ -770,7 +771,8 @@ Response: list of all invoicelines
     "trackId": 4,
     "unitPrice": 0.99,
     "quantity": 1
-  },
+  }
+]
 ```
 
 #### *GET invoicelines by ID*
@@ -859,7 +861,8 @@ Example of the invoiceline when an albumId(1) has been selected by a customer
     "trackId": 6,
     "unitPrice": 0.99,
     "quantity": 1
-  },
+  }
+]
 ```
 
 #### *POST Playlist into invoiceline*
@@ -885,7 +888,8 @@ Example of the invoiceline when an playistId (12) has been selected by a custome
     "trackId": 12,
     "unitPrice": 0.99,
     "quantity": 1
-  },
+  }
+]
 ```
 
 #### *PUT Update an invoiceline*
@@ -923,6 +927,22 @@ Example for invoiceline deleted in json format with ID: **10**
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
+---
+
+### **Popularity functions**
+
+#### *GET top 5 tracks*
+
+URL endpoint: chinook/tracks/top5
+
+Response: list of the top 5 tracks based on number of sales
+
+Example
+
+```json
+
+
+```
 ---
 
 ## Credits and Contact

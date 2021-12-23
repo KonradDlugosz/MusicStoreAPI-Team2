@@ -404,8 +404,6 @@ Example for Email: "eduardo@woodstock.com.br":
 }
 ```
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 ### **Discontinued**
 
 #### *Creating the Table*
@@ -568,7 +566,7 @@ Example for trackId: 300:
 Row with : 300 deleted.
 ```
 
-
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ---
 
